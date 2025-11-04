@@ -9,19 +9,9 @@ class FrontendController extends Controller
         return view('index');
     }
 
-    public function sendOtp(Request $request){
-        return redirect('/verify-otp');
-    }
-
-    public function showOtpForm(){
-        return view('verify-otp');
-    }
-
-
-    public function verifyOtp(Request $request){
-        
+    public function fillphonenumber(Request $request){
         return redirect('/payment');
-        //else gagal =
+        //else gagal
     }
 
     

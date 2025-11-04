@@ -14,11 +14,9 @@ use App\Http\Controllers\PaymentController;
 Route::prefix('penjual')->group(function () {
 
     // Login page
-    Route::get('/', [AuthController::class, 'index'])->name('penjual.login');
-    Route::post('/login', [AuthController::class, 'login'])->name('penjual.login.submit');
 
-    // Dashboard (protected nanti pakai middleware)
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('penjual.dashboard');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/', [DashboardController::class, 'index']);
 
     // Manajemen Produk (CRUD Full)
     Route::resource('/products', ProductController::class);
@@ -32,9 +30,8 @@ Route::prefix('penjual')->group(function () {
 });
 
 Route::get('/', [FrontendController::class, 'index']);
-Route::post('/send-otp',[FrontendController::class, 'sendOtp']);
-Route::get('/verify-otp', [FrontendController::class, 'showOtpForm']);
-Route::post('/verify-otp', [FrontendController::class, 'verifyOtp']);
+Route::post('/fillphonenumber', [FrontendController::class, 'fillphonenumber']);
+
 
 Route::get('/payment', [PaymentController::class, 'index']);
 Route::post('/payment/store', [PaymentController::class, 'store']);
