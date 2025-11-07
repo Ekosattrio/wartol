@@ -58,12 +58,14 @@
 		<!-- Main content tulis disini -->
 		<div class="content pos-design p-0">
 			<div class="btn-row d-sm-flex align-items-center">
-				<a href="index.html" class="btn btn-secondary mb-xs-3"><span class="me-1 d-flex align-items-center"><i
-							data-feather="shopping-cart" class="feather-16"></i></span>Dashboard Admin</a>
-				<a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal"
-					data-bs-target="#recents"><span class="me-1 d-flex align-items-center"><i data-feather="refresh-ccw"
-							class="feather-16"></i></span>Transaction</a>
-			</div>
+	<button class="btn btn-secondary mb-xs-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+		<span class="me-1 d-flex align-items-center">
+			<i data-feather="user" class="feather-16 me-3"></i>Login
+		</span>
+		
+	</button>
+</div>
+
 
 			<div class="row align-items-start pos-wrapper">
 				<div class="col-md-12 col-lg-8">
@@ -1086,7 +1088,7 @@
 								<span class="me-1 d-flex align-items-center">
 									<i data-feather="credit-card" class="feather-16"></i>
 								</span>
-								Payment Total Rp2000
+								Payment Total Rp999999
 							</a>
 						</div>
 					</aside>
@@ -2593,6 +2595,89 @@
 	</div>
 	<!-- /Products -->
 	<!-- view product -->
+
+	{{-- modal login --}}
+	<!-- LOGIN MODAL -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h5 class="modal-title">Login</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+
+			<div class="modal-body">
+
+				<!-- Tab Header -->
+				<ul class="nav nav-tabs nav-tabs-top nav-justified mb-3">
+					<li class="nav-item">
+						<a class="nav-link active" href="#login-user" data-bs-toggle="tab">User</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="#login-admin" data-bs-toggle="tab">Admin</a>
+					</li>
+				</ul>
+
+				<!-- Tab Content -->
+				<div class="tab-content">
+
+					<!-- USER LOGIN -->
+					<div class="tab-pane show active" id="login-user">
+						
+						<form action="/login/user" method="POST">
+							@csrf
+
+							<div class="mb-3">
+								<label class="form-label">Nomor HP</label>
+								<input type="text" name="phone" class="form-control" placeholder="08xxxx">
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label">PIN</label>
+								<input type="password" name="pin" class="form-control" placeholder="****">
+							</div>
+
+							<button class="btn btn-primary w-100" type="submit">
+								Login User
+							</button>
+						</form>
+
+					</div>
+
+					<!-- ADMIN LOGIN -->
+					<div class="tab-pane" id="login-admin">
+
+						<form action="/login/admin" method="POST">
+							@csrf
+
+							<div class="mb-3">
+								<label class="form-label">Username</label>
+								<input type="text" name="username" class="form-control" placeholder="admin">
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label">Password</label>
+								<input type="password" name="password" class="form-control">
+							</div>
+
+							<a href="/penjual/dashboard" class="btn btn-danger w-100">
+	Login Admin
+</a>
+
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+	{{-- modal login --}}
 	<!-- /modals -->
 	<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 
@@ -3082,5 +3167,6 @@
 
 	<!-- custom ukuran -->
 </body>
+
 
 </html>

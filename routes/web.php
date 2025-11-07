@@ -54,4 +54,4 @@ Route::post('/payment/store', [PaymentController::class, 'store'])
 // =====================
 // TEST VIEW
 // =====================
-Route::get('/coba', fn() => view('coba'))->name('coba');
+Route::get('/index', fn() => view('index'))->name('index');
