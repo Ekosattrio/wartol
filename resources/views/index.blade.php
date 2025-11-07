@@ -60,11 +60,6 @@
 			<div class="btn-row d-sm-flex align-items-center">
 				<a href="index.html" class="btn btn-secondary mb-xs-3"><span class="me-1 d-flex align-items-center"><i
 							data-feather="shopping-cart" class="feather-16"></i></span>Dashboard Admin</a>
-				<a href="javascript:void(0);" class="btn btn-secondary mb-xs-3" data-bs-toggle="modal"
-					data-bs-target="#orders"><span class="me-1 d-flex align-items-center"><i
-							data-feather="shopping-cart" class="feather-16"></i></span>View Orders</a>
-				<a href="javascript:void(0);" class="btn btn-info"><span class="me-1 d-flex align-items-center"><i
-							data-feather="rotate-cw" class="feather-16"></i></span>Reset</a>
 				<a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal"
 					data-bs-target="#recents"><span class="me-1 d-flex align-items-center"><i data-feather="refresh-ccw"
 							class="feather-16"></i></span>Transaction</a>
@@ -1004,82 +999,7 @@
 							</div>
 						</div>
 
-						<div class="customer-info block-section ">
-							<h6>Customer Information</h6>
-							<div class="col-12">
-								<form action="#" class="dropdown w-100" id="live-dropdown">
-									<div class="searchinputsz w-100" id="dropdownMenuClickable">
-										<label for="customerSearch" class="d-block mb-1">Customer Search</label>
-										<div class="search-container">
-											<input type="text" class="form-control customer-input w-100"
-												placeholder="Search Customer">
-											<div class="search-results"></div>
-										</div>
-									</div>
-								</form>
-							</div>
-							<div class="col-12 mt-2">
-								<form action="#" class="dropdown w-100" id="product-dropdown">
-									<div class="searchinputsz w-100" id="productDropdownMenu">
-										<label for="productSearch" class="d-block mb-1">Produk Search</label>
-										<div class="w-100">
-											<input type="text" id="productSearch" class="w-100"
-												placeholder="Search Products" autocomplete="off">
-											<div class="search-addon">
-												<span id="clearProductSearch"><i data-feather="x-circle"
-														class="feather-14"></i></span>
-											</div>
-										</div>
-									</div>
-
-									<div class="dropdown-menu search-dropdown w-100"
-										aria-labelledby="productDropdownMenu">
-										<div class="search-info">
-											<ul class="products w-100" id="productList">
-												<li>
-													<div class="search-product-item">
-														<span class="product-name">IPhone 14 64GB</span>
-														<span class="product-price">$15800</span>
-													</div>
-												</li>
-												<li>
-													<div class="search-product-item">
-														<span class="product-name">MacBook Pro</span>
-														<span class="product-price">$1000</span>
-													</div>
-												</li>
-												<li>
-													<div class="search-product-item">
-														<span class="product-name">Rolex Tribute V3</span>
-														<span class="product-price">$6800</span>
-													</div>
-												</li>
-												<li>
-													<div class="search-product-item">
-														<span class="product-name">Red Nike Angelo</span>
-														<span class="product-price">$7800</span>
-													</div>
-												</li>
-												<li>
-													<div class="search-product-item">
-														<span class="product-name">Airpod 2</span>
-														<span class="product-price">$5478</span>
-													</div>
-												</li>
-												<li>
-													<div class="search-product-item">
-														<span class="product-name">IdeaPad Slim 5 Gen 7</span>
-														<span class="product-price">$1454</span>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</form>
-							</div>
-
-						</div>
-
+						
 						<div class="product-added block-section">
 							<div class="head-text d-flex align-items-center justify-content-between">
 								<h6 class="d-flex align-items-center mb-0">Product Added<span class="count">2</span>

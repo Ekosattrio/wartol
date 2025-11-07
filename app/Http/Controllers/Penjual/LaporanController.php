@@ -7,20 +7,24 @@ use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
-    public function index(){
-        return view('/penjual/');
+    public function index()
+    {
+        return view('penjual.laporan');
     }
 
-    public function status(){
-
+    public function status()
+    {
+        // nanti tambahin logic kalau emang dipakai
     }
 
-    public function showInvoice(){
+    public function showInvoice()
+    {
+        // tampilkan detail invoice
     }
     
-    public function store(Request $request){
-       //store ke db
+    public function store(Request $request)
+    {
+        // contoh:
+        // Laporan::create($request->all());
     }
-
-    
 }
