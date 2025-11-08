@@ -57,21 +57,26 @@
 
 		<!-- Main content tulis disini -->
 		<div class="content pos-design p-0">
-			<div class="btn-row d-sm-flex align-items-center">
-	<button class="btn btn-secondary mb-xs-3" data-bs-toggle="modal" data-bs-target="#loginModal">
-		<span class="me-1 d-flex align-items-center">
-			<i data-feather="user" class="feather-16 me-3"></i>Login
-		</span>
-		
-	</button>
-</div>
+			
 
 
 			<div class="row align-items-start pos-wrapper">
 				<div class="col-md-12 col-lg-8">
 					<div class="pos-categories tabs_wrapper">
-						<h5>Categories</h5>
-						<p>Select From Below Categories</p>
+						<div class="row d-flex justify-content-between mb-3 position-relative" style="z-index: 2;">
+	<div class="col-6">
+		<h5>Categories</h5>
+		<p>Select From Below Categories</p>
+	</div>
+	<div class="col-6 d-flex justify-content-end mt-2 mt-md-0">
+		<button class="btn btn-secondary " data-bs-toggle="modal" data-bs-target="#loginModal">
+			<span class="me-1 d-flex align-items-center justify-content-center">
+				<i data-feather="user" class="feather-16 me-3"></i>Login
+			</span>
+		</button>
+	</div>
+</div>
+						
 						<ul class="tabs owl-carousel pos-category">
 							<li id="all">
 								<a href="javascript:void(0);">
@@ -80,83 +85,28 @@
 								<h6><a href="javascript:void(0);">All Categories</a></h6>
 								<span>80 Items</span>
 							</li>
-							<li id="headphones">
+							<li id="Ayam">
 								<a href="javascript:void(0);">
 									<img src="assets/img/categories/category-02.png" alt="Categories">
 								</a>
-								<h6><a href="javascript:void(0);">Headphones</a></h6>
+								<h6><a href="javascript:void(0);">Ayam</a></h6>
 								<span>4 Items</span>
 							</li>
-							<li id="shoes">
+							<li id="Ikan">
 								<a href="javascript:void(0);">
 									<img src="assets/img/categories/category-03.png" alt="Categories">
 								</a>
-								<h6><a href="javascript:void(0);">Shoes</a></h6>
+								<h6><a href="javascript:void(0);">Ikan</a></h6>
 								<span>14 Items</span>
 							</li>
-							<li id="mobiles">
+							<li id="Sayur">
 								<a href="javascript:void(0);">
 									<img src="assets/img/categories/category-04.png" alt="Categories">
 								</a>
-								<h6><a href="javascript:void(0);">Mobiles</a></h6>
+								<h6><a href="javascript:void(0);">Sayur</a></h6>
 								<span>7 Items</span>
 							</li>
-							<li id="watches">
-								<a href="javascript:void(0);">
-									<img src="assets/img/categories/category-05.png" alt="Categories">
-								</a>
-								<h6><a href="javascript:void(0);">Watches</a></h6>
-								<span>16 Items</span>
-							</li>
-							<li id="laptops">
-								<a href="javascript:void(0);">
-									<img src="assets/img/categories/category-06.png" alt="Categories">
-								</a>
-								<h6><a href="javascript:void(0);">Laptops</a></h6>
-								<span>18 Items</span>
-							</li>
-							<li id="allcategory">
-								<a href="javascript:void(0);">
-									<img src="assets/img/categories/category-01.png" alt="Categories">
-								</a>
-								<h6><a href="javascript:void(0);">All Categories</a></h6>
-								<span>80 Items</span>
-							</li>
-							<li id="headphone">
-								<a href="javascript:void(0);">
-									<img src="assets/img/categories/category-02.png" alt="Categories">
-								</a>
-								<h6><a href="javascript:void(0);">Headphones</a></h6>
-								<span>4 Items</span>
-							</li>
-							<li id="shoe">
-								<a href="javascript:void(0);">
-									<img src="assets/img/categories/category-03.png" alt="Categories">
-								</a>
-								<h6><a href="javascript:void(0);">Shoes</a></h6>
-								<span>14 Items</span>
-							</li>
-							<li id="mobile">
-								<a href="javascript:void(0);">
-									<img src="assets/img/categories/category-04.png" alt="Categories">
-								</a>
-								<h6><a href="javascript:void(0);">Mobiles</a></h6>
-								<span>7 Items</span>
-							</li>
-							<li id="watche">
-								<a href="javascript:void(0);">
-									<img src="assets/img/categories/category-05.png" alt="Categories">
-								</a>
-								<h6><a href="javascript:void(0);">Watches</a></h6>
-								<span>16 Items</span>
-							</li>
-							<li id="laptop">
-								<a href="javascript:void(0);">
-									<img src="assets/img/categories/category-06.png" alt="Categories">
-								</a>
-								<h6><a href="javascript:void(0);">Laptops</a></h6>
-								<span>18 Items</span>
-							</li>
+							
 						</ul>
 						<div class="pos-products">
 							<div class="d-flex align-items-center justify-content-between">
@@ -177,7 +127,7 @@
 												<h6 class="product-name"><a href="javascript:void(0);">Brosur</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -188,13 +138,13 @@
 													<img src="assets/img/products/pos-product-07.png" alt="Products">
 													<!-- <span><i data-feather="check" class="feather-16"></i></span> -->
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
 												</h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Ideapad slim
 														7</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -205,13 +155,13 @@
 													<img src="assets/img/products/pos-product-08.png" alt="Products">
 													<!-- <span><i data-feather="check" class="feather-16"></i></span> -->
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Headset</a>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ayam</a>
 												</h6>
-												<h6 class="product-name"><a href="javascript:void(0);">headset
+												<h6 class="product-name"><a href="javascript:void(0);">Ayam
 														Iphone</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -227,7 +177,7 @@
 												<h6 class="product-name"><a href="javascript:void(0);">Iphoner</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -238,13 +188,13 @@
 													<img src="assets/img/products/pos-product-12.png" alt="Products">
 													<!-- <span><i data-feather="check" class="feather-16"></i></span> -->
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
 												</h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Samsung ROG</a>
 												</h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -255,13 +205,13 @@
 													<img src="assets/img/products/pos-product-12.png" alt="Products">
 													<!-- <span><i data-feather="check" class="feather-16"></i></span> -->
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
 												</h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Samsung ROG</a>
 												</h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -272,13 +222,13 @@
 													<img src="assets/img/products/pos-product-12.png" alt="Products">
 													<!-- <span><i data-feather="check" class="feather-16"></i></span> -->
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
 												</h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Samsung ROG</a>
 												</h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -289,13 +239,13 @@
 													<img src="assets/img/products/pos-product-12.png" alt="Products">
 													<!-- <span><i data-feather="check" class="feather-16"></i></span> -->
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
 												</h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Samsung ROG</a>
 												</h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -304,7 +254,7 @@
 
 									</div>
 								</div>
-								<div class="tab_content" data-tab="headphones">
+								<div class="tab_content" data-tab="Ayam">
 									<div class="row">
 										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
 											<div class="product-info default-cover card">
@@ -312,11 +262,11 @@
 													<img src="assets/img/products/pos-product-05.png" alt="Products">
 													<span><i data-feather="check" class="feather-16"></i></span>
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Headphones</a></h6>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ayam</a></h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Airpod 2</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>47 Pcs</span>
-													<p>$5478</p>
+													<p>Rp5478</p>
 												</div>
 											</div>
 										</div>
@@ -326,18 +276,18 @@
 													<img src="assets/img/products/pos-product-08.png" alt="Products">
 													<span><i data-feather="check" class="feather-16"></i></span>
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Headphones</a></h6>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ayam</a></h6>
 												<h6 class="product-name"><a href="javascript:void(0);">SWAGME</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>14 Pcs</span>
-													<p>$6587</p>
+													<p>Rp6587</p>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="tab_content" data-tab="shoes">
+								<div class="tab_content" data-tab="Ikan">
 									<div class="row">
 										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
 											<div class="product-info default-cover card">
@@ -345,12 +295,12 @@
 													<img src="assets/img/products/pos-product-04.png" alt="Products">
 													<span><i data-feather="check" class="feather-16"></i></span>
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ikan</a></h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Red Nike
 														Angelo</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>78 Pcs</span>
-													<p>$7800</p>
+													<p>Rp7800</p>
 												</div>
 											</div>
 										</div>
@@ -360,12 +310,12 @@
 													<img src="assets/img/products/pos-product-06.png" alt="Products">
 													<span><i data-feather="check" class="feather-16"></i></span>
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ikan</a></h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Blue White
 														OGR</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>54 Pcs</span>
-													<p>$987</p>
+													<p>Rp987</p>
 												</div>
 											</div>
 										</div>
@@ -375,19 +325,19 @@
 													<img src="assets/img/products/pos-product-18.png" alt="Products">
 													<span><i data-feather="check" class="feather-16"></i></span>
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
+												<h6 class="cat-name"><a href="javascript:void(0);">Ikan</a></h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Green Nike Fe</a>
 												</h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>78 Pcs</span>
-													<p>$7847</p>
+													<p>Rp7847</p>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="tab_content" data-tab="mobiles">
+								<div class="tab_content" data-tab="Sayur">
 									<div class="row">
 										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3">
 											<div class="product-info default-cover card">
@@ -395,12 +345,12 @@
 													<img src="assets/img/products/pos-product-01.png" alt="Products">
 													<span><i data-feather="check" class="feather-16"></i></span>
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Mobiles</a></h6>
+												<h6 class="cat-name"><a href="javascript:void(0);">Sayur</a></h6>
 												<h6 class="product-name"><a href="javascript:void(0);">IPhone 14
 														64GB</a></h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>30 Pcs</span>
-													<p>$15800</p>
+													<p>Rp15800</p>
 												</div>
 											</div>
 										</div>
@@ -410,578 +360,19 @@
 													<img src="assets/img/products/pos-product-14.png" alt="Products">
 													<span><i data-feather="check" class="feather-16"></i></span>
 												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Mobiles</a></h6>
+												<h6 class="cat-name"><a href="javascript:void(0);">Sayur</a></h6>
 												<h6 class="product-name"><a href="javascript:void(0);">Iphone 11</a>
 												</h6>
 												<div class="d-flex align-items-center justify-content-between price">
 													<span>14 Pcs</span>
-													<p>$3654</p>
+													<p>Rp3654</p>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="tab_content" data-tab="watches">
-									<div class="row">
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-03.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Rolex Tribute
-														V3</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>220 Pcs</span>
-													<p>$6800</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-09.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Timex Black
-														SIlver</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>24 Pcs</span>
-													<p>$1457</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-11.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Fossil Pair Of 3
-														in 1 </a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>40 Pcs</span>
-													<p>$789</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="tab_content" data-tab="laptops">
-									<div class="row">
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-02.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Computer</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">MacBook Pro</a>
-												</h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>140 Pcs</span>
-													<p>$1000</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-07.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">IdeaPad Slim 5
-														Gen 7</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>74 Pcs</span>
-													<p>$1454</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-10.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Computer</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Tablet 1.02
-														inch</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>14 Pcs</span>
-													<p>$4744</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-13.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Yoga Book 9i</a>
-												</h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>65 Pcs</span>
-													<p>$4784</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-14.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">IdeaPad Slim
-														3i</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>47 Pcs</span>
-													<p>$1245</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="tab_content" data-tab="allcategory">
-									<div class="row">
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-01.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Mobiles</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">IPhone 14
-														64GB</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>30 Pcs</span>
-													<p>$15800</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-02.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Computer</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">MacBook Pro</a>
-												</h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>140 Pcs</span>
-													<p>$1000</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-03.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Rolex Tribute
-														V3</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>220 Pcs</span>
-													<p>$6800</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-04.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Red Nike
-														Angelo</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>78 Pcs</span>
-													<p>$7800</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-05.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Headphones</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Airpod 2</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>47 Pcs</span>
-													<p>$5478</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-06.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Blue White
-														OGR</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>54 Pcs</span>
-													<p>$987</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-07.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">IdeaPad Slim 5
-														Gen 7</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>74 Pcs</span>
-													<p>$1454</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-08.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Headphones</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">SWAGME</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>14 Pcs</span>
-													<p>$6587</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-09.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Timex Black
-														SIlver</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>24 Pcs</span>
-													<p>$1457</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-10.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Computer</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Tablet 1.02
-														inch</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>14 Pcs</span>
-													<p>$4744</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-11.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Fossil Pair Of 3
-														in 1 </a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>40 Pcs</span>
-													<p>$789</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-18.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Green Nike Fe</a>
-												</h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>78 Pcs</span>
-													<p>$7847</p>
-												</div>
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<div class="tab_content" data-tab="headphone">
-									<div class="row">
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-05.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Headphones</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Airpod 2</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>47 Pcs</span>
-													<p>$5478</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-08.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Headphones</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">SWAGME</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>14 Pcs</span>
-													<p>$6587</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="tab_content" data-tab="shoe">
-									<div class="row">
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-04.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Red Nike
-														Angelo</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>78 Pcs</span>
-													<p>$7800</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-06.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Blue White
-														OGR</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>54 Pcs</span>
-													<p>$987</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-18.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Shoes</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Green Nike Fe</a>
-												</h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>78 Pcs</span>
-													<p>$7847</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="tab_content" data-tab="mobile">
-									<div class="row">
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Mobiles</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">IPhone 14
-														64GB</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>30 Pcs</span>
-													<p>$15800</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-14.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Mobiles</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Iphone 11</a>
-												</h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>14 Pcs</span>
-													<p>$3654</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="tab_content" data-tab="watche">
-									<div class="row">
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-03.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Rolex Tribute
-														V3</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>220 Pcs</span>
-													<p>$6800</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-09.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Timex Black
-														SIlver</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>24 Pcs</span>
-													<p>$1457</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-11.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Watches</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Fossil Pair Of 3
-														in 1 </a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>40 Pcs</span>
-													<p>$789</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="tab_content" data-tab="laptop">
-									<div class="row">
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-02.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Computer</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">MacBook Pro</a>
-												</h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>140 Pcs</span>
-													<p>$1000</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-07.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">IdeaPad Slim 5
-														Gen 7</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>74 Pcs</span>
-													<p>$1454</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-10.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Computer</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Tablet 1.02
-														inch</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>14 Pcs</span>
-													<p>$4744</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-13.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">Yoga Book 9i</a>
-												</h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>65 Pcs</span>
-													<p>$4784</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-											<div class="product-info default-cover card">
-												<a href="javascript:void(0);" class="img-bg">
-													<img src="assets/img/products/pos-product-14.png" alt="Products">
-													<span><i data-feather="check" class="feather-16"></i></span>
-												</a>
-												<h6 class="cat-name"><a href="javascript:void(0);">Laptop</a></h6>
-												<h6 class="product-name"><a href="javascript:void(0);">IdeaPad Slim
-														3i</a></h6>
-												<div class="d-flex align-items-center justify-content-between price">
-													<span>47 Pcs</span>
-													<p>$1245</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -993,18 +384,13 @@
 								<h5>Order List</h5>
 								<span>Transaction ID : #65565</span>
 							</div>
-							<div class="">
-								<a class="confirm-text" href="javascript:void(0);"><i data-feather="trash-2"
-										class="feather-16 text-danger"></i></a>
-								<a href="javascript:void(0);" class="text-default"><i data-feather="more-vertical"
-										class="feather-16"></i></a>
-							</div>
+							
 						</div>
 
 						
 						<div class="product-added block-section">
 							<div class="head-text d-flex align-items-center justify-content-between">
-								<h6 class="d-flex align-items-center mb-0">Product Added<span class="count">2</span>
+								<h6 class="d-flex align-items-center mb-0">Product Added
 								</h6>
 								<a href="javascript:void(0);" id="clearAllProducts"
 									class="d-flex align-items-center text-danger"><span class="me-1"><i data-feather="x"
@@ -1012,74 +398,14 @@
 							</div>
 							<div class="product-wrap">
 								<div class="product-list align-items-center justify-content-between">
-									<div class="d-flex align-items-center product-info w-100">
-										<a href="javascript:void(0);" class="img-bg">
-											<img src="assets/img/products/brosur.png" alt="Products">
-										</a>
-										<div class="info">
-											<span class="product-id">PT0005</span>
-											<h6><a href="javascript:void(0);">Cetak Full Color</a></h6>
-
-											<div style="font-size: 0.8rem;">A3,80*80,Art Paper,SM 52 4 Warna,1 Sisi
-												Cetak,Doff,1 lipatan</div>
-											<p>$2000</p>
-											<div style="font-size: 0.9rem; cursor: pointer;">
-												<span class="jobTitle">Job Title</span>
-												<i class="fa fa-pencil edit-job" style="margin-left:5px;"></i>
-											</div>
-										</div>
-									</div>
-									<div class="d-flex justify-content-end">
-										<div class="qty-item text-center">
-											<a href="javascript:void(0);"
-												class="dec d-flex justify-content-center align-items-center"
-												data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i
-													data-feather="minus-circle" class="feather-14"></i></a>
-											<input type="text" class="form-control text-center" name="qty" value="1">
-											<a href="javascript:void(0);"
-												class="inc d-flex justify-content-center align-items-center"
-												data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i
-													data-feather="plus-circle" class="feather-14"></i></a>
-										</div>
-										<div class="d-flex align-items-center action">
-											<a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal"
-												data-bs-target="#edit-product">
-												<i data-feather="edit" class="feather-14"></i>
-											</a>
-											<a class="btn-icon delete-icon confirm-text" href="javascript:void(0);">
-												<i data-feather="trash-2" class="feather-14"></i>
-											</a>
-										</div>
-									</div>
+									
 								</div>
 
 							</div>
 						</div>
 
 
-						<div class="btn-row d-sm-flex align-items-center justify-content-between">
-							<a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill" data-bs-toggle="modal"
-								data-bs-target="#hold-order"><span class="me-1 d-flex align-items-center"><i
-										data-feather="pause" class="feather-16"></i></span>Hold</a>
-							<a href="javascript:void(0);" class="btn btn-danger btn-icon flex-fill"><span
-									class="me-1 d-flex align-items-center"><i data-feather="trash-2"
-										class="feather-16"></i></span>Void</a>
-						</div>
-						<br>
-						<div class="btn-row d-sm-flex align-items-center justify-content-between">
-							<a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill"
-								data-bs-toggle="modal" data-bs-target="#tax"><span
-									class="me-1 d-flex align-items-center"><i data-feather="credit-card"
-										class="feather-16"></i></span>Tax</a>
-							<a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill"
-								data-bs-toggle="modal" data-bs-target="#shipping"><span
-									class="me-1 d-flex align-items-center"><i data-feather="credit-card"
-										class="feather-16"></i></span>Shipping</a>
-							<a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill"
-								data-bs-toggle="modal" data-bs-target="#discount"><span
-									class="me-1 d-flex align-items-center"><i data-feather="credit-card"
-										class="feather-16"></i></span>Discount</a>
-						</div>
+						
 						<br>
 						<div class="btn-row d-sm-flex align-items-center justify-content-between">
 							<!-- ini ada payment complete buat abis modal harusnya -->
@@ -1088,7 +414,7 @@
 								<span class="me-1 d-flex align-items-center">
 									<i data-feather="credit-card" class="feather-16"></i>
 								</span>
-								Payment Total Rp999999
+								Payment Total Rp0
 							</a>
 						</div>
 					</aside>
@@ -1262,32 +588,32 @@
 						<tbody>
 							<tr>
 								<td>1. Red Nike Laser</td>
-								<td>$50</td>
+								<td>Rp50</td>
 								<td>3</td>
-								<td class="text-end">$150</td>
+								<td class="text-end">Rp150</td>
 							</tr>
 							<tr>
 								<td>2. Iphone 14</td>
-								<td>$50</td>
+								<td>Rp50</td>
 								<td>2</td>
-								<td class="text-end">$100</td>
+								<td class="text-end">Rp100</td>
 							</tr>
 							<tr>
 								<td>3. Apple Series 8</td>
-								<td>$50</td>
+								<td>Rp50</td>
 								<td>3</td>
-								<td class="text-end">$150</td>
+								<td class="text-end">Rp150</td>
 							</tr>
 							<tr>
 								<td colspan="4">
 									<table class="table-borderless w-100 table-fit">
 										<tr>
 											<td>Sub Total :</td>
-											<td class="text-end">$700.00</td>
+											<td class="text-end">Rp700.00</td>
 										</tr>
 										<tr>
 											<td>Discount :</td>
-											<td class="text-end">-$50.00</td>
+											<td class="text-end">-Rp50.00</td>
 										</tr>
 										<tr>
 											<td>Shipping :</td>
@@ -1295,19 +621,19 @@
 										</tr>
 										<tr>
 											<td>Tax (5%) :</td>
-											<td class="text-end">$5.00</td>
+											<td class="text-end">Rp5.00</td>
 										</tr>
 										<tr>
 											<td>Total Bill :</td>
-											<td class="text-end">$655.00</td>
+											<td class="text-end">Rp655.00</td>
 										</tr>
 										<tr>
 											<td>Due :</td>
-											<td class="text-end">$0.00</td>
+											<td class="text-end">Rp0.00</td>
 										</tr>
 										<tr>
 											<td>Total Payable :</td>
-											<td class="text-end">$655.00</td>
+											<td class="text-end">Rp655.00</td>
 										</tr>
 									</table>
 								</td>
@@ -1329,7 +655,18 @@
 		</div>
 	</div>
 	<!-- /Print Receipt -->
-
+{{-- toast --}}
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 2000;">
+  <div id="cartToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Item berhasil ditambahkan ke keranjang!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+{{-- toast --}}
 
 
 	<div class="modal fade" id="create" tabindex="-1" aria-labelledby="create" aria-hidden="true">
@@ -1421,1008 +758,15 @@
 	</div>
 	<!-- /Hold -->
 
-	<!-- Edit Product -->
-	<div class="modal fade modal-lg modal-default pos-modal" id="edit-product" aria-labelledby="edit-product"
-		tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered modal-lg">
-			<div class="modal-content">
-
-				<!-- Header -->
-				<div class="modal-header p-4">
-					<h5 class="modal-title">Edit Produk - Cetak Full Color</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-
-				<!-- Body -->
-				<div class="modal-body p-4">
-					<form id="editProductForm" action="javascript:void(0);">
-						<div class="row g-3">
-
-							<!-- Minimal Qty -->
-							<div class="col-12 d-flex align-items-center">
-								<div class="col-md-2 fw-semibold">Minimal Qty</div>
-								<div class="col-md-2">
-									<input type="text" class="form-control number-separator" inputmode="numeric"
-										pattern="[0-9]*">
-									<input type="hidden" class="result-input" id="edit-qty" value="1" min="1">
-								</div>
-							</div>
-
-							<!-- Ukuran Brosur -->
-							<div class="col-12">
-								<div class="row mb-3">
-									<div class="col-md-2 fw-semibold">Ukuran Brosur</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="edit-ukA3">
-										<label class="btn btn-outline-primary" for="edit-ukA3">A3 (297×420mm)</label>
-
-										<input type="checkbox" class="btn-check" id="edit-ukA4">
-										<label class="btn btn-outline-primary" for="edit-ukA4">A4 (210×297mm)</label>
-
-										<input type="checkbox" class="btn-check" id="edit-ukA5">
-										<label class="btn btn-outline-primary" for="edit-ukA5">A5 (149×210mm)</label>
-
-										<input type="checkbox" class="btn-check" id="edit-ukCustom">
-										<label class="btn btn-outline-primary" for="edit-ukCustom">Custom</label>
-									</div>
-								</div>
-
-								<!-- Custom Fields -->
-								<div id="editCustomFields" class="d-none border rounded p-3">
-									<div class="row mb-2">
-										<div class="col-3"><span>Satuan</span></div>
-										<div class="col-4">
-											<select class="form-select" id="edit-satuan">
-												<option>Milimeter</option>
-												<option>Centimeter</option>
-											</select>
-										</div>
-									</div>
-									<div class="row mb-2">
-										<div class="col-3"><span>Minimal Lebar</span></div>
-										<div class="col-4">
-											<input type="number" id="edit-lebar" class="form-control" value="80">
-										</div>
-									</div>
-									<div class="row mb-2">
-										<div class="col-3"><span>Minimal Panjang</span></div>
-										<div class="col-4">
-											<input type="number" id="edit-panjang" class="form-control" value="80">
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Group Kertas -->
-							<div class="col-12">
-								<div class="row mb-3">
-									<div class="col-md-2 fw-semibold">Group Kertas</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="edit-kertasArtPaper">
-										<label class="btn btn-outline-primary" for="edit-kertasArtPaper">Art Paper
-											150gr</label>
-
-										<input type="checkbox" class="btn-check" id="edit-kertasArtCarton">
-										<label class="btn btn-outline-primary" for="edit-kertasArtCarton">Art Carton
-											120gr</label>
-
-										<input type="checkbox" class="btn-check" id="edit-kertasHVS">
-										<label class="btn btn-outline-primary" for="edit-kertasHVS">HVS 100gr</label>
-									</div>
-								</div>
-							</div>
-
-
-							<!-- Sisi Cetak -->
-							<div class="col-12">
-								<div class="row mb-3">
-									<div class="col-md-2 fw-semibold">Sisi Cetak</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="edit-sisi1">
-										<label class="btn btn-outline-primary" for="edit-sisi1">1 Sisi Cetak</label>
-
-										<input type="checkbox" class="btn-check" id="edit-sisi2">
-										<label class="btn btn-outline-primary" for="edit-sisi2">2 Sisi Cetak</label>
-									</div>
-								</div>
-							</div>
-
-							<!-- Laminasi -->
-							<div class="col-12">
-								<div class="row mb-3">
-									<div class="col-md-2 fw-semibold">Laminasi</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="edit-tanpaLaminasi">
-										<label class="btn btn-outline-primary" for="edit-tanpaLaminasi">Tanpa
-											Laminasi</label>
-
-										<input type="checkbox" class="btn-check" id="edit-lamDoff">
-										<label class="btn btn-outline-primary" for="edit-lamDoff">Doff</label>
-
-										<input type="checkbox" class="btn-check" id="edit-lamGlossy">
-										<label class="btn btn-outline-primary" for="edit-lamGlossy">Glossy</label>
-
-										<input type="checkbox" class="btn-check" id="edit-lamSpotUV">
-										<label class="btn btn-outline-primary" for="edit-lamSpotUV">Doff Spot UV</label>
-									</div>
-								</div>
-							</div>
-
-							<!-- Lipat -->
-							<div class="col-12">
-								<div class="row mb-4">
-									<div class="col-md-2 fw-semibold">Lipat</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="edit-tanpaLipat">
-										<label class="btn btn-outline-primary" for="edit-tanpaLipat">Tanpa
-											Lipatan</label>
-
-										<input type="checkbox" class="btn-check" id="edit-lipat1">
-										<label class="btn btn-outline-primary" for="edit-lipat1">1 Lipatan</label>
-
-										<input type="checkbox" class="btn-check" id="edit-lipat2">
-										<label class="btn btn-outline-primary" for="edit-lipat2">2 Lipatan</label>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</form>
-				</div>
-
-				<!-- Footer -->
-				<div class="modal-footer d-flex justify-content-end">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-					<button type="submit" form="editProductForm" class="btn btn-primary">Submit</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<!-- /Edit Product -->
-
-	<!-- add Product -->
-
-	<div class="modal fade modal-lg modal-default pos-modal" id="add-product" aria-labelledby="add-product"
-		tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered modal-lg">
-			<div class="modal-content">
-
-				<!-- Header -->
-				<div class="modal-header p-4">
-					<h5 class="modal-title">Tambah Produk - Cetak Full Color</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-
-				<!-- Body -->
-				<div class="modal-body p-4">
-					<form id="addProductForm" action="javascript:void(0);">
-						<div class="row g-3">
-
-							<!-- Minimal Qty -->
-							<div class="col-12 d-flex align-items-center">
-								<div class="col-md-2 fw-semibold">Minimal Qty</div>
-								<div class="col-md-2">
-									<input type="number" id="add-qty" class="form-control" value="1" min="1">
-								</div>
-							</div>
-
-							<!-- Ukuran Brosur -->
-							<div class="col-12">
-								<div class="row mb-3">
-									<div class="col-md-2 fw-semibold">Ukuran Brosur</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="add-ukA3">
-										<label class="btn btn-outline-primary" for="add-ukA3">A3 (297×420mm)</label>
-
-										<input type="checkbox" class="btn-check" id="add-ukA4">
-										<label class="btn btn-outline-primary" for="add-ukA4">A4 (210×297mm)</label>
-
-										<input type="checkbox" class="btn-check" id="add-ukA5">
-										<label class="btn btn-outline-primary" for="add-ukA5">A5 (149×210mm)</label>
-
-										<input type="checkbox" class="btn-check" id="add-ukCustom">
-										<label class="btn btn-outline-primary" for="add-ukCustom">Custom</label>
-									</div>
-								</div>
-
-								<!-- Custom Fields -->
-								<div id="customFields" class="d-none border rounded p-3">
-									<div class="row mb-2">
-										<div class="col-3"><span>Satuan</span></div>
-										<div class="col-4">
-											<select class="form-select" id="add-satuan">
-												<option>Milimeter</option>
-												<option>Centimeter</option>
-											</select>
-										</div>
-									</div>
-									<div class="row mb-2">
-										<div class="col-3"><span>Minimal Lebar</span></div>
-										<div class="col-4">
-											<input type="number" id="add-lebar" class="form-control" value="80">
-										</div>
-									</div>
-									<div class="row mb-2">
-										<div class="col-3"><span>Minimal Panjang</span></div>
-										<div class="col-4">
-											<input type="number" id="add-panjang" class="form-control" value="80">
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Group Kertas -->
-							<div class="col-12">
-								<div class="row mb-3">
-									<div class="col-md-2 fw-semibold">Group Kertas</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="add-kertasArtPaper">
-										<label class="btn btn-outline-primary" for="add-kertasArtPaper">Art Paper
-											150gr</label>
-
-										<input type="checkbox" class="btn-check" id="add-kertasArtCarton">
-										<label class="btn btn-outline-primary" for="add-kertasArtCarton">Art Carton
-											120gr</label>
-
-										<input type="checkbox" class="btn-check" id="add-kertasHVS">
-										<label class="btn btn-outline-primary" for="add-kertasHVS">HVS 100gr</label>
-									</div>
-								</div>
-							</div>
+	
 
 
 
-							<!-- Sisi Cetak -->
-							<div class="col-12">
-								<div class="row mb-3">
-									<div class="col-md-2 fw-semibold">Sisi Cetak</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="add-sisi1">
-										<label class="btn btn-outline-primary" for="add-sisi1">1 Sisi Cetak</label>
-
-										<input type="checkbox" class="btn-check" id="add-sisi2">
-										<label class="btn btn-outline-primary" for="add-sisi2">2 Sisi Cetak</label>
-									</div>
-								</div>
-							</div>
-
-							<!-- Laminasi -->
-							<div class="col-12">
-								<div class="row mb-3">
-									<div class="col-md-2 fw-semibold">Laminasi</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="add-tanpaLaminasi">
-										<label class="btn btn-outline-primary" for="add-tanpaLaminasi">Tanpa
-											Laminasi</label>
-
-										<input type="checkbox" class="btn-check" id="add-lamDoff">
-										<label class="btn btn-outline-primary" for="add-lamDoff">Doff</label>
-
-										<input type="checkbox" class="btn-check" id="add-lamGlossy">
-										<label class="btn btn-outline-primary" for="add-lamGlossy">Glossy</label>
-
-										<input type="checkbox" class="btn-check" id="add-lamSpotUV">
-										<label class="btn btn-outline-primary" for="add-lamSpotUV">Doff Spot UV</label>
-									</div>
-								</div>
-							</div>
-
-							<!-- Lipat -->
-							<div class="col-12">
-								<div class="row mb-4">
-									<div class="col-md-2 fw-semibold">Lipat</div>
-									<div class="col-md-10 d-flex flex-wrap gap-2">
-										<input type="checkbox" class="btn-check" id="add-tanpaLipat">
-										<label class="btn btn-outline-primary" for="add-tanpaLipat">Tanpa
-											Lipatan</label>
-
-										<input type="checkbox" class="btn-check" id="add-lipat1">
-										<label class="btn btn-outline-primary" for="add-lipat1">1 Lipatan</label>
-
-										<input type="checkbox" class="btn-check" id="add-lipat2">
-										<label class="btn btn-outline-primary" for="add-lipat2">2 Lipatan</label>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</form>
-				</div>
-
-				<!-- Footer -->
-				<div class="modal-footer d-flex justify-content-end">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-					<button type="submit" form="addProductForm" class="btn btn-primary">Submit</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
 
 
-	<!-- /add Product -->
+	
 
 
-
-	<!-- Recent Transactions -->
-	<div class="modal fade pos-modal" id="recents" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header p-4">
-					<h5 class="modal-title">Recent Transactions</h5>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body p-4">
-					<div class="tabs-sets">
-						<ul class="nav nav-tabs" id="myTab" role="tablist">
-							<li class="nav-item" role="presentation">
-								<button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
-									data-bs-target="#purchase" type="button" aria-controls="purchase"
-									aria-selected="true" role="tab">Purchase</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment"
-									type="button" aria-controls="payment" aria-selected="false"
-									role="tab">Payment</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="return-tab" data-bs-toggle="tab" data-bs-target="#return"
-									type="button" aria-controls="return" aria-selected="false"
-									role="tab">Return</button>
-							</li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane fade show active" id="purchase" role="tabpanel"
-								aria-labelledby="purchase-tab">
-								<div class="table-top">
-									<div class="search-set">
-										<div class="search-input">
-											<a class="btn btn-searchset d-flex align-items-center h-100"><img
-													src="assets/img/icons/search-white.svg" alt="img"></a>
-										</div>
-									</div>
-									<div class="wordset">
-										<ul>
-											<li>
-												<a class="d-flex align-items-center justify-content-center"
-													data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
-														src="assets/img/icons/pdf.svg" alt="img"></a>
-											</li>
-											<li>
-												<a class="d-flex align-items-center justify-content-center"
-													data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
-														src="assets/img/icons/excel.svg" alt="img"></a>
-											</li>
-											<li>
-												<a class="d-flex align-items-center justify-content-center"
-													data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i
-														data-feather="printer" class="feather-rotate-ccw"></i></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="table-responsive">
-									<table class="table datanew">
-										<thead>
-											<tr>
-												<th>Date</th>
-												<th>Reference</th>
-												<th>Customer</th>
-												<th>Amount </th>
-												<th class="no-sort">Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0101</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0102</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0103</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0104</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0105</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0106</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0107</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="payment" role="tabpanel">
-								<div class="table-top">
-									<div class="search-set">
-										<div class="search-input">
-											<a class="btn btn-searchset d-flex align-items-center h-100"><img
-													src="assets/img/icons/search-white.svg" alt="img"></a>
-										</div>
-									</div>
-									<div class="wordset">
-										<ul>
-											<li>
-												<a class="d-flex align-items-center justify-content-center"
-													data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
-														src="assets/img/icons/pdf.svg" alt="img"></a>
-											</li>
-											<li>
-												<a class="d-flex align-items-center justify-content-center"
-													data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
-														src="assets/img/icons/excel.svg" alt="img"></a>
-											</li>
-											<li>
-												<a class="d-flex align-items-center justify-content-center"
-													data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i
-														data-feather="printer" class="feather-rotate-ccw"></i></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="table-responsive">
-									<table class="table datanew">
-										<thead>
-											<tr>
-												<th>Date</th>
-												<th>Reference</th>
-												<th>Customer</th>
-												<th>Amount </th>
-												<th class="no-sort">Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0101</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0102</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0103</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0104</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0105</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0106</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0107</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="return" role="tabpanel">
-								<div class="table-top">
-									<div class="search-set">
-										<div class="search-input">
-											<a class="btn btn-searchset d-flex align-items-center h-100"><img
-													src="assets/img/icons/search-white.svg" alt="img"></a>
-										</div>
-									</div>
-									<div class="wordset">
-										<ul>
-											<li>
-												<a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"
-													class="d-flex align-items-center justify-content-center"><img
-														src="assets/img/icons/pdf.svg" alt="img"></a>
-											</li>
-											<li>
-												<a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"
-													class="d-flex align-items-center justify-content-center"><img
-														src="assets/img/icons/excel.svg" alt="img"></a>
-											</li>
-											<li>
-												<a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"
-													class="d-flex align-items-center justify-content-center"><i
-														data-feather="printer" class="feather-rotate-ccw"></i></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="table-responsive">
-									<table class="table datanew">
-										<thead>
-											<tr>
-												<th>Date</th>
-												<th>Reference</th>
-												<th>Customer</th>
-												<th>Amount </th>
-												<th class="no-sort">Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0101</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0102</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0103</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0104</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0105</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0106</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>19 Jan 2023</td>
-												<td>INV/SL0107</td>
-												<td>Walk-in Customer</td>
-												<td>$1500.00</td>
-												<td class="action-table-data">
-													<div class="edit-delete-action">
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="eye" class="feather-eye"></i></a>
-														<a class="me-2 p-2" href="javascript:void(0);"><i
-																data-feather="edit" class="feather-edit"></i></a>
-														<a class="p-2 confirm-text" href="javascript:void(0);"><i
-																data-feather="trash-2" class="feather-trash-2"></i></a>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Recent Transactions -->
-
-	<!-- Recent Transactions -->
-	<!-- Orders -->
-	<div class="modal fade pos-modal" id="orders" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-md modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Orders</h5>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="tabs-sets">
-						<ul class="nav nav-tabs" id="myTabs" role="tablist">
-							<li class="nav-item" role="presentation">
-								<button class="nav-link active" id="onhold-tab" data-bs-toggle="tab"
-									data-bs-target="#onhold" type="button" aria-controls="onhold" aria-selected="true"
-									role="tab">Onhold</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="unpaid-tab" data-bs-toggle="tab" data-bs-target="#unpaid"
-									type="button" aria-controls="unpaid" aria-selected="false"
-									role="tab">Unpaid</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid"
-									type="button" aria-controls="paid" aria-selected="false" role="tab">Paid</button>
-							</li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane fade show active" id="onhold" role="tabpanel"
-								aria-labelledby="onhold-tab">
-								<div class="input-icon-start pos-search position-relative mb-3">
-									<span class="input-icon-addon">
-										<i class="ti ti-search"></i>
-									</span>
-									<input type="text" class="form-control" placeholder="Search Product">
-								</div>
-								<div class="order-body">
-									<div class="card bg-light mb-3">
-										<div class="card-body">
-											<span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
-											<div class="row g-3">
-												<div class="col-md-6">
-													<p class="fs-15 mb-1"><span
-															class="fs-14 fw-bold text-gray-9">Cashier :</span> admin</p>
-													<p class="fs-15"><span class="fs-14 fw-bold text-gray-9">Total
-															:</span> $900</p>
-												</div>
-												<div class="col-md-6">
-													<p class="fs-15 mb-1"><span
-															class="fs-14 fw-bold text-gray-9">Customer :</span> Botsford
-													</p>
-													<p class="fs-15"><span class="fs-14 fw-bold text-gray-9">Date
-															:</span> 24 Dec 2024 13:39:11</p>
-												</div>
-											</div>
-											<div class=" rounded text-center my-3">
-												<p class="text-info fw-medium bg-info-transparent  p-1">Customer need to
-													recheck the product once</p>
-											</div>
-											<div
-												class="d-flex align-items-center justify-content-center flex-wrap gap-2">
-												<a href="javascript:void(0);" class="btn btn-md btn-danger">Open
-													Order</a>
-												<a href="javascript:void(0);" class="btn btn-md btn-teal"
-													data-bs-dismiss="modal" data-bs-toggle="modal"
-													data-bs-target="#products">View Products</a>
-												<a href="javascript:void(0);" class="btn btn-md btn-info">Print</a>
-											</div>
-										</div>
-									</div>
-									z
-								</div>
-							</div>
-							<div class="tab-pane fade" id="unpaid" role="tabpanel">
-								<div class="input-icon-start pos-search position-relative mb-3">
-									<span class="input-icon-addon">
-										<i class="ti ti-search"></i>
-									</span>
-									<input type="text" class="form-control" placeholder="Search Product">
-								</div>
-								<div class="order-body">
-									<div class="card bg-light mb-3">
-										<div class="card-body">
-											<span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
-											<div class="row g-3">
-												<div class="col-md-6">
-													<p class="fs-15 mb-1"><span
-															class="fs-14 fw-bold text-gray-9">Cashier :</span> admin</p>
-													<p class="fs-15"><span class="fs-14 fw-bold text-gray-9">Total
-															:</span> $900</p>
-												</div>
-												<div class="col-md-6">
-													<p class="fs-15 mb-1"><span
-															class="fs-14 fw-bold text-gray-9">Customer :</span>
-														Anastasia</p>
-													<p class="fs-15"><span class="fs-14 fw-bold text-gray-9">Date
-															:</span> 24 Dec 2024 13:39:11</p>
-												</div>
-											</div>
-											<div class="text-center my-3">
-												<p class="text-info fw-medium bg-info-transparent  p-1">Customer need to
-													recheck the product once</p>
-											</div>
-											<div
-												class="d-flex align-items-center justify-content-center flex-wrap gap-2">
-												<a href="javascript:void(0);" class="btn btn-md btn-danger">Open
-													Order</a>
-												<a href="javascript:void(0);" class="btn btn-md btn-teal"
-													data-bs-dismiss="modal" data-bs-toggle="modal"
-													data-bs-target="#products">View Products</a>
-												<a href="javascript:void(0);" class="btn btn-md btn-info">Print</a>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-							<div class="tab-pane fade" id="paid" role="tabpanel">
-								<div class="input-icon-start pos-search position-relative mb-3">
-									<span class="input-icon-addon">
-										<i class="ti ti-search"></i>
-									</span>
-									<input type="text" class="form-control" placeholder="Search Product">
-								</div>
-								<div class="order-body">
-									<div class="card bg-light mb-3">
-										<div class="card-body">
-											<span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
-											<div class="row g-3">
-												<div class="col-md-6">
-													<p class="fs-15 mb-1"><span
-															class="fs-14 fw-bold text-gray-9">Cashier :</span> admin</p>
-													<p class="fs-15"><span class="fs-14 fw-bold text-gray-9">Total
-															:</span> $1000</p>
-												</div>
-												<div class="col-md-6">
-													<p class="fs-15 mb-1"><span
-															class="fs-14 fw-bold text-gray-9">Customer :</span> Hugo</p>
-													<p class="fs-15"><span class="fs-14 fw-bold text-gray-9">Date
-															:</span> 24 Dec 2024 13:39:11</p>
-												</div>
-											</div>
-											<div class=" text-center my-3">
-												<p class="text-info fw-medium bg-info-transparent  p-1">Customer need to
-													recheck the product once</p>
-											</div>
-											<div
-												class="d-flex align-items-center justify-content-center flex-wrap gap-2">
-												<a href="javascript:void(0);" class="btn btn-md btn-danger">Open
-													Order</a>
-												<a href="javascript:void(0);" class="btn btn-md btn-teal"
-													data-bs-dismiss="modal" data-bs-toggle="modal"
-													data-bs-target="#products">View Products</a>
-												<a href="javascript:void(0);" class="btn btn-md btn-info">Print</a>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Orders -->
-	<!-- /Recent Transactions -->
 
 	<!-- payment -->
 	<div class="modal fade modal-default" id="payment-cash">
@@ -2540,60 +884,7 @@
 	<!-- payment -->
 
 	<!-- view product -->
-	<!-- Products -->
-	<div class="modal fade modal-default pos-modal" id="products" aria-labelledby="products">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header d-flex align-items-center justify-content-between">
-					<div class="d-flex align-items-center">
-						<h5 class="me-4">Products</h5>
-					</div>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="card bg-light mb-3">
-						<div class="card-body">
-							<div class="d-flex align-items-center justify-content-between gap-3 flex-wrap mb-3">
-								<span class="badge bg-dark fs-12">Order ID : #45698</span>
-								<p class="fs-16">Number of Products : 02</p>
-							</div>
-							<div class="product-wrap h-auto">
-								<div class="product-list bg-white align-items-center justify-content-between">
-									<div class="d-flex align-items-center product-info" data-bs-toggle="modal"
-										data-bs-target="#products">
-										<a href="javascript:void(0);" class="pro-img">
-											<img src="assets/img/products/pos-product-16.png" alt="Products">
-										</a>
-										<div class="info">
-											<h6><a href="javascript:void(0);">Red Nike Laser</a></h6>
-											<p>Quantity : 04</p>
-										</div>
-									</div>
-									<p class="text-teal fw-bold">$2000</p>
-								</div>
-								<div class="product-list bg-white align-items-center justify-content-between">
-									<div class="d-flex align-items-center product-info" data-bs-toggle="modal"
-										data-bs-target="#products">
-										<a href="javascript:void(0);" class="pro-img">
-											<img src="assets/img/products/pos-product-17.png" alt="Products">
-										</a>
-										<div class="info">
-											<h6><a href="javascript:void(0);">Iphone 11S</a></h6>
-											<p>Quantity : 04</p>
-										</div>
-									</div>
-									<p class="text-teal fw-bold">$3000</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Products -->
+
 	<!-- view product -->
 
 	{{-- modal login --}}
@@ -2634,10 +925,7 @@
 								<input type="text" name="phone" class="form-control" placeholder="08xxxx">
 							</div>
 
-							<div class="mb-3">
-								<label class="form-label">PIN</label>
-								<input type="password" name="pin" class="form-control" placeholder="****">
-							</div>
+							
 
 							<button class="btn btn-primary w-100" type="submit">
 								Login User
@@ -2722,263 +1010,55 @@
 <script src="{{ asset('assets/js/theme-script.js') }}"></script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 
-	<!-- add dan edit disatukan -->
+
+
+
 	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			const productWrap = document.querySelector(".product-wrap");
-			const paymentBtn = document.getElementById("paymentTotalBtn");
+	document.addEventListener("DOMContentLoaded", function () {
+		const clearAllBtn = document.getElementById("clearAllProducts");
+		const productWrap = document.querySelector(".product-wrap");
+		const paymentTotalBtn = document.getElementById("paymentTotalBtn");
 
-			function getCheckedLabels(form, prefix) {
-				return [...form.querySelectorAll(`input[id^="${prefix}"]:checked`)]
-					.map(el => form.querySelector(`label[for="${el.id}"]`)?.textContent.trim())
-					.filter(Boolean);
-			}
+		if (clearAllBtn) {
+			clearAllBtn.addEventListener("click", function (e) {
+				e.preventDefault();
 
-			// Hitung total semua produk
-			function updatePaymentTotal() {
-				let total = 0;
-				productWrap.querySelectorAll(".product-list .info p").forEach(p => {
-					const price = parseFloat(p.textContent.replace(/[^0-9.]/g, ""));
-					if (!isNaN(price)) total += price;
-				});
-				if (paymentBtn) {
-					paymentBtn.innerHTML = `
-        <span class="me-1 d-flex align-items-center">
-          <i data-feather="credit-card" class="feather-16"></i>
-        </span>
-        Payment Total $${total.toLocaleString()}
-      `;
-					if (window.feather) feather.replace();
-				}
-			}
+				Swal.fire({
+					title: 'Are you sure?',
+					text: "You won't be able to revert this!",
+					showCancelButton: true,
+					confirmButtonColor: '#f39c12',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes, delete it!',
+					cancelButtonText: 'Cancel'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						// hapus semua produk
+						productWrap.innerHTML = "";
 
-			// --- ADD PRODUCT ---
-			const addForm = document.getElementById("addProductForm");
-			if (addForm) {
-				addForm.addEventListener("submit", function (e) {
-					e.preventDefault();
+						// reset total payment ke Rp0
+						paymentTotalBtn.innerHTML = `
+							<span class="me-1 d-flex align-items-center">
+								<i data-feather="credit-card" class="feather-16"></i>
+							</span>
+							Payment Total Rp0
+						`;
 
-					const qty = addForm.querySelector('#add-qty').value;
-					const ukuran = getCheckedLabels(addForm, "add-uk");
+						// re-render feather icon biar muncul lagi
+						if (feather) feather.replace();
 
-					// Custom ukuran
-					let customUkuran = "";
-					if (addForm.querySelector("#add-ukCustom")?.checked) {
-						const satuan = addForm.querySelector("#add-satuan")?.value || "";
-						const lebar = addForm.querySelector("#add-lebar")?.value || "";
-						const panjang = addForm.querySelector("#add-panjang")?.value || "";
-						customUkuran = `Custom: ${lebar}x${panjang} ${satuan}`;
+						Swal.fire(
+							'Deleted!',
+							'All products have been cleared.',
+							'success'
+						);
 					}
-					const kertas = getCheckedLabels(addForm, "add-kertas");
-					const sisi = getCheckedLabels(addForm, "add-sisi");
-					const laminasi = getCheckedLabels(addForm, "add-lam");
-					const lipat = getCheckedLabels(addForm, "add-lipat");
-
-					const ringkasan = [
-						...ukuran,
-						customUkuran,
-						...kertas,
-						...sisi,
-						laminasi.length ? laminasi : "Tanpa Laminasi",
-						lipat.length ? lipat : "Tanpa Lipatan"
-					].filter(Boolean).join(", ");
-
-					const newProduct = document.createElement("div");
-					newProduct.classList.add("product-list", "align-items-center", "justify-content-between");
-					newProduct.innerHTML = `
-        <div class="d-flex align-items-center product-info w-100" >
-          <a href="javascript:void(0);" class="img-bg">
-            <img src="assets/img/products/brosur.png" alt="Products">
-          </a>
-          <div class="info">
-            <span>PT${String(Math.floor(Math.random() * 10000)).padStart(4, '0')}</span>
-            <h6><a href="javascript:void(0);">Cetak Full Color</a></h6>
-            <div style="font-size: 0.8rem;">${ringkasan}</div>
-            <p>$2000</p>
-            <div style="font-size: 0.9rem; cursor: pointer;">
-              <span class="jobTitle">Job Title</span>
-              <i class="fa fa-pencil edit-job" style="margin-left:5px;"></i>
-            </div>	
-          </div>
-        </div>
-        <div class="d-flex justify-content-end">
-          <div class="qty-item text-center">
-            <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" 
-               data-bs-toggle="tooltip" data-bs-placement="top" title="minus">
-              <i data-feather="minus-circle" class="feather-14"></i>
-            </a>
-            <input type="text" class="form-control text-center" name="qty" value="${qty}">
-            <a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" 
-               data-bs-toggle="tooltip" data-bs-placement="top" title="plus">
-              <i data-feather="plus-circle" class="feather-14"></i>
-            </a>
-          </div>
-          <div class="d-flex align-items-center action">
-            <a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-product">
-              <i data-feather="edit" class="feather-14"></i>
-            </a>
-            <a class="btn-icon delete-icon confirm-text" href="javascript:void(0);">
-              <i data-feather="trash-2" class="feather-14"></i>
-            </a>
-          </div>
-        </div>
-      `;
-
-					productWrap.appendChild(newProduct);
-					updatePaymentTotal();
-
-					bootstrap.Modal.getInstance(document.getElementById("add-product")).hide();
-					if (window.feather) feather.replace();
-				});
-			}
-
-			// --- EDIT PRODUCT ---
-			const editForm = document.getElementById("editProductForm");
-			let currentProduct = null;
-
-			productWrap.addEventListener("click", function (e) {
-				const editBtn = e.target.closest(".edit-icon");
-				if (!editBtn) return;
-
-				currentProduct = editBtn.closest(".product-list");
-
-				// isi qty
-				const qtyVal = currentProduct.querySelector('input[name="qty"]').value;
-				editForm.querySelector('#edit-qty').value = qtyVal;
-
-				// reset checkbox
-				editForm.querySelectorAll("input[type=checkbox], input[type=radio]").forEach(el => el.checked = false);
-
-				// isi checkbox berdasarkan ringkasan
-				const ringkasanText = currentProduct.querySelector(".info div").textContent;
-				editForm.querySelectorAll("label").forEach(label => {
-					if (ringkasanText.includes(label.textContent.trim())) {
-						const input = document.getElementById(label.getAttribute("for"));
-						if (input) input.checked = true;
-					}
-				});
-
-				// custom ukuran
-				if (ringkasanText.includes("Custom:")) {
-					editForm.querySelector("#edit-ukCustom").checked = true;
-					const match = ringkasanText.match(/Custom:\s*(\d+)x(\d+)\s*(\w+)/);
-					if (match) {
-						editForm.querySelector("#edit-lebar").value = match[1];
-						editForm.querySelector("#edit-panjang").value = match[2];
-						editForm.querySelector("#edit-satuan").value = match[3];
-					}
-					document.getElementById("editCustomFields").classList.remove("d-none");
-				} else {
-					document.getElementById("editCustomFields").classList.add("d-none");
-				}
-			});
-
-			if (editForm) {
-				editForm.addEventListener("submit", function (e) {
-					e.preventDefault();
-					if (!currentProduct) return;
-
-					const qty = editForm.querySelector('#edit-qty').value;
-					const ukuran = getCheckedLabels(editForm, "edit-uk");
-					let customUkuran = "";
-					if (editForm.querySelector("#edit-ukCustom")?.checked) {
-						const satuan = editForm.querySelector("#edit-satuan")?.value || "";
-						const lebar = editForm.querySelector("#edit-lebar")?.value || "";
-						const panjang = editForm.querySelector("#edit-panjang")?.value || "";
-						customUkuran = `Custom: ${lebar}x${panjang} ${satuan}`;
-					}
-					const kertas = getCheckedLabels(editForm, "edit-kertas");
-					const sisi = getCheckedLabels(editForm, "edit-sisi");
-					const laminasi = getCheckedLabels(editForm, "edit-lam");
-					const lipat = getCheckedLabels(editForm, "edit-lipat");
-
-					const ringkasan = [
-						...ukuran,
-						customUkuran,
-						...kertas,
-						...sisi,
-						laminasi.length ? laminasi : "Tanpa Laminasi",
-						lipat.length ? lipat : "Tanpa Lipatan"
-					].filter(Boolean).join(", ");
-
-					currentProduct.querySelector('input[name="qty"]').value = qty;
-					currentProduct.querySelector(".info div").textContent = ringkasan;
-
-					updatePaymentTotal();
-					bootstrap.Modal.getInstance(document.getElementById("edit-product")).hide();
-					currentProduct = null;
-				});
-			}
-
-			// --- EDIT JOB TITLE ---
-			productWrap.addEventListener("click", function (e) {
-				const btn = e.target.closest(".edit-job");
-				if (!btn) return;
-
-				const span = btn.parentElement.querySelector(".jobTitle");
-				const currentText = span.textContent;
-
-				// bikin input
-				const input = document.createElement("input");
-				input.type = "text";
-				input.value = currentText;
-				input.style.fontSize = "0.9rem";
-
-				span.replaceWith(input);
-				input.focus();
-
-				function save() {
-					const newSpan = document.createElement("span");
-					newSpan.className = "jobTitle";
-					newSpan.textContent = input.value.trim() || "Job Title";
-					input.replaceWith(newSpan);
-				}
-
-				input.addEventListener("blur", save);
-				input.addEventListener("keydown", function (ev) {
-					if (ev.key === "Enter") save();
 				});
 			});
+		}
+	});
+</script>
 
-		});
-	</script>
-
-	<!-- add dan edit disatukan -->
-
-
-	<!-- clear product added -->
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			const clearAllBtn = document.getElementById("clearAllProducts");
-			const productWrap = document.querySelector(".product-wrap");
-
-			if (clearAllBtn) {
-				clearAllBtn.addEventListener("click", function (e) {
-					e.preventDefault();
-
-					Swal.fire({
-						title: 'Are you sure?',
-						text: "You won't be able to revert this!",
-						showCancelButton: true,
-						confirmButtonColor: '#f39c12', // oranye
-						cancelButtonColor: '#d33',     // merah
-						confirmButtonText: 'Yes, delete it!',
-						cancelButtonText: 'Cancel'
-					}).then((result) => {
-						if (result.isConfirmed) {
-							productWrap.innerHTML = "";
-							Swal.fire(
-								'Deleted!',
-								'Your file has been deleted.',
-								'success'
-							);
-						}
-					});
-
-				});
-			}
-		});
-	</script>
 
 
 	<script>
@@ -3092,77 +1172,166 @@
 
 	</script>
 	<!-- clear product added -->
-	<!-- custom ukuran -->
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			// Reusable toggle
-			function setupCustomToggle(checkboxId, fieldsId) {
-				const checkbox = document.getElementById(checkboxId);
-				const fields = document.getElementById(fieldsId);
+	
+	
 
-				if (!checkbox || !fields) return;
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const productWrap = document.querySelector(".product-wrap");
+    const paymentBtn = document.getElementById("paymentTotalBtn");
+    if (!productWrap || !paymentBtn) return;
 
-				function toggleFields() {
-					if (checkbox.checked) {
-						fields.classList.remove("d-none");
-					} else {
-						fields.classList.add("d-none");
-					}
-				}
+    // === Fungsi TOAST ===
+    const toastEl = document.getElementById('cartToast');
+    const cartToast = new bootstrap.Toast(toastEl, { delay: 3000 });
 
-				// Event listener
-				checkbox.addEventListener("change", toggleFields);
+    function showToast(message = "Item berhasil ditambahkan ke keranjang!") {
+        toastEl.querySelector('.toast-body').textContent = message;
+        cartToast.show();
+    }
 
-				// Set default state saat load
-				toggleFields();
-			}
+    function parsePrice(text) {
+        if (!text) return 0;
+        const cleanedText = text.replace(/[^\d.,]/g, ''); 
+        const priceString = cleanedText.replace(/\./g, '').replace(/,/g, '.'); 
+        return parseFloat(priceString) || 0;
+    }
 
-			// Panggil untuk ADD & EDIT
-			setupCustomToggle("add-ukCustom", "customFields");
-			setupCustomToggle("edit-ukCustom", "editCustomFields");
-		});
-	</script>
-	<script>
-		function enableEdit() {
-			const span = document.querySelector('.jobTitle');
-			const currentText = span.textContent;
+    function formatPrice(number) {
+        return number.toLocaleString("id-ID", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
 
-			// bikin input
-			const input = document.createElement('input');
-			input.type = 'text';
-			input.value = currentText;
+    function updateItemTotal(itemElement) {
+        const priceEl = itemElement.querySelector(".info p");
+        const unitPrice = parseFloat(priceEl?.getAttribute("data-price")) || 0;
+        const qty = parseInt(itemElement.querySelector('input[name="qty"]')?.value || "1", 10) || 1;
+        const newTotal = unitPrice * qty;
+        return newTotal;
+    }
 
-			// styling biar mirip teks biasa
-			input.style.fontSize = "0.9rem";
-			input.style.border = "none";
-			input.style.outline = "none";
-			input.style.background = "transparent";
-			input.style.padding = "0";
-			input.style.margin = "0";
-			input.style.width = "auto";   // biar lebarnya nyesuaiin isi
-			input.style.display = "inline"; // biar inline kayak span
+    function updatePaymentTotal() {
+        const items = productWrap.querySelectorAll(".product-list");
+        let total = 0;
+        items.forEach(item => {
+            const price = parsePrice(item.querySelector(".info p")?.textContent || "");
+            const qty = parseInt(item.querySelector('input[name="qty"]')?.value || "1", 10) || 1;
+            total += price * qty;
+        });
 
-			// ganti span dengan input
-			span.replaceWith(input);
-			input.focus();
+        paymentBtn.innerHTML = `
+            <span class="me-1 d-flex align-items-center">
+                <i data-feather="credit-card" class="feather-16"></i>
+            </span>
+            Payment Total Rp${total.toLocaleString("id-ID")}
+        `;
+        if (window.feather) feather.replace();
+    }
 
-			// kalau enter ditekan atau blur, balikin ke span lagi
-			function save() {
-				const newSpan = document.createElement('span');
-				newSpan.className = 'jobTitle';
-				newSpan.textContent = input.value.trim() || "Job Title";
-				input.replaceWith(newSpan);
-			}
+    document.querySelectorAll(".product-info").forEach(card => {
+        card.addEventListener("click", function () {
+            const img = this.querySelector("img")?.getAttribute("src") || "assets/img/products/brosur.png";
+            const nameEl = this.querySelector(".product-name a, .product-name") 
+                        || this.querySelector(".cat-name a, .cat-name");
+            const name = (nameEl?.textContent || "Product").trim();
+            const priceText = (this.querySelector(".price p")?.textContent 
+                            || this.querySelector(".price")?.textContent || "$0");
+            const rawPrice = parsePrice(priceText);
 
-			input.addEventListener('blur', save);
-			input.addEventListener('keydown', function (e) {
-				if (e.key === 'Enter') save();
-			});
-		}
+            // ✅ CEK APAKAH ITEM SUDAH ADA
+            const exist = [...productWrap.querySelectorAll(".product-list")].find(el =>
+                el.querySelector("h6 a")?.textContent.trim() === name
+            );
 
-		// trigger saat klik icon pensil
-		document.querySelector('.edit-job').addEventListener('click', enableEdit);
-	</script>
+            if (exist) {
+                const qtyInput = exist.querySelector('input[name="qty"]');
+                qtyInput.value = parseInt(qtyInput.value) + 1;
+                updatePaymentTotal(); 
+                showToast(`Jumlah ${name} ditambah ke keranjang`);
+                return;
+            }
+
+            // ✅ ITEM BARU
+            const newProduct = document.createElement("div");
+            newProduct.className = "product-list align-items-center justify-content-between";
+            newProduct.innerHTML = `
+                <div class="d-flex align-items-center product-info w-100">
+                    <a href="javascript:void(0);" class="img-bg">
+                        <img src="${img}" alt="Products">
+                    </a>
+                    <div class="info">
+                        <span class="product-id">PT${String(Math.floor(Math.random()*90000)+10000)}</span>
+                        <h6><a href="javascript:void(0);">${name}</a></h6>
+                        <p class="unit-price" data-price="${rawPrice}">Rp${formatPrice(rawPrice)}</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div class="qty-item text-center">
+                        <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center">
+                            <i data-feather="minus-circle" class="feather-14"></i>
+                        </a>
+                        <input type="text" class="form-control text-center" name="qty" value="1">
+                        <a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center">
+                            <i data-feather="plus-circle" class="feather-14"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center action">
+                        <a class="btn-icon delete-icon confirm-text"><i data-feather="trash-2" class="feather-14"></i></a>
+                    </div>
+                </div>
+            `;
+
+            productWrap.appendChild(newProduct);
+            if (window.feather) feather.replace();
+            updatePaymentTotal();
+            showToast(`${name} ditambahkan ke keranjang`);
+        });
+    });
+
+    // delegasi qty + delete
+    document.addEventListener("click", function (e) {
+        const dec = e.target.closest(".dec");
+        const inc = e.target.closest(".inc");
+        const del = e.target.closest(".delete-icon");
+        let productList;
+
+        if (dec) {
+            productList = dec.closest(".product-list");
+            const input = productList.querySelector("input[name='qty']");
+            let v = parseInt(input.value || "1", 10);
+            if (v > 1) v--;
+            input.value = v;
+            updateItemTotal(productList); 
+            updatePaymentTotal();
+        }
+
+        if (inc) {
+            productList = inc.closest(".product-list");
+            const input = productList.querySelector("input[name='qty']");
+            let v = parseInt(input.value || "1", 10);
+            v++;
+            input.value = v;
+            updateItemTotal(productList); 
+            updatePaymentTotal();
+        }
+
+        if (del) {
+            del.closest(".product-list")?.remove();
+            updatePaymentTotal();
+        }
+    });
+
+    document.addEventListener("input", function (e) {
+        if (e.target.name === "qty") {
+            const productList = e.target.closest(".product-list");
+            let v = parseInt(e.target.value || "1", 10);
+            if (v < 1 || isNaN(v)) v = 1;
+            e.target.value = v;
+            updateItemTotal(productList); 
+            updatePaymentTotal();
+        }
+    });
+});
+</script>
 
 
 	<!-- custom ukuran -->
