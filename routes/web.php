@@ -30,6 +30,12 @@ Route::prefix('penjual')->name('penjual.')->group(function () {
 
     Route::get('/produk', [ProductController::class, 'index'])
         ->name('produk');
+    Route::post('/produk', [ProductController::class, 'store'])
+        ->name('produk.store'); // Nama rutenya: penjual.produk.store
+    Route::put('/produk/{product}', [ProductController::class, 'update'])
+        ->name('produk.update');
+    Route::delete('/produk/{product}', [ProductController::class, 'destroy'])
+        ->name('produk.destroy');
 });
 
 
