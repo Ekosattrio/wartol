@@ -864,13 +864,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="point-wrap payment-content mb-3">
-							<div
-								class=" bg-success-transparent d-flex align-items-center justify-content-between flex-wrap p-2 gap-2 br-5">
-								<h6 class="fs-14 fw-bold text-success">You have 2000 Points to Use</h6>
-								<a href="javascript:void(0);" class="btn btn-dark btn-md">Use for this Purchase</a>
-							</div>
-						</div>
+						
 					</div>
 					<div class="modal-footer d-flex justify-content-end flex-wrap gap-2">
 						<button type="button" class="btn btn-md btn-secondary" data-bs-dismiss="modal">Cancel</button>

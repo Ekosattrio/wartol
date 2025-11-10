@@ -63,23 +63,13 @@
 				<div class="page-header">
 					<div class="add-item d-flex">
 						<div class="page-title">
-							<h4>Sales</h4>
-							<h6>Manage Yours sales</h6>
+							<h4>Halaman Kelola Produk</h4>
+							<h6>Kelola produk anda</h6>
 						</div>
 					</div>
 					<ul class="table-top-head">
-						<li>
-							<a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
-									src="assets/img/icons/pdf.svg" alt="img"></a>
-						</li>
-						<li>
-							<a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
-									src="assets/img/icons/excel.svg" alt="img"></a>
-						</li>
-						<li>
-							<a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer"
-									class="feather-rotate-ccw"></i></a>
-						</li>
+					
+						
 						<li>
 							<a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i
 									data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a>
@@ -91,7 +81,7 @@
 					</ul>
 					<div class="page-btn">
 						<a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-sels"><i
-								data-feather="plus-circle" class="me-2"></i> Add Sales</a>
+								data-feather="plus-circle" class="me-2"></i> Tambah Produk Baru</a>
 					</div>
 				</div>
 				<!-- /product list -->
@@ -129,38 +119,7 @@
 								</div>
 							</div>
 							<div class="filters d-flex justify-content-end">
-								<div class="dropdown w-100 me-2">
-									<button class="btn btn-outline-primary dropdown-toggle" type="button"
-										data-bs-toggle="dropdown" aria-expanded="false">
-										Status
-									</button>
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="#">Complete</a></li>
-										<li><a class="dropdown-item" href="#">Pending</a></li>
-										<li><a class="dropdown-item" href="#">Ordered</a></li>
-										<li><a class="dropdown-item" href="#">Received</a></li>
-									</ul>
-								</div>
-								<div class="dropdown w-100 me-2">
-									<button class="btn btn-outline-primary dropdown-toggle" type="button"
-										data-bs-toggle="dropdown" aria-expanded="false">
-										Payment Status
-									</button>
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="#">Paid</a></li>
-										<li><a class="dropdown-item" href="#">Unpaid</a></li>
-									</ul>
-								</div>
-								<div class="dropdown w-100 me-2">
-									<button class="btn btn-outline-primary dropdown-toggle" type="button"
-										data-bs-toggle="dropdown" aria-expanded="false">
-										Channel
-									</button>
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="#">Website</a></li>
-										<li><a class="dropdown-item" href="#">POS</a></li>
-									</ul>
-								</div>
+								
 							</div>
 						</div>
 						<!-- /Filter -->
@@ -206,60 +165,12 @@
 										<td><span class="badge bg-outline-success">Paid</span></td>
 										<td>Admin</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sale-detail-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 									<tr>
@@ -276,60 +187,12 @@
 										<td><span class="badge bg-outline-success">Paid</span></td>
 										<td>Admin</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -347,60 +210,12 @@
 										<td><span class="badge bg-outline-danger">Unpaid</span></td>
 										<td>Staff</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -418,60 +233,12 @@
 										<td><span class="badge bg-outline-success">Paid</span></td>
 										<td>Admin</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -489,60 +256,12 @@
 										<td><span class="badge bg-outline-danger">Unpaid</span></td>
 										<td>Staff</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -560,60 +279,12 @@
 										<td><span class="badge bg-outline-success">Paid</span></td>
 										<td>Manager</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -631,60 +302,12 @@
 										<td><span class="badge bg-outline-warning">Partial</span></td>
 										<td>Admin</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -702,60 +325,12 @@
 										<td><span class="badge bg-outline-success">Paid</span></td>
 										<td>Staff</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -773,60 +348,12 @@
 										<td><span class="badge bg-outline-success">Paid</span></td>
 										<td>Manager</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -844,60 +371,12 @@
 										<td><span class="badge bg-outline-warning">Partial</span></td>
 										<td>Staff</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
@@ -915,60 +394,12 @@
 										<td><span class="badge bg-outline-danger">Unpaid</span></td>
 										<td>Admin</td>
 										<td>
-											<button type="button" class="btn btn-light btn-sm p-1"
-												data-bs-toggle="dropdown">
-												<i data-feather="more-vertical" width="14" height="14"></i>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#sales-details-new">
-														<i data-feather="eye" class="me-2" width="14" height="14"></i>
-														Sale Detail
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
+											<button class="dropdown-item d-flex align-items-center small py-1"
 														type="button" data-bs-toggle="modal"
 														data-bs-target="#edit-units">
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit Units
+														
 													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#showpayment"
-														type="button">
-														<i data-feather="dollar-sign" class="me-2" width="14"
-															height="14"></i> Show Payments
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														data-bs-toggle="modal" data-bs-target="#createpayment"
-														type="button">
-														<i data-feather="plus-circle" class="me-2" width="14"
-															height="14"></i> Create Payment
-													</button>
-												</li>
-												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button">
-														<i data-feather="download" class="me-2" width="14"
-															height="14"></i> Download PDF
-													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 text-danger btn-delete-sale"
-														type="button">
-														<i data-feather="trash-2" class="me-2" width="14"
-															height="14"></i> Delete Sale
-													</button>
-												</li>
-
-											</ul>
 										</td>
 									</tr>
 
