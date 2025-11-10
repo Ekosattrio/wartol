@@ -30,6 +30,10 @@ Route::prefix('penjual')->name('penjual.')->group(function () {
     Route::get('/pos', [PosController::class, 'index'])
         ->name('pos');
 
+    // Route untuk melakukan checkout dari POS
+    Route::post('/pos/checkout', [PosController::class, 'checkout'])
+        ->name('pos.checkout');
+
     Route::get('/produk', [ProductController::class, 'index'])
         ->name('produk');
     Route::post('/produk', [ProductController::class, 'store'])
