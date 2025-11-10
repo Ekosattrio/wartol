@@ -4,27 +4,30 @@ namespace App\Http\Controllers\Penjual;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Transaction;
 
 class LaporanController extends Controller
 {
     public function index()
     {
-        return view('penjual.laporan');
+        $transactions = Transaction::latest()->get();
+        return view('penjual.laporan' , compact('transactions'));
+
     }
 
-    public function status()
+    public function edit($id)
     {
-        // nanti tambahin logic kalau emang dipakai
+        $transaction = Transaction::findOrFail($id);
+        return view('transactions.edit', compact('transaction'));
     }
 
-    public function showInvoice()
+    public function destroy($id)
     {
-        // tampilkan detail invoice
+        $transaction = Transaction::findOrFail($id);
+        $transaction->delete();
+
+        return redirect()->route('penjual.laporan')
+            ->with('success', 'Transaksi berhasil dihapus.');
     }
-    
-    public function store(Request $request)
-    {
-        // contoh:
-        // Laporan::create($request->all());
-    }
+
 }

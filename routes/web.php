@@ -23,8 +23,9 @@ Route::prefix('penjual')->name('penjual.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    Route::get('/laporan', [LaporanController::class, 'index'])
-        ->name('laporan');
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+    Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('laporan.edit');
+    Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
 
     Route::get('/pos', [PosController::class, 'index'])
         ->name('pos');

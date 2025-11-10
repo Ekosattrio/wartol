@@ -59,7 +59,6 @@
 
 		<div class="page-wrapper">
 
-			<!-- Main konten tulis disini -->
 			<div class="content container-fluid mt-5">
 				<div class="page-header">
 					<div class="add-item d-flex">
@@ -69,27 +68,29 @@
 						</div>
 					</div>
 					<ul class="table-top-head">
-						
-						<li>
-							<a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i
-									data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a>
-						</li>
-						<li>
-							<a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
-									data-feather="chevron-up" class="feather-chevron-up"></i></a>
-						</li>
+						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
+									src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"></a></li>
+						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
+									src="{{ asset('assets/img/icons/excel.svg') }}" alt="img"></a></li>
+						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer"
+									class="feather-rotate-ccw"></i></a></li>
+						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i
+									data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a></li>
+						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
+									data-feather="chevron-up" class="feather-chevron-up"></i></a></li>
 					</ul>
 					
 				</div>
+
 				<!-- /product list -->
 				<div class="card table-list-card">
 					<div class="card-body">
 						<!-- Filter -->
 						<div class="table-top d-flex align-items-center justify-content-between">
-							<!-- Search Input -->
 							<div class="search-set d-block d-md-flex">
+								
 								<div class="my-2">
-									<div class="pemilihrentang-container ">
+									<div class="pemilihrentang-container">
 										<input type="text" id="pemilihrentang-input"
 											class="pemilihrentang-input form-control" readonly placeholder="Cari berdasarkan Tanggal"
 											style="height: fit-content !important;width: 100% !important;">
@@ -103,8 +104,7 @@
 													<div data-range="tahunLalu">Tahun Lalu</div>
 													<div data-range="kustom">Rentang Kustom</div>
 												</div>
-												<div class="kalender" id="kalender-view" style="display:none;">
-												</div>
+												<div class="kalender" id="kalender-view" style="display:none;"></div>
 											</div>
 										</div>
 									</div>
@@ -115,326 +115,106 @@
 								</div>
 								<!-- Date Range -->
 							</div>
+
 							<div class="filters d-flex justify-content-end">
+							
 								
 								
 							</div>
 						</div>
 						<!-- /Filter -->
-						<div class="table-responsive ">
+
+						<div class="table-responsive">
 							<table class="table datanew">
 								<thead>
 									<tr>
-										<th class="no-sort">
+										<th>
 											<label class="checkboxs">
 												<input type="checkbox" id="select-all">
 												<span class="checkmarks"></span>
 											</label>
 										</th>
-										<th>Customer</th>
-										<th>Reference</th>
-										<th>Date</th>
+										<th>Kode Transaksi</th>
+										<th>Nomor HP</th>
+										<th>Total</th>
+										<th>Metode Pembayaran</th>
+										<th>Status Pembayaran</th>
+										<th>Jadwal Pickup</th>
 										<th>Status</th>
-										<th>Grand Total</th>
-										<th>Paid</th>
-										<th>Due</th>
-										<th>Channel</th>
-										<th>Payment Status</th>
-										<th>Biller</th>
-										<th></th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
+									@foreach($transactions as $trx)
 									<tr>
 										<td>
 											<label class="checkboxs">
-												<input type="checkbox">
+												<input type="checkbox" value="{{ $trx->id }}">
 												<span class="checkmarks"></span>
 											</label>
 										</td>
-										<td>Joko</td>
-										<td>PT001 </td>
-										<td>24 Dec 2024</td>
-										<td><span class="badge bg-soft-success">Complete</span></td>
-										<td>100.000</td>
-										<td>100.000</td>
-										<td>125.000</td>
-										<td>Website</td>
-										<td><span class="badge bg-outline-success">Paid</span></td>
-										<td>Admin</td>
+										<td>{{ $trx->transaction_code }}</td>
+										<td>{{ $trx->phone }}</td>
+										<td>Rp {{ number_format($trx->total_amount, 0, ',', '.') }}</td>
+										<td>{{ $trx->payment_method ?? '-' }}</td>
 										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
+											<span
+												class="badge bg-outline-{{ $trx->payment_status === 'pending' ? 'warning' : ($trx->payment_status === 'success' ? 'success' : 'secondary') }}">
+												{{ ucfirst($trx->payment_status) }}
+											</span>
+										</td>
+										<td>{{ $trx->schedule_pickup ? \Carbon\Carbon::parse($trx->schedule_pickup)->format('d M Y H:i') : '-' }}</td>
+										<td>
+											<span
+												class="badge bg-soft-{{ $trx->status === 'pending' ? 'warning' : ($trx->status === 'completed' ? 'success' : 'secondary') }}">
+												{{ ucfirst($trx->status) }}
+											</span>
+										</td>
+										<td class="text-end">
+											<button type="button" class="btn btn-light btn-sm p-1" data-bs-toggle="dropdown">
+												<i data-feather="more-vertical" width="14" height="14"></i>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
+												<li>
+													<button class="dropdown-item d-flex align-items-center small py-1" type="button"
+														data-bs-toggle="modal" data-bs-target="#sales-details-new">
+														<i data-feather="eye" class="me-2" width="14" height="14"></i>
+														Lihat Detail
 													</button>
-											
+												</li>
+												<li>
+													<a href="{{ route('penjual.laporan.edit', $trx->id) }}"
+														class="dropdown-item d-flex align-items-center small py-1">
+														<i data-feather="edit" class="me-2" width="14" height="14"></i>
+														Edit
+													</a>
+												</li>
+												<li>
+													<form action="{{ route('penjual.laporan.destroy', $trx->id) }}" method="POST"
+														onsubmit="return confirm('Yakin hapus transaksi ini?')">
+														@csrf
+														@method('DELETE')
+														<button type="submit"
+															class="dropdown-item d-flex align-items-center small py-1 text-danger">
+															<i data-feather="trash-2" class="me-2" width="14" height="14"></i>
+															Hapus
+														</button>
+													</form>
+												</li>
+											</ul>
 										</td>
 									</tr>
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Joko</td>
-										<td>PT001</td>
-										<td>24 Dec 2024</td>
-										<td><span class="badge bg-soft-success">Complete</span></td>
-										<td>100.000</td>
-										<td>100.000</td>
-										<td>125.000</td>
-										<td>Website</td>
-										<td><span class="badge bg-outline-success">Paid</span></td>
-										<td>Admin</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Siti</td>
-										<td>PT002</td>
-										<td>02 Jan 2025</td>
-										<td><span class="badge bg-soft-warning">Pending</span></td>
-										<td>200.000</td>
-										<td>150.000</td>
-										<td>250.000</td>
-										<td>Mobile App</td>
-										<td><span class="badge bg-outline-danger">Unpaid</span></td>
-										<td>Staff</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Budi</td>
-										<td>PT003</td>
-										<td>10 Jan 2025</td>
-										<td><span class="badge bg-soft-success">Complete</span></td>
-										<td>300.000</td>
-										<td>280.000</td>
-										<td>350.000</td>
-										<td>E-Commerce</td>
-										<td><span class="badge bg-outline-success">Paid</span></td>
-										<td>Admin</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Lina</td>
-										<td>PT004</td>
-										<td>18 Jan 2025</td>
-										<td><span class="badge bg-soft-danger">Cancelled</span></td>
-										<td>150.000</td>
-										<td>0</td>
-										<td>180.000</td>
-										<td>Website</td>
-										<td><span class="badge bg-outline-danger">Unpaid</span></td>
-										<td>Staff</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Dewi</td>
-										<td>PT005</td>
-										<td>25 Jan 2025</td>
-										<td><span class="badge bg-soft-success">Complete</span></td>
-										<td>120.000</td>
-										<td>120.000</td>
-										<td>145.000</td>
-										<td>Mobile App</td>
-										<td><span class="badge bg-outline-success">Paid</span></td>
-										<td>Manager</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Andi</td>
-										<td>PT006</td>
-										<td>30 Jan 2025</td>
-										<td><span class="badge bg-soft-warning">Pending</span></td>
-										<td>220.000</td>
-										<td>100.000</td>
-										<td>250.000</td>
-										<td>Design</td>
-										<td><span class="badge bg-outline-warning">Partial</span></td>
-										<td>Admin</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Rina</td>
-										<td>PT007</td>
-										<td>05 Feb 2025</td>
-										<td><span class="badge bg-soft-success">Complete</span></td>
-										<td>500.000</td>
-										<td>500.000</td>
-										<td>600.000</td>
-										<td>E-Commerce</td>
-										<td><span class="badge bg-outline-success">Paid</span></td>
-										<td>Staff</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Agus</td>
-										<td>PT008</td>
-										<td>12 Feb 2025</td>
-										<td><span class="badge bg-soft-success">Complete</span></td>
-										<td>350.000</td>
-										<td>350.000</td>
-										<td>400.000</td>
-										<td>Website</td>
-										<td><span class="badge bg-outline-success">Paid</span></td>
-										<td>Manager</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Nina</td>
-										<td>PT009</td>
-										<td>20 Feb 2025</td>
-										<td><span class="badge bg-soft-warning">Pending</span></td>
-										<td>400.000</td>
-										<td>200.000</td>
-										<td>450.000</td>
-										<td>Mobile App</td>
-										<td><span class="badge bg-outline-warning">Partial</span></td>
-										<td>Staff</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-									<tr>
-										<td><label class="checkboxs"><input type="checkbox"><span
-													class="checkmarks"></span></label></td>
-										<td>Rudi</td>
-										<td>PT010</td>
-										<td>28 Feb 2025</td>
-										<td><span class="badge bg-soft-danger">Cancelled</span></td>
-										<td>250.000</td>
-										<td>0</td>
-										<td>300.000</td>
-										<td>Design</td>
-										<td><span class="badge bg-outline-danger">Unpaid</span></td>
-										<td>Admin</td>
-										<td>
-											<button class="dropdown-item d-flex align-items-center small py-1"
-														type="button" data-bs-toggle="modal"
-														data-bs-target="#edit-units">
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														
-													</button>
-											
-										</td>
-									</tr>
-
-
+									@endforeach
 								</tbody>
-								<tfoot>
-									<tr>
-										<td colspan="1"></td>
-										<td class="text-start fw-bold">Total</td>
-										<!-- gunakan class sum-target dan data-col-index agar reusable -->
-										<td colspan="3"></td>
-										<td id="amount-total" class="fw-bold sum-target" data-col-index="5">0</td>
-										<td id="amount-total" class="fw-bold sum-target" data-col-index="6">0</td>
-										<td id="amount-total" class="fw-bold sum-target" data-col-index="7">0</td>
-									</tr>
-								</tfoot>
 							</table>
 						</div>
 					</div>
 				</div>
 				<!-- /product list -->
+
 			</div>
 		</div>
-
 	</div>
-	<!-- /Main Wrapper -->
 
 	<!-- jQuery -->
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
