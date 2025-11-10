@@ -176,25 +176,25 @@
 								<div class="mt-3 d-grid">
 									<button class="btn btn-success" id="checkout-btn">Checkout</button>
 								</div>
-
-								<div class="mt-2">
-									<small class="text-muted">Setiap checkout akan mengurangi stok dan mengembalikan struk (data mentah JSON).</small>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				{{-- Modal untuk menampilkan receipt mentah --}}
+				{{-- Modal untuk menampilkan struk --}}
 				<div class="modal fade" id="receiptModal" tabindex="-1" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
+					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title">Struk (Data Mentah)</h5>
+								<h5 class="modal-title">Struk Pembayaran</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 							</div>
-							<div class="modal-body">
-								<pre id="receipt-raw" style="white-space:pre-wrap;word-wrap:break-word;"></pre>
+							<div class="modal-body" id="receipt-content">
+								{{-- Content will be injected by JS --}}
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+								<button type="button" class="btn btn-primary" id="print-receipt-btn">Cetak Struk</button>
 							</div>
 						</div>
 					</div>
@@ -306,12 +306,77 @@
 				$.post("{{ route('penjual.pos.checkout') }}", { cart: items })
 					.done(function(res) {
 						if (res.success) {
-							// Tampilkan struk mentah
-							$('#receipt-raw').text(JSON.stringify(res.receipt, null, 2));
+							// Build and show receipt
+							const receipt = res.receipt;
+							const receiptContent = `
+								<div class="text-center mb-3">
+									<h4>Warteg Jaya</h4>
+									<p class="mb-0">Alamat</p>
+								</div>
+								<p><strong>No. Transaksi:</strong> ${receipt.transaction_code}</p>
+								<p><strong>Tanggal:</strong> ${new Date(receipt.created_at).toLocaleString('id-ID')}</p>
+								<hr>
+								<table class="table table-sm">
+									<thead>
+										<tr>
+											<th>Produk</th>
+											<th class="text-center">Jumlah</th>
+											<th class="text-end">Harga</th>
+											<th class="text-end">Subtotal</th>
+										</tr>
+									</thead>
+									<tbody id="receipt-items">
+									</tbody>
+								</table>
+								<hr>
+								<div class="d-flex justify-content-end">
+									<p><strong>Total: &nbsp;</strong></p>
+									<p><strong>${formatRp(receipt.total_amount)}</strong></p>
+								</div>
+								<div class="text-center mt-3">
+									<p>Terima kasih telah berbelanja!</p>
+								</div>
+							`;
+
+							$('#receipt-content').html(receiptContent);
+
+							const receiptItemsTbody = $('#receipt-items');
+							receiptItemsTbody.empty();
+							receipt.details.forEach(item => {
+								const row = `
+									<tr>
+										<td>${item.product_name}</td>
+										<td class="text-center">${item.qty}</td>
+										<td class="text-end">${formatRp(item.price)}</td>
+										<td class="text-end">${formatRp(item.subtotal)}</td>
+									</tr>
+								`;
+								receiptItemsTbody.append(row);
+							});
+
 							$('#receiptModal').modal('show');
+
 							// Bersihkan cart
 							cart = {};
 							renderCart();
+
+							// Add print functionality
+							$('#print-receipt-btn').off('click').on('click', function() {
+								const printWindow = window.open('', '', 'height=600,width=800');
+								printWindow.document.write('<html><head><title>Cetak Struk</title>');
+								printWindow.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">');
+								printWindow.document.write('<style>body { padding: 1rem; }</style>');
+								printWindow.document.write('</head><body>');
+								printWindow.document.write($('#receipt-content').html());
+								printWindow.document.write('</body></html>');
+								printWindow.document.close();
+								printWindow.focus();
+								setTimeout(() => {
+									printWindow.print();
+									printWindow.close();
+								}, 250);
+							});
+
 						} else {
 							Swal.fire(res.message || 'Gagal checkout', '', 'error');
 						}

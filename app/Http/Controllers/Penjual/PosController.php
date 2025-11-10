@@ -5,80 +5,101 @@ namespace App\Http\Controllers\Penjual;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PosController extends Controller
 {
-    /**
-     * Tampilkan halaman POS dengan daftar produk.
-     */
     public function index()
     {
-        // Ambil semua produk (paling baru dulu) supaya produk yang baru ditambahkan
-        // langsung terlihat di halaman POS. Jika Anda ingin menyembunyikan produk
-        // non-aktif, ubah query ini kembali ke filter status.
-        $products = Product::latest()->get();
-
+        $products = Product::orderBy('nama_produk')->get();
         return view('penjual.pos', compact('products'));
     }
 
-    /**
-     * Proses checkout: terima cart, validasi stok, kurangi stok, dan kembalikan struk (data mentah JSON).
-     */
     public function checkout(Request $request)
     {
-        $validated = $request->validate([
+        $cartItems = $request->input('cart', []);
+
+        if (empty($cartItems)) {
+            return response()->json(['success' => false, 'message' => 'Keranjang kosong.'], 400);
+        }
+
+        // Validasi dasar
+        $validator = validator($request->all(), [
             'cart' => 'required|array|min:1',
-            'cart.*.product_id' => 'required|integer|distinct',
+            'cart.*.product_id' => 'required|integer|exists:products,id',
             'cart.*.qty' => 'required|integer|min:1',
         ]);
 
-        $cart = $validated['cart'];
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Data tidak valid.', 'errors' => $validator->errors()], 422);
+        }
 
-        $receipt = [
-            'items' => [],
-            'subtotal' => 0,
-            'total' => 0,
-            'created_at' => now()->toDateTimeString(),
-        ];
+        $totalAmount = 0;
+        $receipt = null;
 
         DB::beginTransaction();
         try {
-            foreach ($cart as $line) {
-                $product = Product::lockForUpdate()->find($line['product_id']);
-                if (!$product) {
-                    DB::rollBack();
-                    return response()->json(['success' => false, 'message' => "Produk dengan ID {$line['product_id']} tidak ditemukan."], 422);
+            // 1. Buat Transaksi Utama
+            $transaction = Transaction::create([
+                'transaction_code' => 'POS-' . strtoupper(Str::random(10)),
+                'phone'            => '0000000000', // Placeholder
+                'total_amount'     => 0, // Akan diupdate nanti
+                'payment_method'   => 'cash',
+                'payment_status'   => 'paid',
+                'status'           => 'completed',
+            ]);
+
+            $receiptDetails = []; // Untuk struk response
+
+            foreach ($cartItems as $item) {
+                $product = Product::findOrFail($item['product_id']);
+
+                // Cek stok
+                if ($product->stok < $item['qty']) {
+                    throw new \Exception('Stok untuk produk "' . $product->nama_produk . '" tidak mencukupi.');
                 }
 
-                if ($product->stok < $line['qty']) {
-                    DB::rollBack();
-                    return response()->json(['success' => false, 'message' => "Stok tidak cukup untuk produk: {$product->nama_produk}. Tersisa: {$product->stok}"], 422);
-                }
+                $subtotal = $product->harga * $item['qty'];
+                $totalAmount += $subtotal;
 
-                $lineTotal = $product->harga * $line['qty'];
+                // 2. Buat Detail Transaksi
+                $detail = TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'product_id'     => $product->id,
+                    'qty'            => $item['qty'],
+                    'price'          => $product->harga,
+                    'subtotal'       => $subtotal,
+                ]);
 
-                $receipt['items'][] = [
-                    'product_id' => $product->id,
-                    'nama_produk' => $product->nama_produk,
-                    'harga' => $product->harga,
-                    'qty' => $line['qty'],
-                    'line_total' => $lineTotal,
+                // 3. Kurangi Stok Produk
+                $product->decrement('stok', $item['qty']);
+
+                $receiptDetails[] = [
+                    'product_name' => $product->nama_produk,
+                    'qty'          => $detail->qty,
+                    'price'        => $detail->price,
+                    'subtotal'     => $detail->subtotal,
                 ];
-
-                $receipt['subtotal'] += $lineTotal;
-
-                // Kurangi stok
-                $product->stok = $product->stok - $line['qty'];
-                $product->save();
             }
 
-            // Untuk sekarang tidak ada pajak/biaya tambahan
-            $receipt['total'] = $receipt['subtotal'];
+            // 4. Update Total Amount di Transaksi Utama
+            $transaction->update(['total_amount' => $totalAmount]);
 
             DB::commit();
 
-            return response()->json(['success' => true, 'receipt' => $receipt]);
+            // Siapkan struk untuk response
+            $receipt = $transaction->toArray();
+            $receipt['details'] = $receiptDetails;
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Checkout berhasil!',
+                'receipt' => $receipt
+            ]);
+
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
