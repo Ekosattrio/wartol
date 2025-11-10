@@ -8,6 +8,7 @@ use App\Http\Controllers\Penjual\ProductController;
 use App\Http\Controllers\Penjual\TransactionController;
 use App\Http\Controllers\Penjual\LaporanController;
 use App\Http\Controllers\Penjual\PosController;
+use App\Http\Controllers\Penjual\AdminLoginController;
 
 // Frontend Controllers
 use App\Http\Controllers\FrontendController;
@@ -61,3 +62,21 @@ Route::post('/payment/store', [PaymentController::class, 'store'])
 // TEST VIEW
 // =====================
 Route::get('/index', fn() => view('index'))->name('index');
+
+
+
+// ROUTE LOGIN ADMIN
+Route::post('/admin/login', [AdminLoginController::class, 'store'])->name('admin.login');
+Route::post('/admin/logout', [AdminLoginController::class, 'destroy'])->name('admin.logout');
+
+// 'auth' saja otomatis pakai guard 'web'
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+// });
+
+// Rute untuk PENJUAL (harus login pakai tabel 'penjual')
+// Kita harus spesifik: 'auth:admin'
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminLoginController::class, 'index'])->name('admin.dashboard');
+    // ...
+});

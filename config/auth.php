@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'penjual', // Ini menunjuk ke provider 'penjual' (langkah 3)
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'penjual' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Penjual::class, // Tabel 'penjual' (admin)
         ],
 
         // 'users' => [
