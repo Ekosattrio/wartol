@@ -88,10 +88,7 @@
 						<!-- Filter -->
 						<div class="table-top d-flex align-items-center justify-content-between">
 							<div class="search-set d-block d-md-flex">
-								<div class="search-input">
-									<a href="" class="btn btn-searchset"><i data-feather="search"
-											class="feather-search"></i></a>
-								</div>
+								
 								<div class="my-2">
 									<div class="pemilihrentang-container">
 										<input type="text" id="pemilihrentang-input"
@@ -118,33 +115,11 @@
 								</div>
 								<!-- Date Range -->
 							</div>
+
 							<div class="filters d-flex justify-content-end">
-								<div class="dropdown w-100 me-2">
-									<button class="btn btn-outline-primary dropdown-toggle" type="button"
-										data-bs-toggle="dropdown" aria-expanded="false">Status</button>
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="#">Complete</a></li>
-										<li><a class="dropdown-item" href="#">Pending</a></li>
-										<li><a class="dropdown-item" href="#">Ordered</a></li>
-										<li><a class="dropdown-item" href="#">Received</a></li>
-									</ul>
-								</div>
-								<div class="dropdown w-100 me-2">
-									<button class="btn btn-outline-primary dropdown-toggle" type="button"
-										data-bs-toggle="dropdown" aria-expanded="false">Payment Status</button>
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="#">Paid</a></li>
-										<li><a class="dropdown-item" href="#">Unpaid</a></li>
-									</ul>
-								</div>
-								<div class="dropdown w-100 me-2">
-									<button class="btn btn-outline-primary dropdown-toggle" type="button"
-										data-bs-toggle="dropdown" aria-expanded="false">Channel</button>
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="#">Website</a></li>
-										<li><a class="dropdown-item" href="#">POS</a></li>
-									</ul>
-								</div>
+							
+								
+								
 							</div>
 						</div>
 						<!-- /Filter -->
