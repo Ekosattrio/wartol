@@ -10,7 +10,7 @@
 	<meta name="author" content="Dreamguys - Bootstrap Admin Template">
 	<meta name="robots" content="noindex, nofollow">
 	<title>POS - WARTOL</title>
-
+{{-- 
 	<!-- /modals -->
 	<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 
@@ -77,7 +77,38 @@
 	<link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
 
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> --}}
+	 <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
+
+    <!-- Animation CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
+
+    <!-- Daterangepicker CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/owlcarousel/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/owlcarousel/owl.theme.default.min.css') }}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 </head>
 
@@ -96,10 +127,10 @@
 
 		<div class="page-wrapper">
 
-			<div class="content container-fluid mt-4">
+			<div class="content container-fluid mt-4  pos-design p-0">
 				<meta name="csrf-token" content="{{ csrf_token() }}">
 
-				<style>
+				{{-- <style>
 						/* Prevent horizontal scroll and handle long product names */
 						.product-card .card-body {
 								word-wrap: break-word;
@@ -122,9 +153,9 @@
 						.table-responsive {
 								overflow-x: visible;
 						}
-				</style>
-
-				<div class="row">
+				</style> --}}
+				
+				{{-- <div class="row">
 					<div class="col-lg-8">
 						<div class="card">
 							<div class="card-body">
@@ -179,8 +210,138 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 
+				{{-- ubah eko --}}
+				<div class="row align-items-start pos-wrapper">
+					<div class="col-md-12 col-lg-8">
+						<div class="pos-categories tabs_wrapper">
+							<div class="row d-flex justify-content-between mb-3 position-relative" style="z-index: 2;">
+								<div class="col-6">
+									<h5>Categories</h5>
+									<p>Select From Below Categories</p>
+								</div>
+								
+							</div>
+
+							<!-- KATEGORI (STATIS) -->
+							<ul class="tabs owl-carousel pos-category">
+								<li id="all" class="active">
+										<a href="javascript:void(0);">
+											<img src="{{ asset('assets/img/categories/category-01.png') }}" alt="Categories">
+										</a>
+										<h6><a href="javascript:void(0);">All Categories</a></h6>
+										<span>{{ count($products) }} Items</span>
+									</li>
+									<li id="Ayam">
+										<a href="javascript:void(0);">
+											<img src="{{ asset('assets/img/categories/category-02.png') }}" alt="Categories">
+										</a>
+										<h6><a href="javascript:void(0);">Ayam</a></h6>
+										<span>—</span>
+									</li>
+									<li id="Ikan">
+										<a href="javascript:void(0);">
+											<img src="{{ asset('assets/img/categories/category-03.png') }}" alt="Categories">
+										</a>
+										<h6><a href="javascript:void(0);">Ikan</a></h6>
+										<span>—</span>
+									</li>
+									<li id="Sayur">
+										<a href="javascript:void(0);">
+											<img src="{{ asset('assets/img/categories/category-04.png') }}" alt="Categories">
+										</a>
+										<h6><a href="javascript:void(0);">Sayur</a></h6>
+										<span>—</span>
+									</li>
+									<li id="Lainnya">
+										<a href="javascript:void(0);">
+											<img src="{{ asset('assets/img/categories/category-05.png') }}" alt="Categories">
+										</a>
+										<h6><a href="javascript:void(0);">Lainnya</a></h6>
+										<span>—</span>
+									</li>
+
+							</ul>
+
+							<!-- PRODUK -->
+							<div class="pos-products">
+								<div class="d-flex align-items-center justify-content-between">
+									<h5 class="mb-3">Products</h5>
+								</div>
+
+								<div class="tabs_container">
+									<div class="tab_content active" data-tab="all">
+										<div class="row">
+											@forelse($products as $product)
+												<div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-id="{{ $product->id }}"
+													data-name="{{ $product->nama_produk }}" data-price="{{ $product->harga }}"
+													data-stock="{{ $product->stok }}" data-bs-toggle="modal"
+													data-bs-target="#add-product">
+													<div class="product-info default-cover card">
+														<a href="javascript:void(0);" class="img-bg">
+															<img src="{{ asset('assets/img/products/default.png') }}" alt="Products">
+														</a>
+														<h6 class="cat-name">
+															<a href="javascript:void(0);">{{ $product->kategori ?? 'Tanpa Kategori' }}</a>
+														</h6>
+														<h6 class="product-name">
+															<a href="javascript:void(0);">{{ $product->nama_produk }}</a>
+														</h6>
+														<div
+															class="d-flex align-items-center justify-content-between price text-nowrap">
+															<span>{{ $product->stok }} Pcs</span>
+															<p>Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
+														</div>
+													</div>
+												</div>
+											@empty
+												<div class="col-12 text-center text-muted">Belum ada produk.</div>
+											@endforelse
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- KANAN / KERANJANG -->
+					<div class="col-md-12 col-lg-4 ps-0">
+						<aside class="product-order-list">
+							<div class="head d-flex align-items-center justify-content-between w-100">
+								<div>
+									<h5>Order List</h5>
+									<span>Transaction ID : #{{ rand(10000,99999) }}</span>
+								</div>
+							</div>
+
+							<div class="product-added block-section">
+								<div class="head-text d-flex align-items-center justify-content-between">
+									<h6 class="d-flex align-items-center mb-0">Product Added</h6>
+									<a href="javascript:void(0);" id="clearAllProducts"
+										class="d-flex align-items-center text-danger">
+										<span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear all
+									</a>
+								</div>
+								<div class="product-wrap">
+								</div>
+							</div>
+
+							<br>
+							<div class="btn-row d-sm-flex align-items-center justify-content-between">
+								<button id="paymentTotalBtn" type="button" class="btn btn-success btn-icon flex-fill">
+									<span class="me-1 d-flex align-items-center">
+										<i data-feather="credit-card" class="feather-16"></i>
+									</span>
+									Payment Total Rp0
+								</button>
+							</div>
+						</aside>
+					</div>
+			</div>
+
+				{{-- ubah eko --}}
+				
 				{{-- Modal untuk menampilkan struk --}}
 				<div class="modal fade" id="receiptModal" tabindex="-1" aria-hidden="true">
 					<div class="modal-dialog">
@@ -204,190 +365,326 @@
 		</div>
 
 		<!-- /Page Wrapper -->
-
 	</div>
+	{{-- toast --}}
+	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
+    <div id="cartToast" class="toast text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">Item berhasil ditambahkan ke keranjang!</div>
+    </div>
+</div>
+	{{-- toast --}}
 	<!-- /Main Wrapper -->
+  <!-- /modals -->
+    <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 
+    <!-- Feather Icon JS -->
+    <script src="{{ asset('assets/js/feather.min.js') }}"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="{{ asset('assets/js/jquery.slimscroll.min.js') }}"></script>
+
+    <!-- Datatable JS -->
+    <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.bootstrap5.min.js') }}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Chart JS -->
+    <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/apexchart/chart-data.js') }}"></script>
+
+    <!-- Daterangepicker JS -->
+    <script src="{{ asset('assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+    <!-- Owl JS -->
+    <script src="{{ asset('assets/plugins/owlcarousel/owl.carousel.min.js') }}"></script>
+
+    <!-- Select2 JS -->
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <!-- Sweetalert 2 -->
+    <script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweetalert/sweetalerts.min.js') }}"></script>
+
+    <!-- Separator -->
+    <script src="{{ asset('assets/js/easy-number-separator.js') }}"></script>
+
+    <!-- Live Search -->
+    <script src="{{ asset('assets/js/liveSearch.js') }}"></script>
+
+    <!-- Custom JS -->
+    <script src="{{ asset('assets/js/theme-script.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 	<!-- Scripts -->
-	<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
-	<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-	<script src="{{ asset('assets/js/feather.min.js') }}"></script>
-	<script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+		{{-- <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+		<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+		<script src="{{ asset('assets/js/feather.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}"></script> --}}
+
+
+	{{-- eko baru --}}
 	<script>
-		$(function() {
-			// Setup CSRF untuk AJAX
-			$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+document.addEventListener("DOMContentLoaded", function() {
+	const productWrap = document.querySelector(".product-wrap");
+	const paymentBtn = document.getElementById("paymentTotalBtn");
+	const clearAllBtn = document.getElementById("clearAllProducts");
+	const receiptModal = document.getElementById("receiptModal");
+	if (!productWrap || !paymentBtn) return;
 
-			const formatRp = (value) => {
-				return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-			};
+	const toastEl = document.getElementById('cartToast');
+	const cartToast = toastEl ? new bootstrap.Toast(toastEl, { delay: 3000 }) : null;
 
-			let cart = {}; // product_id => {id,name,price,qty,stock}
+	function showToast(message = "Item berhasil ditambahkan ke keranjang!") {
+		if (!toastEl || !cartToast) return;
+		toastEl.querySelector('.toast-body').textContent = message;
+		cartToast.show();
+	}
 
-			function renderCart() {
-				const $tbody = $('#cart-table tbody');
-				$tbody.empty();
-				let total = 0;
-				Object.values(cart).forEach(item => {
-					const line = item.price * item.qty;
-					total += line;
-					const $tr = $(
-						`<tr data-id="${item.id}">
-							<td>${item.name}<br><small class="text-muted">Rp ${item.price}</small></td>
-							<td style="width:120px;">
-								<div class="input-group input-group-sm">
-									<button class="btn btn-outline-secondary btn-decr" type="button">-</button>
-									<input type="text" class="form-control text-center qty-input" value="${item.qty}" style="width:50px;">
-									<button class="btn btn-outline-secondary btn-incr" type="button">+</button>
-								</div>
-							</td>
-							<td>${formatRp(line)}</td>
-							<td><button class="btn btn-sm btn-danger btn-remove">x</button></td>
-						</tr>`
-					);
+	function parsePrice(text) {
+		if (!text) return 0;
+		const cleanedText = text.replace(/[^\d.,]/g, '');
+		const priceString = cleanedText.replace(/\./g, '').replace(/,/g, '.');
+		return parseFloat(priceString) || 0;
+	}
 
-					$tr.find('.btn-incr').on('click', () => {
-						if (item.qty < item.stock) {
-							item.qty++;
-							renderCart();
-						} else {
-							Swal.fire('Stok tidak cukup', '', 'warning');
-						}
-					});
-					$tr.find('.btn-decr').on('click', () => {
-						if (item.qty > 1) {
-							item.qty--;
-							renderCart();
-						}
-					});
-					$tr.find('.qty-input').on('change', function() {
-						let v = parseInt($(this).val()) || 1;
-						if (v < 1) v = 1;
-						if (v > item.stock) {
-							Swal.fire('Stok tidak cukup', '', 'warning');
-							v = item.stock;
-						}
-						item.qty = v;
-						renderCart();
-					});
-					$tr.find('.btn-remove').on('click', () => {
-						delete cart[item.id];
-						renderCart();
-					});
+	function formatPrice(number) {
+		return number.toLocaleString("id-ID", {
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 2
+		});
+	}
 
-					$tbody.append($tr);
-				});
+	function updatePaymentTotal() {
+		const items = productWrap.querySelectorAll(".product-list");
+		let total = 0;
+		items.forEach(item => {
+			const price = parseFloat(item.querySelector(".unit-price")?.dataset.price || 0);
+			const qty = parseInt(item.querySelector('input[name="qty"]')?.value || "1", 10) || 1;
+			total += price * qty;
+		});
 
-				$('#cart-total').text(formatRp(total));
+		paymentBtn.innerHTML = `
+			<span class="me-1 d-flex align-items-center">
+				<i data-feather="credit-card" class="feather-16"></i>
+			</span>
+			Payment Total Rp${total.toLocaleString("id-ID")}
+		`;
+		if (window.feather) feather.replace();
+		return total;
+	}
+
+	// === Tambah produk ke keranjang ===
+	document.querySelectorAll(".product-info").forEach(card => {
+		card.addEventListener("click", function() {
+			const parentCard = this.closest("[data-id]");
+			const productId = parseInt(parentCard.dataset.id, 10);
+			const img = this.querySelector("img")?.getAttribute("src") || "assets/img/products/default.png";
+			const name = (this.querySelector(".product-name a")?.textContent || "Product").trim();
+			const priceText = this.querySelector(".price p")?.textContent || "Rp0";
+			const rawPrice = parsePrice(priceText);
+
+			const exist = [...productWrap.querySelectorAll(".product-list")].find(el =>
+				el.querySelector(".product-id")?.dataset.productId == productId
+			);
+
+			if (exist) {
+				const qtyInput = exist.querySelector('input[name="qty"]');
+				qtyInput.value = parseInt(qtyInput.value) + 1;
+				updatePaymentTotal();
+				showToast(`Jumlah ${name} ditambah ke keranjang`);
+				return;
 			}
 
-			// Klik pada kartu produk -> tambah ke cart
-			$('.product-card').on('click', function() {
-				const id = $(this).data('id');
-				const name = $(this).data('name');
-				const price = parseInt($(this).data('price')) || 0;
-				const stock = parseInt($(this).data('stock')) || 0;
+			const newProduct = document.createElement("div");
+			newProduct.className = "product-list align-items-center justify-content-between";
+			newProduct.innerHTML = `
+				<div class="d-flex align-items-center product-info w-100">
+					<a href="javascript:void(0);" class="img-bg">
+						<img src="${img}" alt="Products">
+					</a>
+					<div class="info">
+						<span class="product-id" data-product-id="${productId}"></span>
+						<h6><a href="javascript:void(0);">${name}</a></h6>
+						<p class="unit-price" data-price="${rawPrice}">Rp${formatPrice(rawPrice)}</p>
+					</div>
+				</div>
+				<div class="d-flex justify-content-end">
+					<div class="qty-item text-center">
+						<a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center">
+							<i data-feather="minus-circle" class="feather-14"></i>
+						</a>
+						<input type="text" class="form-control text-center" name="qty" value="1">
+						<a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center">
+							<i data-feather="plus-circle" class="feather-14"></i>
+						</a>
+					</div>
+					<div class="d-flex align-items-center action">
+						<a class="btn-icon delete-icon confirm-text">
+							<i data-feather="trash-2" class="feather-14"></i>
+						</a>
+					</div>
+				</div>
+			`;
 
-				if (!cart[id]) {
-					if (stock <= 0) { Swal.fire('Stok kosong', '', 'warning'); return; }
-					cart[id] = { id, name, price, qty: 1, stock };
-				} else {
-					if (cart[id].qty < stock) cart[id].qty++;
-					else { Swal.fire('Stok tidak cukup', '', 'warning'); }
-				}
-				renderCart();
-			});
-
-			// Checkout
-			$('#checkout-btn').on('click', function() {
-				const items = Object.values(cart).map(i => ({ product_id: i.id, qty: i.qty }));
-				if (items.length === 0) { Swal.fire('Keranjang kosong', '', 'info'); return; }
-
-				$.post("{{ route('penjual.pos.checkout') }}", { cart: items })
-					.done(function(res) {
-						if (res.success) {
-							// Build and show receipt
-							const receipt = res.receipt;
-							const receiptContent = `
-								<div class="text-center mb-3">
-									<h4>Warteg Jaya</h4>
-									<p class="mb-0">Alamat</p>
-								</div>
-								<p><strong>No. Transaksi:</strong> ${receipt.transaction_code}</p>
-								<p><strong>Tanggal:</strong> ${new Date(receipt.created_at).toLocaleString('id-ID')}</p>
-								<hr>
-								<table class="table table-sm">
-									<thead>
-										<tr>
-											<th>Produk</th>
-											<th class="text-center">Jumlah</th>
-											<th class="text-end">Harga</th>
-											<th class="text-end">Subtotal</th>
-										</tr>
-									</thead>
-									<tbody id="receipt-items">
-									</tbody>
-								</table>
-								<hr>
-								<div class="d-flex justify-content-end">
-									<p><strong>Total: &nbsp;</strong></p>
-									<p><strong>${formatRp(receipt.total_amount)}</strong></p>
-								</div>
-								<div class="text-center mt-3">
-									<p>Terima kasih telah berbelanja!</p>
-								</div>
-							`;
-
-							$('#receipt-content').html(receiptContent);
-
-							const receiptItemsTbody = $('#receipt-items');
-							receiptItemsTbody.empty();
-							receipt.details.forEach(item => {
-								const row = `
-									<tr>
-										<td>${item.product_name}</td>
-										<td class="text-center">${item.qty}</td>
-										<td class="text-end">${formatRp(item.price)}</td>
-										<td class="text-end">${formatRp(item.subtotal)}</td>
-									</tr>
-								`;
-								receiptItemsTbody.append(row);
-							});
-
-							$('#receiptModal').modal('show');
-
-							// Bersihkan cart
-							cart = {};
-							renderCart();
-
-							// Add print functionality
-							$('#print-receipt-btn').off('click').on('click', function() {
-								const printWindow = window.open('', '', 'height=600,width=800');
-								printWindow.document.write('<html><head><title>Cetak Struk</title>');
-								printWindow.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">');
-								printWindow.document.write('<style>body { padding: 1rem; }</style>');
-								printWindow.document.write('</head><body>');
-								printWindow.document.write($('#receipt-content').html());
-								printWindow.document.write('</body></html>');
-								printWindow.document.close();
-								printWindow.focus();
-								setTimeout(() => {
-									printWindow.print();
-									printWindow.close();
-								}, 250);
-							});
-
-						} else {
-							Swal.fire(res.message || 'Gagal checkout', '', 'error');
-						}
-					})
-					.fail(function(xhr) {
-						const msg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Terjadi kesalahan';
-						Swal.fire(msg, '', 'error');
-					});
-			});
+			productWrap.appendChild(newProduct);
+			if (window.feather) feather.replace();
+			updatePaymentTotal();
+			showToast(`${name} ditambahkan ke keranjang`);
 		});
-	</script>
+	});
 
+	// === Aksi tombol +, -, hapus produk ===
+	document.addEventListener("click", function(e) {
+		const dec = e.target.closest(".dec");
+		const inc = e.target.closest(".inc");
+		const del = e.target.closest(".delete-icon");
+
+		if (dec || inc) {
+			const productList = (dec || inc).closest(".product-list");
+			const input = productList.querySelector("input[name='qty']");
+			let v = parseInt(input.value || "1", 10);
+			if (dec && v > 1) v--;
+			if (inc) v++;
+			input.value = v;
+			updatePaymentTotal();
+		}
+
+		if (del) {
+			del.closest(".product-list")?.remove();
+			updatePaymentTotal();
+		}
+	});
+
+	document.addEventListener("input", function(e) {
+		if (e.target.name === "qty") {
+			let v = parseInt(e.target.value || "1", 10);
+			if (v < 1 || isNaN(v)) v = 1;
+			e.target.value = v;
+			updatePaymentTotal();
+		}
+	});
+
+	if (clearAllBtn) {
+		clearAllBtn.addEventListener("click", function() {
+			productWrap.innerHTML = "";
+			updatePaymentTotal();
+			showToast("Semua produk dihapus dari keranjang");
+		});
+	}
+
+	// === Checkout lewat tombol Payment Total ===
+	paymentBtn.addEventListener("click", async function() {
+		const items = [...productWrap.querySelectorAll(".product-list")];
+		if (items.length === 0) {
+			showToast("Keranjang masih kosong!");
+			return;
+		}
+
+		const cart = items.map(item => ({
+			product_id: parseInt(item.querySelector(".product-id")?.dataset.productId || 0),
+			qty: parseInt(item.querySelector('input[name="qty"]')?.value || "1", 10)
+		}));
+
+		paymentBtn.disabled = true;
+		const originalText = paymentBtn.innerHTML;
+		paymentBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Memproses...`;
+
+		try {
+			const response = await fetch("{{ route('penjual.pos.checkout') }}", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+				},
+				body: JSON.stringify({ cart })
+			});
+
+			const result = await response.json();
+			if (!result.success) {
+				showToast(result.message || "Checkout gagal");
+				paymentBtn.innerHTML = originalText;
+				paymentBtn.disabled = false;
+				return;
+			}
+
+			const { receipt } = result;
+const modalBody = receiptModal.querySelector(".modal-body");
+
+// Catatan: Pastikan fungsi formatDate(dateString) sudah ada di script Anda.
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    return `${day}/${month}/${year}, ${hours}.${minutes}.${seconds}`;
+};
+
+
+modalBody.innerHTML = `
+    <div class="text-center mb-3">
+        <h4 class="mb-0">Warteg Jaya</h4>
+        <p class="mb-0 small text-muted">Alamat</p>
+    </div>
+    <p class="mb-1"><strong>No. Transaksi:</strong> ${receipt.transaction_code}</p>
+    <p class="mb-2"><strong>Tanggal:</strong> ${formatDate(receipt.created_at)}</p>
+    <hr class="mt-0">
+    <table class="table table-sm table-borderless">
+        <thead>
+            <tr>
+                <th style="width: 40%; padding-left: 0;">Produk</th>
+                <th class="text-center">Jumlah</th>
+                <th class="text-end">Harga</th>
+                <th class="text-end" style="padding-right: 0;">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${receipt.details.map(i => `
+                <tr>
+                    <td style="padding-left: 0;">${i.product_name}</td>
+                    <td class="text-center">${i.qty}</td>
+                    <td class="text-end">Rp${formatPrice(i.price)}</td>
+                    <td class="text-end" style="padding-right: 0;">Rp${formatPrice(i.subtotal)}</td>
+                </tr>
+            `).join("")}
+        </tbody>
+    </table>
+    <hr>
+    <div class="d-flex justify-content-end align-items-center mb-3">
+        <p class="mb-0 me-3"><strong>Total:</strong></p>
+        <h5 class="mb-0"><strong>Rp${formatPrice(receipt.total_amount)}</strong></h5>
+    </div>
+    <div class="text-center mt-3">
+        <p class="text-muted">Terima kasih telah berbelanja!</p>
+        <p class="text-muted">Silahkan anda screenshoot sebagai bukti pembayaran!</p>
+    </div>
+`;
+
+			new bootstrap.Modal(receiptModal).show();
+
+			productWrap.innerHTML = "";
+			updatePaymentTotal();
+			showToast("Checkout berhasil!");
+
+		} catch (err) {
+			console.error(err);
+			showToast("Terjadi kesalahan server");
+		} finally {
+			paymentBtn.innerHTML = originalText;
+			paymentBtn.disabled = false;
+		}
+	});
+});
+</script>
+
+
+
+
+
+	{{-- eko baru --}}
 </body>
 </html>
