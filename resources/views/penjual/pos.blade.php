@@ -109,7 +109,6 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
 </head>
 
 <body>
@@ -434,10 +433,18 @@ document.addEventListener("DOMContentLoaded", function() {
 	if (!productWrap || !paymentBtn) return;
 
 	const toastEl = document.getElementById('cartToast');
-	const cartToast = toastEl ? new bootstrap.Toast(toastEl, { delay: 3000 }) : null;
+	const cartToast = toastEl ? new bootstrap.Toast(toastEl, { delay: 2000 }) : null;
 
-	function showToast(message = "Item berhasil ditambahkan ke keranjang!") {
+	function showToast(message, type = 'success') {
 		if (!toastEl || !cartToast) return;
+
+		toastEl.classList.remove('bg-success', 'bg-danger');
+		if (type === 'success') {
+			toastEl.classList.add('bg-success');
+		} else {
+			toastEl.classList.add('bg-danger');
+		}
+
 		toastEl.querySelector('.toast-body').textContent = message;
 		cartToast.show();
 	}
@@ -479,11 +486,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.querySelectorAll(".product-info").forEach(card => {
 		card.addEventListener("click", function() {
 			const parentCard = this.closest("[data-id]");
+			const stock = parseInt(parentCard.dataset.stock, 10);
 			const productId = parseInt(parentCard.dataset.id, 10);
-			const img = this.querySelector("img")?.getAttribute("src") || "assets/img/products/default.png";
 			const name = (this.querySelector(".product-name a")?.textContent || "Product").trim();
-			const priceText = this.querySelector(".price p")?.textContent || "Rp0";
-			const rawPrice = parsePrice(priceText);
 
 			const exist = [...productWrap.querySelectorAll(".product-list")].find(el =>
 				el.querySelector(".product-id")?.dataset.productId == productId
@@ -491,11 +496,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			if (exist) {
 				const qtyInput = exist.querySelector('input[name="qty"]');
-				qtyInput.value = parseInt(qtyInput.value) + 1;
+				const currentQty = parseInt(qtyInput.value, 10);
+				if (currentQty >= stock) {
+					showToast('Stok tidak mencukupi!', 'error');
+					return;
+				}
+				qtyInput.value = currentQty + 1;
 				updatePaymentTotal();
 				showToast(`Jumlah ${name} ditambah ke keranjang`);
 				return;
 			}
+
+			if (stock < 1) {
+				showToast('Stok produk habis!', 'error');
+				return;
+			}
+			
+			const img = this.querySelector("img")?.getAttribute("src") || "assets/img/products/default.png";
+			const priceText = this.querySelector(".price p")?.textContent || "Rp0";
+			const rawPrice = parsePrice(priceText);
 
 			const newProduct = document.createElement("div");
 			newProduct.className = "product-list align-items-center justify-content-between";
@@ -541,12 +560,28 @@ document.addEventListener("DOMContentLoaded", function() {
 		const inc = e.target.closest(".inc");
 		const del = e.target.closest(".delete-icon");
 
-		if (dec || inc) {
-			const productList = (dec || inc).closest(".product-list");
+		if (dec) {
+			const productList = dec.closest(".product-list");
 			const input = productList.querySelector("input[name='qty']");
 			let v = parseInt(input.value || "1", 10);
-			if (dec && v > 1) v--;
-			if (inc) v++;
+			if (v > 1) v--;
+			input.value = v;
+			updatePaymentTotal();
+		}
+
+		if (inc) {
+			const productList = inc.closest(".product-list");
+			const productId = parseInt(productList.querySelector(".product-id").dataset.productId, 10);
+			const productCard = document.querySelector(`[data-id='${productId}']`);
+			const stock = parseInt(productCard.dataset.stock, 10);
+			const input = productList.querySelector("input[name='qty']");
+			let v = parseInt(input.value || "1", 10);
+
+			if (v >= stock) {
+				showToast('Stok tidak mencukupi!', 'error');
+				return;
+			}
+			v++;
 			input.value = v;
 			updatePaymentTotal();
 		}
@@ -559,8 +594,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	document.addEventListener("input", function(e) {
 		if (e.target.name === "qty") {
+			const productList = e.target.closest(".product-list");
+			const productId = parseInt(productList.querySelector(".product-id").dataset.productId, 10);
+			const productCard = document.querySelector(`[data-id='${productId}']`);
+			const stock = parseInt(productCard.dataset.stock, 10);
+			
 			let v = parseInt(e.target.value || "1", 10);
-			if (v < 1 || isNaN(v)) v = 1;
+			if (isNaN(v) || v < 1) {
+				v = 1;
+			}
+			if (v > stock) {
+				v = stock;
+				showToast('Stok tidak mencukupi!', 'error');
+			}
 			e.target.value = v;
 			updatePaymentTotal();
 		}
@@ -570,7 +616,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		clearAllBtn.addEventListener("click", function() {
 			productWrap.innerHTML = "";
 			updatePaymentTotal();
-			showToast("Semua produk dihapus dari keranjang");
+			showToast("Semua produk dihapus dari keranjang", "success");
 		});
 	}
 
@@ -578,7 +624,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	paymentBtn.addEventListener("click", async function() {
 		const items = [...productWrap.querySelectorAll(".product-list")];
 		if (items.length === 0) {
-			showToast("Keranjang masih kosong!");
+			showToast("Keranjang masih kosong!", "error");
 			return;
 		}
 
@@ -603,68 +649,72 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			const result = await response.json();
 			if (!result.success) {
-				showToast(result.message || "Checkout gagal");
+				showToast(result.message || "Checkout gagal", "error");
 				paymentBtn.innerHTML = originalText;
 				paymentBtn.disabled = false;
 				return;
 			}
 
 			const { receipt } = result;
-const modalBody = receiptModal.querySelector(".modal-body");
+			const modalBody = receiptModal.querySelector(".modal-body");
 
-// Catatan: Pastikan fungsi formatDate(dateString) sudah ada di script Anda.
-const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-    return `${day}/${month}/${year}, ${hours}.${minutes}.${seconds}`;
-};
+			const formatDate = (dateString) => {
+					const date = new Date(dateString);
+					const day = date.getDate().toString().padStart(2, '0');
+					const month = (date.getMonth() + 1).toString().padStart(2, '0');
+					const year = date.getFullYear();
+					const hours = date.getHours().toString().padStart(2, '0');
+					const minutes = date.getMinutes().toString().padStart(2, '0');
+					const seconds = date.getSeconds().toString().padStart(2, '0');
+					return `${day}/${month}/${year}, ${hours}.${minutes}.${seconds}`;
+			};
 
+			modalBody.innerHTML = `
+				<div class="text-center mb-3">
+						<h4 class="mb-0">Warteg Jaya</h4>
+						<p class="mb-0 small text-muted">Alamat</p>
+				</div>
+				<p class="mb-1"><strong>No. Transaksi:</strong> ${receipt.transaction_code}</p>
+				<p class="mb-2"><strong>Tanggal:</strong> ${formatDate(receipt.created_at)}</p>
+				<hr class="mt-0">
+				<table class="table table-sm table-borderless">
+						<thead>
+								<tr>
+										<th style="width: 40%; padding-left: 0;">Produk</th>
+										<th class="text-center">Jumlah</th>
+										<th class="text-end">Harga</th>
+										<th class="text-end" style="padding-right: 0;">Subtotal</th>
+								</tr>
+						</thead>
+						<tbody>
+								${receipt.details.map(i => `
+										<tr>
+												<td style="padding-left: 0;">${i.product_name}</td>
+												<td class="text-center">${i.qty}</td>
+												<td class="text-end">Rp${formatPrice(i.price)}</td>
+												<td class="text-end" style="padding-right: 0;">Rp${formatPrice(i.subtotal)}</td>
+										</tr>
+								`).join("")}
+						</tbody>
+				</table>
+				<hr>
+				<div class="d-flex justify-content-end align-items-center mb-3">
+						<p class="mb-0 me-3"><strong>Total:</strong></p>
+						<h5 class="mb-0"><strong>Rp${formatPrice(receipt.total_amount)}</strong></h5>
+				</div>
+				<div class="text-center mt-3">
+						<p class="text-muted">Terima kasih telah berbelanja!</p>
+						<p class="text-muted">Silahkan anda screenshoot sebagai bukti pembayaran!</p>
+				</div>
+			`;
 
-modalBody.innerHTML = `
-    <div class="text-center mb-3">
-        <h4 class="mb-0">Warteg Jaya</h4>
-        <p class="mb-0 small text-muted">Alamat</p>
-    </div>
-    <p class="mb-1"><strong>No. Transaksi:</strong> ${receipt.transaction_code}</p>
-    <p class="mb-2"><strong>Tanggal:</strong> ${formatDate(receipt.created_at)}</p>
-    <hr class="mt-0">
-    <table class="table table-sm table-borderless">
-        <thead>
-            <tr>
-                <th style="width: 40%; padding-left: 0;">Produk</th>
-                <th class="text-center">Jumlah</th>
-                <th class="text-end">Harga</th>
-                <th class="text-end" style="padding-right: 0;">Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            ${receipt.details.map(i => `
-                <tr>
-                    <td style="padding-left: 0;">${i.product_name}</td>
-                    <td class="text-center">${i.qty}</td>
-                    <td class="text-end">Rp${formatPrice(i.price)}</td>
-                    <td class="text-end" style="padding-right: 0;">Rp${formatPrice(i.subtotal)}</td>
-                </tr>
-            `).join("")}
-        </tbody>
-    </table>
-    <hr>
-    <div class="d-flex justify-content-end align-items-center mb-3">
-        <p class="mb-0 me-3"><strong>Total:</strong></p>
-        <h5 class="mb-0"><strong>Rp${formatPrice(receipt.total_amount)}</strong></h5>
-    </div>
-    <div class="text-center mt-3">
-        <p class="text-muted">Terima kasih telah berbelanja!</p>
-        <p class="text-muted">Silahkan anda screenshoot sebagai bukti pembayaran!</p>
-    </div>
-`;
+			const receiptModalInstance = new bootstrap.Modal(receiptModal);
+			receiptModalInstance.show();
 
-			new bootstrap.Modal(receiptModal).show();
+			// Reload page after modal is closed to update stock
+			receiptModal.addEventListener('hidden.bs.modal', () => {
+				location.reload();
+			}, { once: true });
 
 			productWrap.innerHTML = "";
 			updatePaymentTotal();
@@ -672,7 +722,7 @@ modalBody.innerHTML = `
 
 		} catch (err) {
 			console.error(err);
-			showToast("Terjadi kesalahan server");
+			showToast("Terjadi kesalahan server", "error");
 		} finally {
 			paymentBtn.innerHTML = originalText;
 			paymentBtn.disabled = false;
