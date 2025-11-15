@@ -14,7 +14,7 @@ class PosController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('nama_produk')->get();
+        $products = Product::where('status', 'aktif')->orderBy('nama_produk')->get();
         return view('penjual.pos', compact('products'));
     }
 
@@ -56,6 +56,11 @@ class PosController extends Controller
 
             foreach ($cartItems as $item) {
                 $product = Product::findOrFail($item['product_id']);
+
+                // Cek status produk
+                if ($product->status !== 'aktif') {
+                    throw new \Exception('Produk "' . $product->nama_produk . '" tidak tersedia saat ini.');
+                }
 
                 // Cek stok
                 if ($product->stok < $item['qty']) {
