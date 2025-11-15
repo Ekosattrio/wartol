@@ -711,10 +711,39 @@ document.addEventListener("DOMContentLoaded", function() {
 			const receiptModalInstance = new bootstrap.Modal(receiptModal);
 			receiptModalInstance.show();
 
-			// Reload page after modal is closed to update stock
 			receiptModal.addEventListener('hidden.bs.modal', () => {
 				location.reload();
 			}, { once: true });
+	// === Print Struk Pembayaran Lewat tombol Print Struk ===
+			document.getElementById('print-receipt-btn').addEventListener('click', function() {
+				const printContent = modalBody.innerHTML;
+				const printWindow = window.open('', '', 'height=600,width=800');
+				printWindow.document.write('<html><head><title>Struk Pembayaran</title>');
+				printWindow.document.write('<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">');
+				printWindow.document.write(`
+					<style>
+						body { font-family: monospace; margin: 20px; }
+						.table { width: 100%; }
+						.text-center { text-align: center; }
+						.text-end { text-align: right; }
+						.mb-0 { margin-bottom: 0; }
+						.mb-1 { margin-bottom: 0.25rem; }
+						.mb-2 { margin-bottom: 0.5rem; }
+						.mt-0 { margin-top: 0; }
+						.mt-3 { margin-top: 1rem; }
+						.me-3 { margin-right: 1rem; }
+						hr { border-top: 1px dashed #000; }
+						h4, h5, strong { font-weight: bold; }
+					</style>
+				`);
+				printWindow.document.write('</head><body>');
+				printWindow.document.write(printContent);
+				printWindow.document.write('</body></html>');
+				printWindow.document.close();
+				printWindow.focus();
+				printWindow.print();
+				printWindow.close();
+			});
 
 			productWrap.innerHTML = "";
 			updatePaymentTotal();
