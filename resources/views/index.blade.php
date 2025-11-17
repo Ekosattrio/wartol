@@ -68,6 +68,13 @@
                                 <h5>Categories</h5>
                                 <p>Select From Below Categories</p>
                             </div>
+                            <form method="POST" action="{{ route('auth.logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                    Logout
+                                </button>
+                            </form>
                             <div class="col-6 d-flex justify-content-end mt-2 mt-md-0">
                                 <button class="btn btn-secondary " data-bs-toggle="modal" data-bs-target="#loginModal">
                                     <span class="me-1 d-flex align-items-center justify-content-center">
@@ -921,15 +928,19 @@
                     <div class="tab-content">
                         <!-- USER LOGIN -->
                         <div class="tab-pane show active" id="login-user">
-                            <form action="/login/user" method="POST">
+                            <form action="{{ route('auth.send.otp') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label">Nomor HP</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="08xxxx">
+                                    <input type="text" id="phone" name="phone" class="form-control"
+                                        placeholder="081234567890">
+                                    @error('phone')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <button class="btn btn-primary w-100" type="submit">
-                                    Login User
+                                    Kirim Kode OTP
                                 </button>
                             </form>
                         </div>
