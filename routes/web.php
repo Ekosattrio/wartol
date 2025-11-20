@@ -15,6 +15,7 @@ use App\Http\Controllers\Penjual\AdminLoginController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MidtransCallbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,8 @@ Route::prefix('penjual')->name('penjual.')->group(function () {
         ->name('produk.update');
     Route::delete('/produk/{product}', [ProductController::class, 'destroy'])
         ->name('produk.destroy');
-    Route::get('/laporan/export/excel', [LaporanController::class, 'exportExcel'])->name('laporan-export-excel');
+    Route::get('/laporan/export/excel', [LaporanController::class, 'exportExcel'])->name('laporan.export.excel');
+    Route::get('/laporan/export/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.export.pdf');
 
 });
 
