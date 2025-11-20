@@ -9,8 +9,7 @@ use App\Http\Controllers\Penjual\TransactionController;
 use App\Http\Controllers\Penjual\LaporanController;
 use App\Http\Controllers\Penjual\PosController;
 use App\Http\Controllers\Penjual\AdminLoginController;
-
-// Frontend Controllers
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PaymentController;
 
@@ -61,6 +60,12 @@ Route::get('/payment', [PaymentController::class, 'index'])
 
 Route::post('/payment/store', [PaymentController::class, 'store'])
     ->name('payment.store');
+
+Route::post('/createorderjs', [CheckoutController::class, 'createorderjs']);
+
+
+
+
 
 
 // =====================

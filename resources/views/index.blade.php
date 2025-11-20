@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="POS - Bootstrap Admin Template">
     <meta name="keywords"
@@ -61,367 +63,192 @@
 
 
             <div class="row align-items-start pos-wrapper">
-                <div class="col-md-12 col-lg-8">
-                    <div class="pos-categories tabs_wrapper">
-                        <div class="row d-flex justify-content-between mb-3 position-relative" style="z-index: 2;">
-                            <div class="col-6">
-                                <h5>Categories</h5>
-                                <p>Select From Below Categories</p>
-                            </div>
-                            <div class="col-6 d-flex justify-content-end mt-2 mt-md-0">
-                                <button class="btn btn-secondary " data-bs-toggle="modal" data-bs-target="#loginModal">
-                                    <span class="me-1 d-flex align-items-center justify-content-center">
-                                        <i data-feather="user" class="feather-16 me-3"></i>Login
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
+           <div class="col-md-12 col-lg-8">
+            <div class="pos-categories tabs_wrapper">
 
-                        <ul class="tabs owl-carousel pos-category">
-                            <li id="all">
-                                <a href="javascript:void(0);">
-                                    <img src="assets/img/categories/category-01.png" alt="Categories">
+        <div class="row d-flex justify-content-between mb-3 position-relative" style="z-index: 2;">
+            <div class="col-6">
+                <h5>Categories</h5>
+                <p>Select From Below Categories</p>
+            </div>
+            <div class="col-6 d-flex justify-content-end mt-2 mt-md-0">
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <span class="me-1 d-flex align-items-center justify-content-center">
+                        <i data-feather="user" class="feather-16 me-3"></i>Login
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <ul class="tabs owl-carousel pos-category">
+            <li id="all">
+                <a href="javascript:void(0);">
+                    <img src="assets/img/categories/category-01.png" alt="Categories">
+                </a>
+                <h6><a href="javascript:void(0);">All Categories</a></h6>
+                <span>{{ $products->count() }} Items</span>
+            </li>
+
+            @foreach($categories as $category)
+                <li id="{{ $category }}">
+                    <a href="javascript:void(0);">
+                        <img src="assets/img/categories/category-0{{ $loop->iteration + 1 }}.png" alt="Categories">
+                    </a>
+                    <h6><a href="javascript:void(0);">{{ $category }}</a></h6>
+                    <span>{{ $products->where('kategori', $category)->count() }} Items</span>
+                </li>
+            @endforeach
+        </ul>
+
+        <div class="pos-products">
+            <div class="d-flex align-items-center justify-content-between">
+                <h5 class="mb-3">Products</h5>
+            </div>
+
+            <div class="tabs_container">
+
+      
+                <div class="tab_content active" data-tab="all">
+                    <div class="row g-3">
+
+                        @foreach($products as $product)
+                        <div class="col-6 col-md-6 col-lg-3 pe-2">
+
+                            <div class="product-info default-cover card h-100 d-flex flex-column"
+                                 data-id="{{ $product->id }}"
+                                 data-price="{{ $product->harga }}">
+
+                                <a href="javascript:void(0);" class="img-bg mb-2 position-relative">
+                                    <img src="{{ $product->gambar ? asset($product->gambar) : asset('assets/img/products/default.png') }}"
+                                         alt="{{ $product->nama_produk }}"
+                                         class="w-100"
+                                         style="height:180px; object-fit:cover;"
+                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/products/default.png') }}'">
                                 </a>
-                                <h6><a href="javascript:void(0);">All Categories</a></h6>
-                                <span>80 Items</span>
-                            </li>
-                            <li id="Ayam">
-                                <a href="javascript:void(0);">
-                                    <img src="assets/img/categories/category-02.png" alt="Categories">
-                                </a>
-                                <h6><a href="javascript:void(0);">Ayam</a></h6>
-                                <span>4 Items</span>
-                            </li>
-                            <li id="Ikan">
-                                <a href="javascript:void(0);">
-                                    <img src="assets/img/categories/category-03.png" alt="Categories">
-                                </a>
-                                <h6><a href="javascript:void(0);">Ikan</a></h6>
-                                <span>14 Items</span>
-                            </li>
-                            <li id="Sayur">
-                                <a href="javascript:void(0);">
-                                    <img src="assets/img/categories/category-04.png" alt="Categories">
-                                </a>
-                                <h6><a href="javascript:void(0);">Sayur</a></h6>
-                                <span>7 Items</span>
-                            </li>
 
-                        </ul>
-                        <div class="pos-products">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-3">Products</h5>
-                            </div>
-                            <div class="tabs_container">
-                                <div class="tab_content active" data-tab="all">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-bs-toggle="modal"
-                                            data-bs-target="#add-product">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/brosur.png" alt="Products">
-                                                    <!-- <span><i data-feather="check" class="feather-16"></i></span> -->
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Cetak Full Color</a>
-                                                </h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Brosur</a></h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-bs-toggle="modal"
-                                            data-bs-target="#add-product">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-07.png" alt="Products">
-                                                    <!-- <span><i data-feather="check" class="feather-16"></i></span> -->
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
-                                                </h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Ideapad slim
-                                                        7</a></h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-bs-toggle="modal"
-                                            data-bs-target="#add-product">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-08.png" alt="Products">
-                                                    <!-- <span><i data-feather="check" class="feather-16"></i></span> -->
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ayam</a>
-                                                </h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Ayam
-                                                        Iphone</a></h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-bs-toggle="modal"
-                                            data-bs-target="#add-product">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-10.png" alt="Products">
-                                                    <!-- <span><i data-feather="check" class="feather-16"></i></span> -->
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Handphoner</a>
-                                                </h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Iphoner</a>
-                                                </h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-bs-toggle="modal"
-                                            data-bs-target="#add-product">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-12.png" alt="Products">
-                                                    <!-- <span><i data-feather="check" class="feather-16"></i></span> -->
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
-                                                </h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Samsung ROG</a>
-                                                </h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-bs-toggle="modal"
-                                            data-bs-target="#add-product">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-12.png" alt="Products">
-                                                    <!-- <span><i data-feather="check" class="feather-16"></i></span> -->
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
-                                                </h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Samsung ROG</a>
-                                                </h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-bs-toggle="modal"
-                                            data-bs-target="#add-product">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-12.png" alt="Products">
-                                                    <!-- <span><i data-feather="check" class="feather-16"></i></span> -->
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
-                                                </h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Samsung ROG</a>
-                                                </h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3" data-bs-toggle="modal"
-                                            data-bs-target="#add-product">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-12.png" alt="Products">
-                                                    <!-- <span><i data-feather="check" class="feather-16"></i></span> -->
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ikan</a>
-                                                </h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Samsung ROG</a>
-                                                </h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <h6 class="cat-name text-truncate">
+                                    <a href="javascript:void(0);">{{ $product->kategori ?? '-' }}</a>
+                                </h6>
 
+                                <h6 class="product-name text-truncate">
+                                    <a href="javascript:void(0);">{{ $product->nama_produk }}</a>
+                                </h6>
 
+                                <div class="d-flex align-items-center justify-content-between mt-auto price">
+                                    <span>{{ $product->stok }} Pcs</span>
 
-                                    </div>
+                                    <!-- FIX: hanya data-price, TIDAK ADA lagi data-id -->
+                                    <p class="unit-price" data-price="{{ $product->harga }}">
+                                        Rp{{ number_format($product->harga, 0, ',', '.') }}
+                                    </p>
                                 </div>
-                                <div class="tab_content" data-tab="Ayam">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-05.png" alt="Products">
-                                                    <span><i data-feather="check" class="feather-16"></i></span>
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ayam</a></h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Airpod 2</a>
-                                                </h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>47 Pcs</span>
-                                                    <p>Rp5478</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-08.png" alt="Products">
-                                                    <span><i data-feather="check" class="feather-16"></i></span>
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ayam</a></h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">SWAGME</a></h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>14 Pcs</span>
-                                                    <p>Rp6587</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab_content" data-tab="Ikan">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-04.png" alt="Products">
-                                                    <span><i data-feather="check" class="feather-16"></i></span>
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ikan</a></h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Red Nike
-                                                        Angelo</a></h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>78 Pcs</span>
-                                                    <p>Rp7800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-06.png" alt="Products">
-                                                    <span><i data-feather="check" class="feather-16"></i></span>
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ikan</a></h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Blue White
-                                                        OGR</a></h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>54 Pcs</span>
-                                                    <p>Rp987</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-18.png" alt="Products">
-                                                    <span><i data-feather="check" class="feather-16"></i></span>
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Ikan</a></h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Green Nike
-                                                        Fe</a>
-                                                </h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>78 Pcs</span>
-                                                    <p>Rp7847</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab_content" data-tab="Sayur">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-01.png" alt="Products">
-                                                    <span><i data-feather="check" class="feather-16"></i></span>
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Sayur</a></h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">IPhone 14
-                                                        64GB</a></h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>30 Pcs</span>
-                                                    <p>Rp15800</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2">
-                                            <div class="product-info default-cover card">
-                                                <a href="javascript:void(0);" class="img-bg">
-                                                    <img src="assets/img/products/pos-product-14.png" alt="Products">
-                                                    <span><i data-feather="check" class="feather-16"></i></span>
-                                                </a>
-                                                <h6 class="cat-name"><a href="javascript:void(0);">Sayur</a></h6>
-                                                <h6 class="product-name"><a href="javascript:void(0);">Iphone 11</a>
-                                                </h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>14 Pcs</span>
-                                                    <p>Rp3654</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
 
                             </div>
                         </div>
+                        @endforeach
+
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-4 ps-0">
-                    <aside class="product-order-list">
-                        <div class="head d-flex align-items-center justify-content-between w-100">
-                            <div class="">
-                                <h5>Order List</h5>
-                                <span>Transaction ID : #65565</span>
-                            </div>
-
-                        </div>
 
 
-                        <div class="product-added block-section">
-                            <div class="head-text d-flex align-items-center justify-content-between">
-                                <h6 class="d-flex align-items-center mb-0">Product Added
+                @foreach($categories as $category)
+                <div class="tab_content" data-tab="{{ $category }}">
+                    <div class="row g-3">
+
+                        @foreach($products->where('kategori', $category) as $product)
+                        <div class="col-6 col-md-6 col-lg-3 pe-2">
+
+                            <div class="product-info default-cover card h-100 d-flex flex-column"
+                                 data-id="{{ $product->id }}"
+                                 data-price="{{ $product->harga }}">
+
+                                <a href="javascript:void(0);" class="img-bg mb-2 position-relative">
+                                    <img src="{{ $product->gambar ? asset($product->gambar) : asset('assets/img/products/default.png') }}"
+                                         alt="{{ $product->nama_produk }}"
+                                         class="w-100"
+                                         style="height:180px; object-fit:cover;"
+                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/products/default.png') }}'">
+                                </a>
+
+                                <h6 class="cat-name text-truncate">
+                                    <a href="javascript:void(0);">{{ $product->kategori ?? '-' }}</a>
                                 </h6>
-                                <a href="javascript:void(0);" id="clearAllProducts"
-                                    class="d-flex align-items-center text-danger"><span class="me-1"><i
-                                            data-feather="x" class="feather-16"></i></span>Clear all</a>
-                            </div>
-                            <div class="product-wrap">
-                                <div class="product-list align-items-center justify-content-between">
 
+                                <h6 class="product-name text-truncate">
+                                    <a href="javascript:void(0);">{{ $product->nama_produk }}</a>
+                                </h6>
+
+                                <div class="d-flex align-items-center justify-content-between mt-auto price">
+                                    <span>{{ $product->stok }} Pcs</span>
+
+                                    <!-- FIX: tidak ada data-id -->
+                                    <p class="unit-price" data-price="{{ $product->harga }}">
+                                        Rp{{ number_format($product->harga, 0, ',', '.') }}
+                                    </p>
                                 </div>
 
                             </div>
+
                         </div>
+                        @endforeach
 
-
-
-                        <br>
-                        <div class="btn-row d-sm-flex align-items-center justify-content-between">
-                            <!-- ini ada payment complete buat abis modal harusnya -->
-                            <a id="paymentTotalBtn" class="btn btn-success btn-icon flex-fill" data-bs-toggle="modal"
-                                data-bs-target="#payment-cash">
-                                <span class="me-1 d-flex align-items-center">
-                                    <i data-feather="credit-card" class="feather-16"></i>
-                                </span>
-                                Payment Total Rp0
-                            </a>
-                        </div>
-                    </aside>
+                    </div>
                 </div>
+                @endforeach
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+                <div class="col-md-12 col-lg-4 ps-0">
+    <aside class="product-order-list">
+        <div class="head d-flex align-items-center justify-content-between w-100">
+            <div class="">
+                <h5>Order List</h5>
+                <span id=""></span>
+            </div>
+        </div>
+
+        <!-- Input nomor telepon wajib -->
+        <div class="mb-3">
+            <label for="phoneInput" class="form-label">Nomor Telepon</label>
+            <input type="text" id="phoneInput" class="form-control" placeholder="Masukkan nomor telepon" required>
+        </div>
+
+        <!-- Input jadwal pickup opsional -->
+        <div class="mb-3">
+            <label for="schedulePickup" class="form-label">Jadwal Pickup (opsional)</label>
+            <input type="datetime-local" id="schedulePickup" class="form-control">
+        </div>
+
+        <div class="product-added block-section">
+            <div class="head-text d-flex align-items-center justify-content-between">
+                <h6 class="d-flex align-items-center mb-0">Product Added</h6>
+                <a href="javascript:void(0);" id="clearAllProducts" class="d-flex align-items-center text-danger">
+                    <span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear all
+                </a>
+            </div>
+            <div class="product-wrap">
+                <!-- Produk akan ditambahkan di sini oleh JS -->
+            </div>
+        </div>
+
+        <br>
+        <div class="btn-row d-sm-flex align-items-center justify-content-between">
+            <button id="paymentTotalBtn" class="btn btn-success btn-icon flex-fill" type="button">
+    <span class="me-1 d-flex align-items-center">
+        <i data-feather="credit-card" class="feather-16"></i>
+    </span>
+    Payment Total Rp0
+</button>
+        </div>
+    </aside>
+</div>
+
             </div>
         </div>
     </div>
@@ -549,118 +376,7 @@
     </div>
     <!-- /Payment Completed -->
 
-    <!-- Print Receipt -->
-    <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="close p-0" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="icon-head text-center">
-                        <a href="javascript:void(0);">
-                            <img src="assets/img/logo.png" width="100" height="30" alt="Receipt Logo">
-                        </a>
-                    </div>
-                    <div class="text-center info text-center">
-                        <h6>Dreamguys Technologies Pvt Ltd.,</h6>
-                        <p class="mb-0">Phone Number: +1 5656665656</p>
-                        <p class="mb-0">Email: <a href="mailto:example@gmail.com">example@gmail.com</a></p>
-                    </div>
-                    <div class="tax-invoice">
-                        <h6 class="text-center">Tax Invoice</h6>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="invoice-user-name"><span>Name: </span><span>John Doe</span></div>
-                                <div class="invoice-user-name"><span>Invoice No: </span><span>CS132453</span></div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="invoice-user-name"><span>Customer Id: </span><span>#LL93784</span></div>
-                                <div class="invoice-user-name"><span>Date: </span><span>01.07.2022</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table-borderless w-100 table-fit">
-                        <thead>
-                            <tr>
-                                <th># Item</th>
-                                <th>Price</th>
-                                <th>Qty</th>
-                                <th class="text-end">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1. Red Nike Laser</td>
-                                <td>Rp50</td>
-                                <td>3</td>
-                                <td class="text-end">Rp150</td>
-                            </tr>
-                            <tr>
-                                <td>2. Iphone 14</td>
-                                <td>Rp50</td>
-                                <td>2</td>
-                                <td class="text-end">Rp100</td>
-                            </tr>
-                            <tr>
-                                <td>3. Apple Series 8</td>
-                                <td>Rp50</td>
-                                <td>3</td>
-                                <td class="text-end">Rp150</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <table class="table-borderless w-100 table-fit">
-                                        <tr>
-                                            <td>Sub Total :</td>
-                                            <td class="text-end">Rp700.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Discount :</td>
-                                            <td class="text-end">-Rp50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shipping :</td>
-                                            <td class="text-end">0.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tax (5%) :</td>
-                                            <td class="text-end">Rp5.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total Bill :</td>
-                                            <td class="text-end">Rp655.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Due :</td>
-                                            <td class="text-end">Rp0.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total Payable :</td>
-                                            <td class="text-end">Rp655.00</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="text-center invoice-bar">
-                        <p>**VAT against this challan is payable through central registration. Thank you for your
-                            business!</p>
-                        <a href="javascript:void(0);">
-                            <img src="assets/img/barcode/barcode-03.jpg" alt="Barcode">
-                        </a>
-                        <p>Sale 31</p>
-                        <p>Thank You For Shopping With Us. Please Come Again</p>
-                        <a href="javascript:void(0);" class="btn btn-primary">Print Receipt</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Print Receipt -->
+   
     {{-- toast --}}
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 2000;">
         <div id="cartToast" class="toast align-items-center text-bg-success border-0" role="alert"
@@ -893,9 +609,7 @@
     </div>
     <!-- payment -->
 
-    <!-- view product -->
-
-    <!-- view product -->
+  
 
     {{-- modal login --}}
     <!-- LOGIN MODAL -->
@@ -966,6 +680,7 @@
     </div>
 
     {{-- modal login --}}
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-p90Xji3FUa_ai4zv"></script>
     <!-- /modals -->
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 
@@ -1012,7 +727,7 @@
 
 
 
-
+{{-- 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const clearAllBtn = document.getElementById("clearAllProducts");
@@ -1057,11 +772,11 @@
                 });
             }
         });
-    </script>
+    </script> --}}
 
 
 
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const productSearch = document.getElementById("productSearch");
             const productDropdownMenu = document.querySelector("#product-dropdown .dropdown-menu.search-dropdown");
@@ -1169,12 +884,148 @@
                 }
             });
         });
-    </script>
+    </script> --}}
     <!-- clear product added -->
+   
+
+    {{-- js midtrans snap --}}
+{{-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const paymentBtn = document.getElementById("paymentTotalBtn");
+    const productWrap = document.querySelector(".product-wrap");
+    const phoneInput = document.querySelector("#phoneInput");
+    const scheduleInput = document.querySelector("#schedulePickup");
+
+    if(!paymentBtn || !productWrap) return;
+
+    // ======= Helper =======
+    function parsePrice(text) {
+        if(!text) return 0;
+        return parseInt(text.replace(/[^\d]/g,'')) || 0;
+    }
+
+    function collectCartItems() {
+        return [...productWrap.querySelectorAll(".product-list")].map(item => ({
+            product_id: item.querySelector(".product-id")?.textContent.replace("PT","") || null,
+            qty: parseInt(item.querySelector('input[name="qty"]').value || "1", 10),
+            price: parsePrice(item.querySelector(".unit-price")?.textContent || "0")
+        }));
+    }
+
+    function updatePaymentTotal() {
+        let total = 0;
+        collectCartItems().forEach(item => total += item.qty * item.price);
+        paymentBtn.innerHTML = `
+            <span class="me-1 d-flex align-items-center">
+                <i data-feather="credit-card" class="feather-16"></i>
+            </span>
+            Payment Total Rp${total.toLocaleString("id-ID")}
+        `;
+        if(window.feather) feather.replace();
+    }
+
+    // ======= Quantity / Delete =======
+    document.addEventListener("click", function(e){
+        const dec = e.target.closest(".dec");
+        const inc = e.target.closest(".inc");
+        const del = e.target.closest(".delete-icon");
+        if(!dec && !inc && !del) return;
+
+        const productList = (dec||inc||del).closest(".product-list");
+        const input = productList.querySelector('input[name="qty"]');
+
+        if(dec){
+            let v = parseInt(input.value||"1",10);
+            if(v>1) v--;
+            input.value=v;
+        }
+        if(inc){
+            let v = parseInt(input.value||"1",10);
+            v++;
+            input.value=v;
+        }
+        if(del){
+            productList.remove();
+        }
+
+        updatePaymentTotal();
+    });
+
+    document.addEventListener("input", function(e){
+        if(e.target.name === "qty"){
+            let v = parseInt(e.target.value||"1",10);
+            if(v<1 || isNaN(v)) v=1;
+            e.target.value=v;
+            updatePaymentTotal();
+        }
+    });
+
+    // ======= Payment =======
+    paymentBtn.addEventListener("click", function() {
+        const phone = phoneInput?.value?.trim();
+        if(!phone){
+            alert("Masukkan nomor telepon terlebih dahulu!");
+            return;
+        }
+
+        const items = collectCartItems();
+        if(items.length === 0){
+            alert("Keranjang kosong!");
+            return;
+        }
+
+        const schedule = scheduleInput?.value || null;
+
+        // Kirim ke backend untuk generate Snap token
+        fetch("/penjual/pos/checkout", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                phone: phone,
+                schedule_pickup: schedule,
+                items: items
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.snap_token){
+                snap.pay(data.snap_token, {
+                    onSuccess: function(result){
+                        alert("Pembayaran sukses!");
+                        console.log(result);
+                        window.location.reload();
+                    },
+                    onPending: function(result){
+                        alert("Pembayaran pending!");
+                        console.log(result);
+                    },
+                    onError: function(result){
+                        alert("Pembayaran gagal!");
+                        console.log(result);
+                    }
+                });
+            } else {
+                alert("Gagal membuat transaksi.");
+                console.error(data);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Terjadi kesalahan server.");
+        });
+    });
+    });
+</script> --}}
+
+    {{-- js midtrans snap --}}
 
 
 
-    <script>
+
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const productWrap = document.querySelector(".product-wrap");
             const paymentBtn = document.getElementById("paymentTotalBtn");
@@ -1337,7 +1188,413 @@
                 }
             });
         });
-    </script>
+    </script> --}}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const clearAllBtn = document.getElementById("clearAllProducts");
+    const productWrap = document.querySelector(".product-wrap");
+    const paymentBtn = document.getElementById("paymentTotalBtn");
+    const phoneInput = document.querySelector("#phoneInput");
+    const scheduleInput = document.querySelector("#schedulePickup");
+    const toastEl = document.getElementById('cartToast');
+    const cartToast = toastEl ? new bootstrap.Toast(toastEl, {delay: 3000}) : null;
+
+    if (!productWrap || !paymentBtn) return;
+
+    /* ==============================
+        HELPER FUNCTIONS
+    ============================== */
+    function parsePrice(text) {
+        if (!text) return 0;
+        const cleaned = String(text).replace(/[^\d]/g, "");
+        return parseInt(cleaned, 10) || 0;
+    }
+
+    function formatPrice(number) {
+        return Number(number).toLocaleString("id-ID", {minimumFractionDigits: 0});
+    }
+
+    function parseId(raw) {
+        if (!raw) return null;
+        const str = String(raw).trim();
+        // Hanya terima angka murni
+        if (/^\d+$/.test(str)) {
+            const id = parseInt(str, 10);
+            return (id > 0) ? id : null;
+        }
+        return null;
+    }
+
+    /* ==============================
+        COLLECT CART ITEMS (VALIDASI KETAT)
+    ============================== */
+    function collectCartItems() {
+        const items = [...productWrap.querySelectorAll(".product-list")]
+            .map(item => {
+                const pidEl = item.querySelector(".product-id");
+                const rawId = pidEl?.dataset?.id;
+                const product_id = parseId(rawId);
+
+                // ✅ Skip jika ID tidak valid
+                if (!product_id || product_id <= 0) {
+                    console.warn("⚠️ Item diabaikan - ID tidak valid:", {rawId, element: item});
+                    return null;
+                }
+
+                const unitEl = item.querySelector(".unit-price");
+                const price = parsePrice(unitEl?.dataset?.price || unitEl?.textContent || "0");
+                const qty = parseInt(item.querySelector('input[name="qty"]')?.value || "1", 10);
+
+                // ✅ Skip jika qty invalid
+                if (qty < 1 || isNaN(qty)) {
+                    console.warn("⚠️ Item diabaikan - Qty tidak valid:", {product_id, qty});
+                    return null;
+                }
+
+                console.log("✅ Item valid:", {product_id, qty, price});
+                return {product_id, qty, price};
+            })
+            .filter(i => i !== null);
+
+        return items;
+    }
+
+    function calculateTotal(items) {
+        return items.reduce((acc, i) => acc + (i.qty * i.price), 0);
+    }
+
+    function updatePaymentTotal() {
+        const items = collectCartItems();
+        const total = calculateTotal(items);
+        paymentBtn.innerHTML = `
+            <span class="me-1 d-flex align-items-center">
+                <i data-feather="credit-card" class="feather-16"></i>
+            </span>
+            Payment Total Rp${formatPrice(total)}
+        `;
+        if (window.feather) feather.replace();
+    }
+
+    function showToast(msg) {
+        if (!cartToast) return;
+        const body = toastEl.querySelector('.toast-body');
+        if (body) body.textContent = msg;
+        cartToast.show();
+    }
+
+    function showCustomAlert(message) {
+        console.error("🚨 ALERT:", message);
+        const modalEl = document.getElementById('infoModal');
+        if (modalEl) {
+            const modalBody = modalEl.querySelector('.modal-body');
+            if (modalBody) modalBody.textContent = message;
+            new bootstrap.Modal(modalEl).show();
+        } else {
+            // Fallback visual alert
+            const body = document.querySelector('body');
+            const tempAlert = document.createElement('div');
+            tempAlert.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:20px;background:#dc3545;color:white;z-index:9999;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.3);max-width:400px;text-align:center;';
+            tempAlert.textContent = message;
+            body.appendChild(tempAlert);
+            setTimeout(() => tempAlert.remove(), 4000);
+        }
+    }
+
+    /* ==============================
+        DEBUG: CLEANUP HIDDEN BUGS
+    ============================== */
+    const hiddenBugs = document.querySelectorAll('.product-info[data-id="10023"], .product-info[data-id=""]');
+    if (hiddenBugs.length > 0) {
+        console.error("🐛 BUG: Ditemukan", hiddenBugs.length, "elemen dengan ID tidak valid. Elemen dihapus!");
+        hiddenBugs.forEach(el => el.remove());
+        showCustomAlert(`BUG: Ditemukan ${hiddenBugs.length} produk dengan ID tidak valid. Elemen telah dihapus otomatis.`);
+    }
+
+    /* ==============================
+        ADD PRODUCT TO CART
+    ============================== */
+    document.querySelectorAll(".product-info").forEach(card => {
+        card.addEventListener("click", function() {
+            const img = this.querySelector("img")?.getAttribute("src") || "/assets/img/products/default.png";
+            const nameEl = this.querySelector(".product-name a, .product-name");
+            const name = (nameEl?.textContent || "Produk").trim();
+
+            const rawId = this.dataset?.id?.trim();
+            const productId = parseId(rawId);
+
+            // ✅ VALIDASI: ID harus valid
+            if (!productId) {
+                console.error("❌ Produk tidak punya ID valid:", {rawId, element: this});
+                showCustomAlert("Produk ini tidak memiliki ID valid! Hubungi admin.");
+                return;
+            }
+
+            const rawPrice = parsePrice(this.dataset?.price || this.querySelector(".unit-price")?.dataset?.price || "0");
+
+            // ✅ Cek apakah sudah ada di cart
+            const exist = [...productWrap.querySelectorAll(".product-list")]
+                .find(el => {
+                    const existId = parseId(el.querySelector(".product-id")?.dataset?.id);
+                    return existId === productId;
+                });
+
+            if (exist) {
+                const qtyInput = exist.querySelector('input[name="qty"]');
+                qtyInput.value = parseInt(qtyInput.value || 1) + 1;
+                updatePaymentTotal();
+                showToast(`Jumlah ${name} bertambah`);
+                return;
+            }
+
+            // ✅ Tambah item baru
+            const newProduct = document.createElement("div");
+            newProduct.className = "product-list align-items-center justify-content-between";
+            newProduct.innerHTML = `
+                <div class="d-flex align-items-center product-info w-100">
+                    <a href="javascript:void(0);" class="img-bg">
+                        <img src="${img}" alt="Products">
+                    </a>
+                    <div class="info">
+                        <span class="product-id" data-id="${productId}">PT${productId}</span>
+                        <h6><a href="javascript:void(0);">${name}</a></h6>
+                        <p class="unit-price" data-price="${rawPrice}">Rp${formatPrice(rawPrice)}</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div class="qty-item text-center">
+                        <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center">
+                            <i data-feather="minus-circle" class="feather-14"></i>
+                        </a>
+                        <input type="text" class="form-control text-center" name="qty" value="1">
+                        <a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center">
+                            <i data-feather="plus-circle" class="feather-14"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center action">
+                        <a class="btn-icon delete-icon confirm-text">
+                            <i data-feather="trash-2" class="feather-14"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            productWrap.appendChild(newProduct);
+            if (window.feather) feather.replace();
+            updatePaymentTotal();
+            showToast(`${name} ditambahkan`);
+        });
+    });
+
+    /* ==============================
+        QTY CONTROLS & DELETE
+    ============================== */
+    document.addEventListener("click", function(e) {
+        const dec = e.target.closest(".dec");
+        const inc = e.target.closest(".inc");
+        const del = e.target.closest(".delete-icon");
+
+        if (!dec && !inc && !del) return;
+
+        const item = (dec || inc || del).closest(".product-list");
+        if (!item) return;
+
+        const input = item.querySelector('input[name="qty"]');
+
+        if (del) {
+            item.remove();
+        } else if (dec) {
+            input.value = Math.max(1, parseInt(input.value || 1) - 1);
+        } else if (inc) {
+            input.value = parseInt(input.value || 1) + 1;
+        }
+
+        updatePaymentTotal();
+    });
+
+    document.addEventListener("input", function(e) {
+        if (e.target.name === "qty") {
+            let v = parseInt(e.target.value || 1);
+            e.target.value = (v < 1 || isNaN(v)) ? 1 : v;
+            updatePaymentTotal();
+        }
+    });
+
+    /* ==============================
+        CLEAR ALL PRODUCTS
+    ============================== */
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Hapus Semua?',
+                    text: "Keranjang akan dikosongkan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#f39c12',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        productWrap.innerHTML = "";
+                        updatePaymentTotal();
+                        Swal.fire('Terhapus!', 'Keranjang telah dikosongkan.', 'success');
+                    }
+                });
+            } else {
+                if (confirm("Hapus semua produk dari keranjang?")) {
+                    productWrap.innerHTML = "";
+                    updatePaymentTotal();
+                }
+            }
+        });
+    }
+
+    /* ==============================
+        MIDTRANS CHECKOUT
+    ============================== */
+    paymentBtn.addEventListener("click", async function() {
+        const phone = phoneInput?.value?.trim();
+        if (!phone) {
+            return showCustomAlert("Masukkan nomor telepon terlebih dahulu!");
+        }
+
+        const items = collectCartItems();
+
+        // ✅ DEBUGGING: Log items
+        console.log("📦 Items yang akan dikirim ke server:", items);
+
+        // ✅ VALIDASI: Keranjang tidak boleh kosong
+        if (items.length === 0) {
+            return showCustomAlert("Keranjang kosong! Tambahkan produk terlebih dahulu.");
+        }
+
+        // ✅ VALIDASI: Cek apakah ada ID yang mencurigakan (sesuaikan dengan range ID database Anda)
+        const invalidIds = items.filter(i => i.product_id > 100); // Sesuaikan: jika ID Anda max 100
+        if (invalidIds.length > 0) {
+            console.error("❌ ID tidak valid ditemukan:", invalidIds);
+            return showCustomAlert("Ada produk dengan ID tidak valid di keranjang. Refresh halaman dan coba lagi!");
+        }
+
+        const schedule = scheduleInput?.value || null;
+
+        // ✅ Disable button saat proses
+        paymentBtn.disabled = true;
+        const originalHTML = paymentBtn.innerHTML;
+        paymentBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Processing...`;
+        if (window.feather) feather.replace();
+
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+            if (!csrfToken) {
+                throw new Error("CSRF token tidak ditemukan!");
+            }
+
+            const response = await fetch("/createorderjs", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": csrfToken
+                },
+                body: JSON.stringify({
+                    phone: phone,
+                    schedule_pickup: schedule,
+                    items: items
+                }),
+                credentials: "same-origin"
+            });
+
+            let data = null;
+            try {
+                data = await response.json();
+            } catch (parseError) {
+                console.error("❌ JSON parse error:", parseError);
+                throw new Error("Server tidak mengirim response JSON yang valid.");
+            }
+
+            console.log("📥 Response dari server:", data);
+
+            if (!response.ok) {
+                const errorMsg = data?.error || data?.message || `Server error: ${response.status}`;
+                console.error("❌ Server error:", data);
+                throw new Error(errorMsg);
+            }
+
+            if (!data?.snap_token) {
+                console.error("❌ Snap token tidak ditemukan:", data);
+                throw new Error("Snap token tidak ditemukan dalam response.");
+            }
+
+            // ✅ Cek apakah Midtrans Snap sudah loaded
+            if (typeof snap === "undefined") {
+                throw new Error("Midtrans Snap belum loaded! Pastikan script Midtrans sudah dimuat.");
+            }
+
+            // ✅ Open Midtrans payment popup
+            snap.pay(data.snap_token, {
+                onSuccess: function(result) {
+                    console.log("✅ Payment success:", result);
+                    showCustomAlert("Pembayaran berhasil!");
+                    setTimeout(() => location.reload(), 1500);
+                },
+                onPending: function(result) {
+                    console.log("⏳ Payment pending:", result);
+                    showCustomAlert("Pembayaran tertunda. Silakan selesaikan pembayaran Anda.");
+                },
+                onError: function(result) {
+                    console.error("❌ Payment error:", result);
+                    showCustomAlert("Pembayaran gagal. Silakan coba lagi.");
+                },
+                onClose: function() {
+                    console.log("👋 Payment popup closed");
+                }
+            });
+
+        } catch (error) {
+            console.error("❌ Checkout error:", error);
+            showCustomAlert(`Gagal membuat transaksi: ${error.message}`);
+        } finally {
+            // ✅ Re-enable button
+            paymentBtn.disabled = false;
+            paymentBtn.innerHTML = originalHTML;
+            if (window.feather) feather.replace();
+        }
+    });
+
+    /* ==============================
+        CREATE INFO MODAL IF NOT EXISTS
+    ============================== */
+    if (!document.getElementById('infoModal')) {
+        const modalHTML = `
+        <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="infoModalLabel">Informasi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Message will be inserted here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+    }
+
+    // ✅ Initialize payment total on load
+    updatePaymentTotal();
+});
+</script>
+
+
+
 
 
     <!-- custom ukuran -->
