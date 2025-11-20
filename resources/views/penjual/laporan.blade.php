@@ -68,12 +68,15 @@
 						</div>
 					</div>
 					<ul class="table-top-head">
-						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
-									src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"></a></li>
+						<li><a href="{{  route('penjual.laporan.export.pdf')}}"
+								data-bs-toggle="tooltip" 
+								data-bs-placement="top" 
+								title="Pdf">
+								<img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"></a></li>
 
 
 						<li>
-							<a href="{{ route('penjual.laporan-export-excel') }}"
+							<a href="{{ route('penjual.laporan.export.excel') }}"
 								data-bs-toggle="tooltip"
 								data-bs-placement="top"
 								title="Excel">
@@ -81,9 +84,6 @@
 							</a>
 						</li>
 
-
-						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer"
-									class="feather-rotate-ccw"></i></a></li>
 						
 						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i
 									data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a></li>

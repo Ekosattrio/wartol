@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
@@ -35,5 +36,15 @@ class LaporanController extends Controller
     public function exportExcel(){
         return Excel::download(new LaporanExport, 'laporan.xlsx');
     }
+
+    public function exportPDF()
+        {
+            $data = Transaction::all(); 
+            
+            $pdf = Pdf::loadView('pdf.pdf_laporan', compact('data'))
+                    ->setPaper('A4', 'landscape');
+            
+            return $pdf->download('laporan-penjualan.pdf');
+        }
 
 }
