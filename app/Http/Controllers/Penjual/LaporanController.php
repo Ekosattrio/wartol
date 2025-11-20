@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Penjual;
 
+use App\Exports\LaporanExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
 {
@@ -28,6 +30,10 @@ class LaporanController extends Controller
 
         return redirect()->route('penjual.laporan')
             ->with('success', 'Transaksi berhasil dihapus.');
+    }
+
+    public function exportExcel(){
+        return Excel::download(new LaporanExport, 'laporan.xlsx');
     }
 
 }
