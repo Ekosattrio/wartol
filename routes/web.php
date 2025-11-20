@@ -42,6 +42,8 @@ Route::prefix('penjual')->name('penjual.')->group(function () {
         ->name('produk.update');
     Route::delete('/produk/{product}', [ProductController::class, 'destroy'])
         ->name('produk.destroy');
+    Route::get('/laporan/export/excel', [LaporanController::class, 'exportExcel'])->name('laporan-export-excel');
+
 });
 
 
