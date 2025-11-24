@@ -78,33 +78,48 @@
 						<div class="card h-100">
 							<div class="card-header d-flex justify-content-between align-items-center">
 								<h6 class="mb-0">Sales Statics</h6>
-								<div class="dropdown">
-									<a href="javascript:void(0);"
-										class="dropdown-toggle btn btn-sm border d-flex align-items-center"
-										data-bs-toggle="dropdown" aria-expanded="false">
-										2025
-									</a>
-									<ul class="dropdown-menu p-3">
-										<li><a href="javascript:void(0);" class="dropdown-item">2024</a></li>
-										<li><a href="javascript:void(0);" class="dropdown-item">2023</a></li>
-										<li><a href="javascript:void(0);" class="dropdown-item">2022</a></li>
-									</ul>
-								</div>
 							</div>
 							<div class="card-body">
-								<div class="d-flex gap-3 mb-3">
-									<div class="p-3 border rounded" style="min-width:160px">
-										<div class="small text-muted">Revenue</div>
-										<h5 class="mb-1 text-success">Rp12.189</h5>
-										<small class="badge bg-success">+25%</small>
+								<div class="row mb-3">
+									<div class="col-md-4">
+										<div class="p-3 border rounded h-100 text-center">
+											<div class="small text-muted">Total Pemasukan Kotor</div>
+											<h5 class="mb-1 text-success">Rp {{ number_format($totalSales ?? 0, 0, ',', '.') }}</h5>
+										</div>
 									</div>
-									<div class="p-3 border rounded" style="min-width:160px">
-										<div class="small text-muted">Expense</div>
-										<h5 class="mb-1 text-danger">Rp48.988.078</h5>
-										<small class="badge bg-danger">-25%</small>
+									<div class="col-md-4">
+										<div class="p-3 border rounded h-100 text-center">
+											<div class="small text-muted">Total Order</div>
+											<h5 class="mb-1">{{ $totalOrders ?? 0 }}</h5>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="p-3 border rounded h-100 text-center">
+											<div class="small text-muted">Top Seller</div>
+											@if(isset($topItems) && $topItems->count())
+												<h6 class="mb-1">{{ $topItems->first()->nama_produk }}</h6>
+												<small class="text-muted">{{ $topItems->first()->total_qty }} Terjual</small>
+											@else
+												<div class="text-muted">No sales yet</div>
+											@endif
+										</div>
 									</div>
 								</div>
 								<div id="sales_statistik"></div>
+								<hr>
+								<h6>Produk Top Seller</h6>
+								<ul class="list-group list-group-flush mt-2">
+									@if(isset($topItems) && $topItems->count())
+										@foreach($topItems as $item)
+											<li class="list-group-item d-flex justify-content-between align-items-center">
+												<span>{{ $item->nama_produk }}</span>
+												<span class="badge bg-primary rounded-pill">{{ $item->total_qty }}</span>
+											</li>
+										@endforeach
+									@else
+										<li class="list-group-item text-muted">Belum ada data penjualan.</li>
+									@endif
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -140,7 +155,80 @@
 
 <!-- Chart JS -->
 <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/apexchart/chart-data.js') }}"></script>
+
+<script>
+	(function() {
+		// labels and data passed from controller
+		const labels = @json($chartLabels ?? []);
+		const data = @json($chartData ?? []);
+
+		if (labels.length && data.length) {
+			var options = {
+				chart: {
+					type: 'area',
+					height: 320,
+					toolbar: { show: false },
+					zoom: { enabled: false },
+					selection: { enabled: false },
+					events: {
+						dataPointSelection: function(e, chartCtx, opts){
+							return false; // matikan klik pada data
+						},
+						click: function(){
+							return false; // klik grafik tidak berpengaruh
+						}
+					}
+				},
+				colors: ['#FF8A00'],
+				series: [{ name: 'Penjualan', data: data }],
+				xaxis: {
+					categories: labels,
+					labels: { rotate: -45 }
+				},
+				dataLabels: { enabled: false },
+				stroke: { curve: 'smooth', width: 2, colors: ['#8B4B0B'] },
+				markers: {
+					size: 3,
+					colors: ['#8B4B0B'],
+					strokeColors: '#fff',
+					strokeWidth: 1
+				},
+				fill: {
+					type: 'gradient',
+					gradient: {
+						shade: 'light',
+						type: 'vertical',
+						shadeIntensity: 0.4,
+						gradientToColors: ['#8B4513'],
+						inverseColors: false,
+						opacityFrom: 0.85,
+						opacityTo: 0.2,
+						stops: [0, 90, 100]
+					}
+				},
+				yaxis: {
+					// set maximum to 3,000,000 and show ticks every 500,000
+					min: 0,
+					tickAmount: 6,
+					forceNiceScale: true,
+					labels: {
+						formatter: function (val) { return 'Rp ' + Intl.NumberFormat('id-ID').format(val); }
+					}
+				},
+				tooltip: {
+					y: {
+						formatter: function (val) { return 'Rp ' + Intl.NumberFormat('id-ID').format(val); }
+					}
+				}
+			};
+
+			var chart = new ApexCharts(document.querySelector('#sales_statistik'), options);
+			chart.render();
+		} else {
+			document.querySelector('#sales_statistik').innerHTML = '<div class="text-muted">Tidak ada data penjualan 7 hari terakhir.</div>';
+		}
+	})();
+</script>
 
 <!-- Sweetalert 2 -->
 <script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
