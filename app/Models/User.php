@@ -2,47 +2,69 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+// Anda HARUS meng-import kelas-kelas ini untuk otentikasi
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+// Implementasikan Authenticatable
+class User extends Model implements Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+
+    // Gunakan trait standar untuk otentikasi
+    use \Illuminate\Auth\Authenticatable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Nama tabel database.
+     */
+    protected $table = 'users';
+
+    /**
+     * Kolom yang bisa diisi secara massal.
+     * Hanya 'phone' sesuai tabel Anda.
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'phone',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Kolom yang disembunyikan saat di-serialisasi.
+     * Kosongkan karena tidak ada password.
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        //
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Tipe data yang di-cast.
+     * Kosongkan karena tidak ada email_verified_at.
      */
-    protected function casts(): array
+    protected $casts = [
+        //
+    ];
+
+    /**
+     * Tentukan apakah tabel menggunakan timestamps.
+     * Tabel Anda memilikinya (created_at, updated_at).
+     */
+    public $timestamps = true;
+
+
+    // ======================================================
+    // INI ADALAH PERBAIKAN FATAL ERROR
+    // ======================================================
+
+    // public $rememberTokenName = false; // <-- HAPUS BARIS INI, INI PENYEBAB ERROR
+
+    /**
+     * Kita ganti properti yang error tadi dengan method ini
+     * untuk menonaktifkan "remember me" token.
+     *
+     * @return string|null
+     */
+    public function getRememberTokenName()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return null; // Return null berarti fitur "remember_token" dimatikan
     }
 }

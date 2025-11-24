@@ -3,23 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class FrontendController extends Controller
 {
     public function index() {
-        return view('index');
+        // Ambil produk yang aktif dan stok > 0
+        $products = Product::where('status', 'aktif')
+                           ->where('stok', '>', 0)
+                           ->get();
+
+        // Ambil kategori unik dari produk aktif
+        // Kalau belum ada kolom kategori, kita bisa dummy sementara
+        $categories = $products->pluck('kategori')->unique() ?? collect([]);
+
+        return view('index', compact('products', 'categories'));
     }
 
     public function fillphonenumber(Request $request) {
-
-        // Validasi sederhana (opsional)
         $request->validate([
             'phone' => 'required|min:9'
         ]);
 
-        // Kalau valid masuk ke payment
         return redirect()->route('payment.index');
-
-        // kalau mau handle gagal, tambahin else nya
     }
 }
