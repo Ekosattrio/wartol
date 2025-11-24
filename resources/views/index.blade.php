@@ -54,17 +54,41 @@
     </div>
     <!-- Main Wrapper -->
     <div class="main-wrapper">
-
-
-
         <!-- Main content tulis disini -->
         <div class="content pos-design p-0">
-
-
-
             <div class="row align-items-start pos-wrapper">
-           <div class="col-md-12 col-lg-8">
-            <div class="pos-categories tabs_wrapper">
+                <div class="col-md-12 col-lg-8">
+                    <div class="pos-categories tabs_wrapper">
+                        <div class="row d-flex justify-content-between mb-3 position-relative" style="z-index: 2;">
+                            <div class="col-6">
+                                <h5>Categories</h5>
+                                <p>Select From Below Categories</p>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end mt-2 mt-md-0">
+                                @auth
+                                    {{-- KONDISI: SUDAH LOGIN --}}
+                                    {{-- Tampilkan tombol Logout yang mengarah ke route auth.logout --}}
+                                    <form action="{{ route('auth.logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">
+                                            <span class="me-1 d-flex align-items-center justify-content-center">
+                                                {{-- Ikon Log Out --}}
+                                                <i data-feather="log-out" class="feather-16 me-3"></i>Logout
+                                            </span>
+                                        </button>
+                                    </form>
+                                @else
+                                    {{-- KONDISI: BELUM LOGIN --}}
+                                    {{-- Tampilkan tombol Login (Buka Modal) --}}
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        <span class="me-1 d-flex align-items-center justify-content-center">
+                                            {{-- Ikon User --}}
+                                            <i data-feather="user" class="feather-16 me-3"></i>Login
+                                        </span>
+                                    </button>
+                                @endauth
+                            </div>
+                        </div>
 
         <div class="row d-flex justify-content-between mb-3 position-relative" style="z-index: 2;">
             <div class="col-6">
@@ -186,7 +210,6 @@
                                         Rp{{ number_format($product->harga, 0, ',', '.') }}
                                     </p>
                                 </div>
-
                             </div>
 
                         </div>
@@ -483,15 +506,6 @@
     <!-- /Hold -->
 
 
-
-
-
-
-
-
-
-
-
     <!-- payment -->
     <div class="modal fade modal-default" id="payment-cash">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -529,10 +543,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="row">
-
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Total<span class="text-danger">*</span></label>
@@ -560,7 +572,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="col-md-12">
                                 <div class="mb-3">
@@ -635,15 +646,19 @@
                     <div class="tab-content">
                         <!-- USER LOGIN -->
                         <div class="tab-pane show active" id="login-user">
-                            <form action="/login/user" method="POST">
+                            <form action="{{ route('auth.send.otp') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label">Nomor HP</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="08xxxx">
+                                    <input type="text" name="phone" class="form-control"
+                                        placeholder="081234567890">
+                                    @error('phone')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <button class="btn btn-primary w-100" type="submit">
-                                    Login User
+                                    Kirim Kode OTP
                                 </button>
                             </form>
                         </div>

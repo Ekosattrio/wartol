@@ -34,7 +34,7 @@
         <!-- /Search -->
 
         <!-- Notifications -->
-        <li class="nav-item dropdown nav-item-box">
+        {{-- <li class="nav-item dropdown nav-item-box">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                 <i data-feather="bell"></i><span class="badge rounded-pill">2</span>
             </a>
@@ -133,8 +133,16 @@
                     <a href="activities.html">View all Notifications</a>
                 </div>
             </div>
-        </li>
+        </li> --}}
         <!-- /Notifications -->
+
+        {{-- logout button --}}
+        <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button type="submit" class="btn btn-danger">
+                Log out Admin
+            </button>
+        </form>
 
     </ul>
     <!-- /Header Menu -->

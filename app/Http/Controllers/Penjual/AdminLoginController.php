@@ -49,4 +49,6 @@ class AdminLoginController extends Controller
 
         return redirect('/'); // Arahkan ke halaman utama
     }
+
+    public function showloginform() {}
 }
