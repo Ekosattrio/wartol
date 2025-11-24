@@ -12,8 +12,7 @@ use App\Http\Controllers\Penjual\TransactionController;
 use App\Http\Controllers\Penjual\LaporanController;
 use App\Http\Controllers\Penjual\PosController;
 use App\Http\Controllers\Penjual\AdminLoginController;
-
-// Frontend Controllers
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PaymentController;
 
@@ -42,6 +41,12 @@ Route::get('/index', fn() => view('index'))->name('index');
 Route::middleware('guest')->group(function () {
     // 2. Route untuk MENGIRIM OTP (Form dari Modal akan POST ke sini)
     Route::post('login/send-otp', [OtpAuthController::class, 'sendOtp'])->name('auth.send.otp');
+Route::post('/createorderjs', [CheckoutController::class, 'createorderjs']);
+
+
+
+
+
 
     // 3. Halaman untuk VERIFIKASI OTP (Halaman terpisah)
     Route::get('verif-otp', [OtpAuthController::class, 'showVerifyForm'])->name('auth.verify.form');

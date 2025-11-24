@@ -2,29 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
-
-    /**
-     * Nama tabel yang terkait dengan model.
-     *
-     * @var string
-     */
-    protected $table = 'products'; // Memberitahu Laravel nama tabelnya adalah 'products'
-
-    /**
-     * Atribut yang dapat diisi secara massal (mass assignable).
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'nama_produk',
         'harga',
         'stok',
         'status',
     ];
+
+    // ✅ Accessor untuk memudahkan akses (opsional)
+    public function getNameAttribute()
+    {
+        return $this->nama_produk;
+    }
+
+    public function getPriceAttribute()
+    {
+        return $this->harga;
+    }
+
+    public function getStockAttribute()
+    {
+        return $this->stok;
+    }
 }
