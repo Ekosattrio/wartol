@@ -68,8 +68,15 @@
                                 @auth
                                     {{-- KONDISI: SUDAH LOGIN --}}
                                     {{-- Tampilkan tombol Logout yang mengarah ke route auth.logout --}}
+                                     <button type="submit" class="btn btn-primary me-3" style="height: 38px" data-bs-toggle="modal" data-bs-target="#orders">
+                                            <span class="me-1 d-flex align-items-center justify-content-center">
+                                                {{-- Ikon Log Out --}}
+                                               History
+                                            </span>
+                                        </button>
                                     <form action="{{ route('auth.logout') }}" method="POST">
                                         @csrf
+                                       
                                         <button type="submit" class="btn btn-danger">
                                             <span class="me-1 d-flex align-items-center justify-content-center">
                                                 {{-- Ikon Log Out --}}
@@ -393,6 +400,7 @@
         </div>
     </div>
     <!-- /Payment Completed -->
+    
 
    
     {{-- toast --}}
@@ -615,9 +623,177 @@
     </div>
     <!-- payment -->
 
-  
+  {{--modal history --}}
+   <div class="modal fade pos-modal" id="orders" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
 
-    {{-- modal login --}}
+            <div class="modal-header">
+                <h5 class="modal-title">Orders</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- contoh isi berulang -->
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Cashier :</span> admin
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Total :</span> $900
+                                </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Customer :</span> Botsford
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="rounded text-center my-3">
+                            <p class="text-info fw-medium bg-info-transparent p-1">
+                                Customer need to recheck the product once
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Cashier :</span> admin
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Total :</span> $900
+                                </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Customer :</span> Botsford
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="rounded text-center my-3">
+                            <p class="text-info fw-medium bg-info-transparent p-1">
+                                Customer need to recheck the product once
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Cashier :</span> admin
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Total :</span> $900
+                                </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Customer :</span> Botsford
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="rounded text-center my-3">
+                            <p class="text-info fw-medium bg-info-transparent p-1">
+                                Customer need to recheck the product once
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Cashier :</span> admin
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Total :</span> $900
+                                </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Customer :</span> Botsford
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="rounded text-center my-3">
+                            <p class="text-info fw-medium bg-info-transparent p-1">
+                                Customer need to recheck the product once
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Cashier :</span> admin
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Total :</span> $900
+                                </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="fs-15 mb-1">
+                                    <span class="fw-bold">Customer :</span> Botsford
+                                </p>
+                                <p class="fs-15">
+                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="rounded text-center my-3">
+                            <p class="text-info fw-medium bg-info-transparent p-1">
+                                Customer need to recheck the product once
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- copy card ini berkali-kali -> modal akan otomatis scroll -->
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+  {{--modal history --}}
+
     <!-- LOGIN MODAL -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md">

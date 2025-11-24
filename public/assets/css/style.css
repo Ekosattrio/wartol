@@ -59,9 +59,13 @@ a {
   -ms-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
+.btn-equal {
+    min-height: 40px;
+    padding: 0.5rem 1rem;
+}
 
 a:hover {
-  color: #ff8510;
+  color: #A8734A;
   -webkit-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -1181,7 +1185,7 @@ ul .btn-primary:not(:disabled):not(.disabled).active:focus {
 }
 
 .btn-submit:hover {
-  background: #ff8510;
+  background: #A8734A;
   color: #ffffff;
 }
 
@@ -1269,7 +1273,7 @@ ul .btn-primary:not(:disabled):not(.disabled).active:focus {
 }
 
 .btn-save:hover {
-  background: #ff8510;
+  background: #A8734A;
   color: #ffffff;
 }
 
@@ -1324,7 +1328,7 @@ ul .btn-primary:not(:disabled):not(.disabled).active:focus {
 }
 
 .btn-send:hover {
-  background: #ff8510;
+  background: #A8734A;
   color: #ffffff;
 }
 
@@ -18580,7 +18584,7 @@ div#global-loader {
 }
 
 .header-left #toggle_btn:hover {
-  background: #ff8510;
+  background: #A8734A;
 }
 
 .header-left.active svg {
