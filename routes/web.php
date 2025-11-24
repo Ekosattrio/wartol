@@ -28,6 +28,11 @@ Route::post('/fillphonenumber', [FrontendController::class, 'fillphonenumber'])-
 // Route untuk testing view
 Route::get('/index', [FrontendController::class, 'index'])->name('index');
 
+// Halaman ketika warteg / wartol ditutup
+Route::get('/closed', function(){
+    return view('closed');
+})->name('closed');
+
 // Checkout harus bisa diakses login maupun guest
 Route::post('/createorderjs', [CheckoutController::class, 'createorderjs'])->name('checkout.create');
 
@@ -81,7 +86,7 @@ Route::middleware('guest:admin')->group(function () {
 });
 
 // Admin SUDAH login
-Route::middleware(['auth:admin'])->group(function () {
+// Route::middleware(['auth:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminLoginController::class, 'index'])
         ->name('admin.dashboard');
@@ -92,6 +97,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::prefix('penjual')->name('penjual.')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::post('/toggle-wartol', [DashboardController::class, 'toggleWartol'])->name('toggle-wartol');
 
         Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
         Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('laporan.edit');
@@ -106,4 +112,4 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::delete('/produk/{product}', [ProductController::class, 'destroy'])->name('produk.destroy');
     });
 
-});
+// });
