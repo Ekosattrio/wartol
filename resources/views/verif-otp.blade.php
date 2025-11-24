@@ -17,12 +17,12 @@
         </p>
 
         <!-- HANYA UNTUK DEVELOPMENT / TESTING -->
-        @if (session('development_otp'))
+        {{-- @if (session('development_otp'))
             <div class="p-4 text-sm text-blue-700 bg-blue-100 rounded-lg">
                 <strong>Mode Development:</strong> Kode OTP Anda adalah
                 <strong>{{ session('development_otp') }}</strong>
             </div>
-        @endif
+        @endif --}}
         <!-- HAPUS BLOK DI ATAS DI PRODUKSI -->
 
 

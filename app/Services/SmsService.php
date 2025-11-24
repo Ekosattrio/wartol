@@ -2,34 +2,45 @@
 
 namespace App\Services;
 
-use Twilio\Rest\Client; // <-- BARIS INI PENTING (YANG HILANG)
+use Twilio\Rest\Client;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class SmsService
 {
-    protected $client;
+    protected $twilio;
     protected $from;
 
     public function __construct()
     {
-        // Ambil konfigurasi dari config/services.php
+        // PENTING: Gunakan config(), jangan env() di sini
         $sid = config('services.twilio.sid');
         $token = config('services.twilio.token');
-        $this->from = config('services.twilio.phone_number');
+        $this->from = config('services.twilio.from');
 
-        $this->client = new Client($sid, $token);
+        // Debugging: Cek apakah config terbaca (bisa dihapus nanti)
+        // \Illuminate\Support\Facades\Log::info("Twilio Config: SID=" . $sid . ", From=" . $this->from);
+
+        Log::info('Debug Config Twilio:', [
+            'sid_exists' => !empty(config('services.twilio.sid')),
+            'token_exists' => !empty(config('services.twilio.token')),
+            'from_exists' => !empty(config('services.twilio.from')),
+            // JANGAN log token asli demi keamanan, cukup cek empty/tidak
+        ]);
+
+        if (!$sid || !$token || !$this->from) {
+            // Ini pesan error yang kamu lihat di log sebelumnya
+            throw new Exception("Konfigurasi Twilio (SID, Token, Phone Number) belum diatur atau tidak terbaca.");
+        }
+
+        $this->twilio = new Client($sid, $token);
     }
 
-    public function send(string $to, string $message)
+    public function send($to, $message)
     {
-        // TODO: Pastikan nomor $to sudah dalam format E.164 (cth: +628123...)
-        // Anda perlu buat fungsi normalisasi nomor HP di OtpAuthController
-
-        return $this->client->messages->create(
-            $to,
-            [
-                'from' => $this->from,
-                'body' => $message
-            ]
-        );
+        return $this->twilio->messages->create($to, [
+            'from' => $this->from,
+            'body' => $message
+        ]);
     }
 }

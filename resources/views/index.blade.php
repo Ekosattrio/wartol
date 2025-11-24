@@ -52,14 +52,8 @@
     </div>
     <!-- Main Wrapper -->
     <div class="main-wrapper">
-
-
-
         <!-- Main content tulis disini -->
         <div class="content pos-design p-0">
-
-
-
             <div class="row align-items-start pos-wrapper">
                 <div class="col-md-12 col-lg-8">
                     <div class="pos-categories tabs_wrapper">
@@ -68,19 +62,29 @@
                                 <h5>Categories</h5>
                                 <p>Select From Below Categories</p>
                             </div>
-                            <form method="POST" action="{{ route('auth.logout') }}">
-                                @csrf
-                                <button type="submit"
-                                    class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                    Logout
-                                </button>
-                            </form>
                             <div class="col-6 d-flex justify-content-end mt-2 mt-md-0">
-                                <button class="btn btn-secondary " data-bs-toggle="modal" data-bs-target="#loginModal">
-                                    <span class="me-1 d-flex align-items-center justify-content-center">
-                                        <i data-feather="user" class="feather-16 me-3"></i>Login
-                                    </span>
-                                </button>
+                                @auth
+                                    {{-- KONDISI: SUDAH LOGIN --}}
+                                    {{-- Tampilkan tombol Logout yang mengarah ke route auth.logout --}}
+                                    <form action="{{ route('auth.logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">
+                                            <span class="me-1 d-flex align-items-center justify-content-center">
+                                                {{-- Ikon Log Out --}}
+                                                <i data-feather="log-out" class="feather-16 me-3"></i>Logout
+                                            </span>
+                                        </button>
+                                    </form>
+                                @else
+                                    {{-- KONDISI: BELUM LOGIN --}}
+                                    {{-- Tampilkan tombol Login (Buka Modal) --}}
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        <span class="me-1 d-flex align-items-center justify-content-center">
+                                            {{-- Ikon User --}}
+                                            <i data-feather="user" class="feather-16 me-3"></i>Login
+                                        </span>
+                                    </button>
+                                @endauth
                             </div>
                         </div>
 
@@ -394,10 +398,7 @@
                                 <h5>Order List</h5>
                                 <span>Transaction ID : #65565</span>
                             </div>
-
                         </div>
-
-
                         <div class="product-added block-section">
                             <div class="head-text d-flex align-items-center justify-content-between">
                                 <h6 class="d-flex align-items-center mb-0">Product Added
@@ -408,14 +409,9 @@
                             </div>
                             <div class="product-wrap">
                                 <div class="product-list align-items-center justify-content-between">
-
                                 </div>
-
                             </div>
                         </div>
-
-
-
                         <br>
                         <div class="btn-row d-sm-flex align-items-center justify-content-between">
                             <!-- ini ada payment complete buat abis modal harusnya -->
@@ -774,15 +770,6 @@
     <!-- /Hold -->
 
 
-
-
-
-
-
-
-
-
-
     <!-- payment -->
     <div class="modal fade modal-default" id="payment-cash">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -820,10 +807,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="row">
-
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Total<span class="text-danger">*</span></label>
@@ -851,7 +836,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="col-md-12">
                                 <div class="mb-3">
@@ -932,7 +916,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label">Nomor HP</label>
-                                    <input type="text" id="phone" name="phone" class="form-control"
+                                    <input type="text" name="phone" class="form-control"
                                         placeholder="081234567890">
                                     @error('phone')
                                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
