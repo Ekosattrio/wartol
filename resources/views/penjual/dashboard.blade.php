@@ -7,9 +7,8 @@
 	<meta name="description" content="POS - Bootstrap Admin Template">
 	<meta name="keywords"
 		content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
-	<meta name="author" content="Dreamguys - Bootstrap Admin Template">
 	<meta name="robots" content="noindex, nofollow">
-	<title>Dreams Pos Admin Template</title>
+	<title>Dashboard Wartol</title>
 
 	<!-- Summernote CSS -->
 <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
