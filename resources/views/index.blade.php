@@ -90,20 +90,7 @@
                             </div>
                         </div>
 
-        <div class="row d-flex justify-content-between mb-3 position-relative" style="z-index: 2;">
-            <div class="col-6">
-                <h5>Categories</h5>
-                <p>Select From Below Categories</p>
-            </div>
-            <div class="col-6 d-flex justify-content-end mt-2 mt-md-0">
-                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <span class="me-1 d-flex align-items-center justify-content-center">
-                        <i data-feather="user" class="feather-16 me-3"></i>Login
-                    </span>
-                </button>
-            </div>
-        </div>
-
+        
         <ul class="tabs owl-carousel pos-category">
             <li id="all">
                 <a href="javascript:void(0);">
@@ -223,24 +210,32 @@
         </div>
 
     </div>
-</div>
+    </div>
 
 
 
-                <div class="col-md-12 col-lg-4 ps-0">
+<div class="col-md-12 col-lg-4 ps-0">
     <aside class="product-order-list">
-        <div class="head d-flex align-items-center justify-content-between w-100">
+        <div class="head w-100">
             <div class="">
                 <h5>Order List</h5>
                 <span id=""></span>
             </div>
-        </div>
+        </div>  
 
         <!-- Input nomor telepon wajib -->
-        <div class="mb-3">
-            <label for="phoneInput" class="form-label">Nomor Telepon</label>
-            <input type="text" id="phoneInput" class="form-control" placeholder="Masukkan nomor telepon" required>
-        </div>
+       <div class="mb-3">
+    <label for="phoneInput" class="form-label">Nomor Telepon</label>
+
+    <input type="text"
+           id="phoneInput"
+           class="form-control"
+           placeholder="Masukkan nomor telepon"
+           value="{{ Auth::check() ? Auth::user()->phone : '' }}"
+           @if(Auth::check()) readonly @endif
+           required>
+</div>
+
 
         <!-- Input jadwal pickup opsional -->
         <div class="mb-3">
@@ -267,10 +262,10 @@
         <i data-feather="credit-card" class="feather-16"></i>
     </span>
     Payment Total Rp0
-</button>
-        </div>
-    </aside>
-</div>
+    </button>
+            </div>
+        </aside>
+    </div>
 
             </div>
         </div>

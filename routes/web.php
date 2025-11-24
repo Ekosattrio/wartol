@@ -23,111 +23,87 @@ use App\Http\Controllers\PaymentController;
 */
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
-Route::post('/fillphonenumber', [FrontendController::class, 'fillphonenumber'])
-    ->name('fillphonenumber');
+Route::post('/fillphonenumber', [FrontendController::class, 'fillphonenumber'])->name('fillphonenumber');
 
-// Route untuk testing view (opsional)
-Route::get('/index', fn() => view('index'))->name('index');
+// Route untuk testing view
+Route::get('/index', [FrontendController::class, 'index'])->name('index');
+
+// Checkout harus bisa diakses login maupun guest
+Route::post('/createorderjs', [CheckoutController::class, 'createorderjs'])->name('checkout.create');
 
 
 /*
 |--------------------------------------------------------------------------
-| Rute Otentikasi PEMBELI (via OTP, Guard: 'web' - default)
+| Rute Otentikasi PEMBELI (via OTP, Guard: 'web')
 |--------------------------------------------------------------------------
 */
 
-// --- Untuk Tamu (Guest) Pembeli ---
-// Rute-rute ini hanya bisa diakses oleh user yang BELUM login
+// Untuk TAMU (belum login)
 Route::middleware('guest')->group(function () {
-    // 2. Route untuk MENGIRIM OTP (Form dari Modal akan POST ke sini)
+
+    // Kirim OTP
     Route::post('login/send-otp', [OtpAuthController::class, 'sendOtp'])->name('auth.send.otp');
-Route::post('/createorderjs', [CheckoutController::class, 'createorderjs']);
 
-
-
-
-
-
-    // 3. Halaman untuk VERIFIKASI OTP (Halaman terpisah)
+    // Halaman verif OTP
     Route::get('verif-otp', [OtpAuthController::class, 'showVerifyForm'])->name('auth.verify.form');
     Route::post('verif-otp', [OtpAuthController::class, 'verifyOtp'])->name('auth.verify.otp');
 });
 
-// --- Untuk Pembeli yang SUDAH Login ---
-// Rute-rute ini hanya bisa diakses oleh user yang SUDAH login
+// Untuk pengguna YANG SUDAH login
 Route::middleware('auth')->group(function () {
-    // Halaman dashboard pembeli
-    Route::get('/dashboard', function () {
-        return view('/index'); // Tampilan dashboard pembeli
-    })->name('dashboard');
+
+    // Dashboard pembeli
+    Route::get('/dashboard', [FrontendController::class, 'index'])->name('dashboard');
 
     // Logout pembeli
     Route::post('logout', [OtpAuthController::class, 'logout'])->name('auth.logout');
 
-    // --- Rute Payment ---
-    // Saya pindahkan ke sini, asumsi hanya user ter-login yang bisa bayar
-    Route::get('/payment', [PaymentController::class, 'index'])
-        ->name('payment.index');
-    Route::post('/payment/store', [PaymentController::class, 'store'])
-        ->name('payment.store');
+    // Payment
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+    Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
 });
 
 
 /*
 |--------------------------------------------------------------------------
-| Rute Otentikasi PENJUAL (via Password, Guard: 'admin')
+| Rute Otentikasi PENJUAL (ADMIN)
 |--------------------------------------------------------------------------
 */
 
-// --- Untuk Tamu (Guest) Penjual ---
-// Asumsi 'guest:admin' -> hanya bisa diakses jika BELUM login sebagai admin
+// TAMU Admin (belum login)
 Route::middleware('guest:admin')->group(function () {
-    // Saya tambahkan GET route untuk menampilkan form login admin
-    Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm']) // Asumsi Anda punya method ini
+
+    Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])
         ->name('admin.login.form');
 
-    // Proses login admin
     Route::post('/admin/login', [AdminLoginController::class, 'store'])
         ->name('admin.login');
 });
 
-// --- Untuk Penjual yang SUDAH Login ---
-// Rute-rute ini hanya bisa diakses jika SUDAH login sebagai 'admin'
+// Admin SUDAH login
 Route::middleware(['auth:admin'])->group(function () {
 
-    // Dashboard utama admin
     Route::get('/admin/dashboard', [AdminLoginController::class, 'index'])
         ->name('admin.dashboard');
 
-    // Proses logout admin
     Route::post('/admin/logout', [AdminLoginController::class, 'destroy'])
         ->name('admin.logout');
 
-    // --- Grup Rute Penjual ---
-    // SEMUA rute penjual sekarang dilindungi oleh middleware 'auth:admin'
     Route::prefix('penjual')->name('penjual.')->group(function () {
 
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
         Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('laporan.edit');
         Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
 
-        Route::get('/pos', [PosController::class, 'index'])
-            ->name('pos');
-        Route::post('/pos/checkout', [PosController::class, 'checkout'])
-            ->name('pos.checkout');
+        Route::get('/pos', [PosController::class, 'index'])->name('pos');
+        Route::post('/pos/checkout', [PosController::class, 'checkout'])->name('pos.checkout');
 
-        Route::get('/produk', [ProductController::class, 'index'])
-            ->name('produk');
-        Route::post('/produk', [ProductController::class, 'store'])
-            ->name('produk.store');
-        Route::put('/produk/{product}', [ProductController::class, 'update'])
-            ->name('produk.update');
-        Route::delete('/produk/{product}', [ProductController::class, 'destroy'])
-            ->name('produk.destroy');
+        Route::get('/produk', [ProductController::class, 'index'])->name('produk');
+        Route::post('/produk', [ProductController::class, 'store'])->name('produk.store');
+        Route::put('/produk/{product}', [ProductController::class, 'update'])->name('produk.update');
+        Route::delete('/produk/{product}', [ProductController::class, 'destroy'])->name('produk.destroy');
     });
 
-    // Anda bisa tambahkan rute TransactionController di sini jika perlu
 });
