@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Penjual;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -46,6 +47,21 @@ class DashboardController extends Controller
                 $chartLabels[] = Carbon::parse($date)->format('d M');
                 $chartData[] = isset($rows[$date]) ? (int) $rows[$date] : 0;
             }
-        return view('penjual.dashboard', compact('totalSales', 'totalOrders', 'topItems', 'chartLabels', 'chartData'));
+        $wartolOpen = Cache::get('wartol_open', true);
+
+        return view('penjual.dashboard', compact('totalSales', 'totalOrders', 'topItems', 'chartLabels', 'chartData', 'wartolOpen'));
+    }
+
+    /**
+     * Toggle wartol open/close state. Stored in cache key 'wartol_open'.
+     */
+    public function toggleWartol(Request $request)
+    {
+        $current = Cache::get('wartol_open', true);
+        $new = !$current;
+        Cache::forever('wartol_open', $new);
+
+        $label = $new ? 'dibuka' : 'ditutup';
+        return redirect()->back()->with('status', "Warteg berhasil {$label}.");
     }
 }

@@ -635,156 +635,62 @@
 
             <div class="modal-body">
 
-                <!-- contoh isi berulang -->
-                <div class="card bg-light mb-3">
-                    <div class="card-body">
-                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
+                @if(isset($orders) && $orders->count())
+                    @foreach($orders as $order)
+                        <div class="card bg-light mb-3">
+                            <div class="card-body">
+                                <span class="badge bg-dark fs-12 mb-2">Order ID : #{{ $order->transaction_code ?? $order->id }}</span>
 
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Cashier :</span> admin
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Total :</span> $900
-                                </p>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <p class="fs-15 mb-1">
+                                            <span class="fw-bold">Cashier :</span> WARTOL
+                                        </p>
+                                        <p class="fs-15">
+                                            <span class="fw-bold">Total :</span> Rp{{ number_format($order->total_amount,0,',','.') }}
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p class="fs-15 mb-1">
+                                            <span class="fw-bold">Customer :</span> {{ Auth::check() ? Auth::user()->phone : $order->phone }}
+                                        </p>
+                                        <p class="fs-15">
+                                            <span class="fw-bold">Date :</span> {{ optional($order->created_at)->format('d M Y H:i:s') }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="rounded text-center my-3">
+                                    <p class="text-info fw-medium bg-info-transparent p-1 mb-1">
+                                        <span class="fw-bold">Payment:</span>
+                                        <span class="badge {{ (isset($order->payment_status) && $order->payment_status === 'paid') ? 'bg-success' : 'bg-warning' }}">
+                                            {{ isset($order->payment_status) ? ucfirst($order->payment_status) : 'Pending' }}
+                                        </span>
+                                        @if(!empty($order->payment_method))
+                                            <small class="ms-2">({{ strtoupper($order->payment_method) }})</small>
+                                        @endif
+                                    </p>
+                                    <p class="text-muted mb-0"><span class="fw-bold">Order status:</span> {{ ucfirst($order->status ?? 'pending') }}</p>
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Customer :</span> Botsford
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
-                                </p>
+                            @if($order->details && $order->details->count())
+                            <div class="card-body">
+                                <h6 class="mb-2">Items</h6>
+                                @foreach($order->details as $d)
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <div class="text-truncate">{{ $d->product->nama_produk ?? 'Item' }} x{{ $d->qty }}</div>
+                                        <div>Rp{{ number_format(($d->price * $d->qty),0,',','.') }}</div>
+                                    </div>
+                                @endforeach
                             </div>
+                            @endif
                         </div>
-
-                        <div class="rounded text-center my-3">
-                            <p class="text-info fw-medium bg-info-transparent p-1">
-                                Customer need to recheck the product once
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
-
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Cashier :</span> admin
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Total :</span> $900
-                                </p>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Customer :</span> Botsford
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="rounded text-center my-3">
-                            <p class="text-info fw-medium bg-info-transparent p-1">
-                                Customer need to recheck the product once
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
-
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Cashier :</span> admin
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Total :</span> $900
-                                </p>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Customer :</span> Botsford
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="rounded text-center my-3">
-                            <p class="text-info fw-medium bg-info-transparent p-1">
-                                Customer need to recheck the product once
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
-
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Cashier :</span> admin
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Total :</span> $900
-                                </p>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Customer :</span> Botsford
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="rounded text-center my-3">
-                            <p class="text-info fw-medium bg-info-transparent p-1">
-                                Customer need to recheck the product once
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <span class="badge bg-dark fs-12 mb-2">Order ID : #45698</span>
-
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Cashier :</span> admin
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Total :</span> $900
-                                </p>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p class="fs-15 mb-1">
-                                    <span class="fw-bold">Customer :</span> Botsford
-                                </p>
-                                <p class="fs-15">
-                                    <span class="fw-bold">Date :</span> 24 Dec 2024 13:39:11
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="rounded text-center my-3">
-                            <p class="text-info fw-medium bg-info-transparent p-1">
-                                Customer need to recheck the product once
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- copy card ini berkali-kali -> modal akan otomatis scroll -->
+                    @endforeach
+                @else
+                    <p class="text-center text-muted">Belum ada riwayat pembelian.</p>
+                @endif
 
             </div>
 

@@ -38,6 +38,20 @@
 <!-- Main CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+<style>
+/* Wartol switch colors: red when off, orange when on */
+.form-check-input.wartol-switch {
+	background-color: #dc3545; /* red default */
+	border-color: #dc3545;
+}
+.form-check-input.wartol-switch:checked {
+	background-color: #ff8a00; /* orange when checked */
+	border-color: #ff8a00;
+	box-shadow: 0 0 0 .2rem rgba(255,138,0,0.15);
+}
+.wartol-label { margin-left: .5rem; font-weight:600; }
+</style>
+
 
 </head>
 
@@ -63,10 +77,8 @@
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div>
 							<h3 class="mb-1 mt-2">Welcome, Admin</h3>
-							
 						</div>
 					</div>
-					
 				</div>
 
 				
@@ -77,6 +89,13 @@
 						<div class="card h-100">
 							<div class="card-header d-flex justify-content-between align-items-center">
 								<h6 class="mb-0">Sales Statics</h6>
+								<form method="POST" action="{{ route('penjual.toggle-wartol') }}" id="wartolToggleForm" class="d-flex align-items-center wartol-switch">
+									@csrf
+									<div class="form-check form-switch mb-0">
+										<input class="form-check-input wartol-switch" type="checkbox" id="wartolSwitch" name="wartol_open" {{ isset($wartolOpen) && $wartolOpen ? 'checked' : '' }}>
+										<label class="form-check-label wartol-label" for="wartolSwitch">{{ isset($wartolOpen) && $wartolOpen ? 'Buka' : 'Tutup' }}</label>
+									</div>
+								</form>
 							</div>
 							<div class="card-body">
 								<div class="row mb-3">
@@ -240,6 +259,29 @@
 <script src="{{ asset('assets/js/theme-script.js') }}"></script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+	const switchEl = document.getElementById('wartolSwitch');
+	const form = document.getElementById('wartolToggleForm');
+	if(!switchEl || !form) return;
+
+	// remember previous state so we can revert on cancel
+	let prev = switchEl.checked;
+
+	switchEl.addEventListener('change', function(e){
+		const willOpen = switchEl.checked;
+		const msg = willOpen
+			? 'Anda yakin membuka wartol? Pengunjung akan dapat mengakses kembali.'
+			: 'Anda yakin menutup wartol? Pengunjung akan diarahkan ke halaman tutup.';
+		if(confirm(msg)){
+			form.submit();
+		} else {
+			// revert
+			switchEl.checked = prev;
+		}
+	});
+});
+</script>
 </body>
 
 </html>
