@@ -15,6 +15,7 @@ use App\Http\Controllers\Penjual\AdminLoginController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MidtransCallbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,42 @@ use App\Http\Controllers\PaymentController;
 |--------------------------------------------------------------------------
 */
 
+// =====================
+// ROUTE PENJUAL
+// =====================
+Route::prefix('penjual')->name('penjual.')->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+    Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('laporan.edit');
+    Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
+
+    Route::get('/pos', [PosController::class, 'index'])
+        ->name('pos');
+
+    // Route untuk melakukan checkout dari POS
+    Route::post('/pos/checkout', [PosController::class, 'checkout'])
+        ->name('pos.checkout');
+
+    Route::get('/produk', [ProductController::class, 'index'])
+        ->name('produk');
+    Route::post('/produk', [ProductController::class, 'store'])
+        ->name('produk.store'); // Nama rutenya: penjual.produk.store
+    Route::put('/produk/{product}', [ProductController::class, 'update'])
+        ->name('produk.update');
+    Route::delete('/produk/{product}', [ProductController::class, 'destroy'])
+        ->name('produk.destroy');
+    Route::get('/laporan/export/excel', [LaporanController::class, 'exportExcel'])->name('laporan.export.excel');
+    Route::get('/laporan/export/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.export.pdf');
+
+});
+
+
+// =====================
+// FRONTEND
+// =====================
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::post('/fillphonenumber', [FrontendController::class, 'fillphonenumber'])->name('fillphonenumber');
 

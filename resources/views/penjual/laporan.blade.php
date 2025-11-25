@@ -68,15 +68,24 @@
 						</div>
 					</div>
 					<ul class="table-top-head">
-												<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
-									src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"></a></li>
-						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
-									src="{{ asset('assets/img/icons/excel.svg') }}" alt="img"></a></li>
-						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer"
-									class="feather-rotate-ccw"></i></a></li>
+						<li><a href="{{  route('penjual.laporan.export.pdf')}}"
+								data-bs-toggle="tooltip" 
+								data-bs-placement="top" 
+								title="Pdf">
+								<img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"></a></li>
+
+
+						<li>
+							<a href="{{ route('penjual.laporan.export.excel') }}"
+								data-bs-toggle="tooltip"
+								data-bs-placement="top"
+								title="Excel">
+								<img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img">
+							</a>
+						</li>
+
 						
-						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i
-									data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a></li>
+				
 						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
 									data-feather="chevron-up" class="feather-chevron-up"></i></a></li>
 					</ul>

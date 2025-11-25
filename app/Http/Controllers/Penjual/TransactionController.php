@@ -9,7 +9,7 @@ use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\MidtransLog;
 use App\Models\Product;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Midtrans\Snap;
 use Midtrans\Config;
 
