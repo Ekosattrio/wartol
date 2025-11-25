@@ -56,6 +56,34 @@ class CheckoutController extends Controller
                 ], 400);
             }
 
+            // Validasi schedule pickup: wajib diisi dan tidak boleh sebelum waktu sekarang
+            if (empty($schedulePickup)) {
+                DB::rollBack();
+                return response()->json([
+                    'message' => 'Gagal membuat transaksi',
+                    'error' => 'Jadwal pickup wajib diisi'
+                ], 400);
+            }
+
+            try {
+                $scheduleDt = Carbon::parse($schedulePickup);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json([
+                    'message' => 'Gagal membuat transaksi',
+                    'error' => 'Format jadwal pickup tidak valid'
+                ], 400);
+            }
+
+                // require schedule pick up to be at least 1 minute in the future
+                if ($scheduleDt->lt(Carbon::now()->addMinute())) {
+                DB::rollBack();
+                return response()->json([
+                    'message' => 'Gagal membuat transaksi',
+                    'error' => 'Jadwal pickup harus di masa kini atau di masa depan'
+                ], 400);
+            }
+
             Log::info('Items dari request:', ['count' => count($requestItems), 'items' => $requestItems]);
 
             // ✅ Generate Order ID

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Penjual;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Carbon\Carbon;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,21 @@ class PosController extends Controller
 
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => 'Data tidak valid.', 'errors' => $validator->errors()], 422);
+        }
+
+        // Validasi schedule pickup: wajib diisi dan tidak boleh sebelum waktu sekarang
+        $schedulePickup = $request->input('schedule_pickup');
+        if (empty($schedulePickup)) {
+            return response()->json(['success' => false, 'message' => 'Jadwal pickup wajib diisi.'], 400);
+        }
+        try {
+            $scheduleDt = Carbon::parse($schedulePickup);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Format jadwal pickup tidak valid.'], 400);
+        }
+        // require pickup schedule to be at least 1 minute in the future
+        if ($scheduleDt->lt(Carbon::now()->addMinute())) {
+            return response()->json(['success' => false, 'message' => 'Jadwal pickup tidak boleh sebelum waktu sekarang.'], 400);
         }
 
         $totalAmount = 0;

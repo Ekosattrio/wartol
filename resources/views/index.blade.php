@@ -246,7 +246,7 @@
 
         <!-- Input jadwal pickup opsional -->
         <div class="mb-3">
-            <label for="schedulePickup" class="form-label">Jadwal Pickup (opsional)</label>
+            <label for="schedulePickup" class="form-label">Jadwal Pickup <span class="text-danger">(wajib)</span></label>
             <input type="datetime-local" id="schedulePickup" class="form-control">
         </div>
 
@@ -629,7 +629,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Orders</h5>
+                <h5 class="modal-title">Orders (Sudah Bayar)</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -689,7 +689,7 @@
                         </div>
                     @endforeach
                 @else
-                    <p class="text-center text-muted">Belum ada riwayat pembelian.</p>
+                    <p class="text-center text-muted">Belum ada riwayat pembelian yang sudah dibayar.</p>
                 @endif
 
             </div>
@@ -1068,6 +1068,24 @@
 
         const schedule = scheduleInput?.value || null;
 
+        // VALIDASI: jadwal pickup wajib dan tidak boleh sebelum sekarang
+        if (!schedule) {
+            paymentBtn.disabled = false;
+            paymentBtn.innerHTML = originalHTML;
+            if (window.feather) feather.replace();
+            return showCustomAlert("Pilih jadwal pickup terlebih dahulu.");
+        }
+        // parse scheduling to local Date and compare (require at least 1 minute from now)
+        const scheduleDate = new Date(schedule);
+        const now = new Date();
+        const minAllowed = new Date(now.getTime() + 60000);
+        if (scheduleDate < minAllowed) {
+            paymentBtn.disabled = false;
+            paymentBtn.innerHTML = originalHTML;
+            if (window.feather) feather.replace();
+            return showCustomAlert("Jadwal pickup tidak boleh sebelum waktu sekarang.");
+        }
+
         // Kirim ke backend untuk generate Snap token
         fetch("/penjual/pos/checkout", {
             method: "POST",
@@ -1293,6 +1311,26 @@ document.addEventListener("DOMContentLoaded", function() {
     const cartToast = toastEl ? new bootstrap.Toast(toastEl, {delay: 3000}) : null;
 
     if (!productWrap || !paymentBtn) return;
+
+    // Set minimum allowed datetime to now (local) to prevent selecting past times
+    if (scheduleInput) {
+        const setMinToNow = () => {
+            const now = new Date();
+            // add 1 minute buffer so user cannot choose a time in the immediate past
+            const minAllowed = new Date(now.getTime() + 60000);
+            const pad = n => n.toString().padStart(2, '0');
+            const minLocal = `${minAllowed.getFullYear()}-${pad(minAllowed.getMonth()+1)}-${pad(minAllowed.getDate())}T${pad(minAllowed.getHours())}:${pad(minAllowed.getMinutes())}`;
+            scheduleInput.min = minLocal;
+        };
+
+        // Initial set
+        setMinToNow();
+        // Update every 20 seconds so the min is always recent
+        setInterval(setMinToNow, 20000);
+        // Also update when user focuses on the input
+        scheduleInput.addEventListener('focus', setMinToNow);
+        scheduleInput.addEventListener('click', setMinToNow);
+    }
 
     /* ==============================
         HELPER FUNCTIONS
@@ -1571,6 +1609,17 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         const schedule = scheduleInput?.value || null;
+
+        // VALIDASI: jadwal pickup wajib dan tidak boleh sebelum sekarang (1 menit buffer)
+        if (!schedule) {
+            return showCustomAlert("Pilih jadwal pickup terlebih dahulu.");
+        }
+        const scheduleDate = new Date(schedule);
+        const now = new Date();
+        const minAllowed = new Date(now.getTime() + 60000);
+        if (scheduleDate < minAllowed) {
+            return showCustomAlert("Jadwal pickup hanya bisa di masa mendatang.");
+        }
 
         // ✅ Disable button saat proses
         paymentBtn.disabled = true;
