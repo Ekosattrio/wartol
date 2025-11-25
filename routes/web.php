@@ -15,7 +15,6 @@ use App\Http\Controllers\Penjual\AdminLoginController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\MidtransCallbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -148,6 +147,5 @@ Route::middleware('guest:admin')->group(function () {
         Route::put('/produk/{product}', [ProductController::class, 'update'])->name('produk.update');
         Route::delete('/produk/{product}', [ProductController::class, 'destroy'])->name('produk.destroy');
     });
-        Route::post('/midtrans/callback', [MidtransCallbackController::class, 'receive']);
 
 // });
