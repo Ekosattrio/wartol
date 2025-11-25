@@ -85,8 +85,7 @@
 						</li>
 
 						
-						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i
-									data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a></li>
+				
 						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
 									data-feather="chevron-up" class="feather-chevron-up"></i></a></li>
 					</ul>
