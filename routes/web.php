@@ -111,5 +111,6 @@ Route::middleware('guest:admin')->group(function () {
         Route::put('/produk/{product}', [ProductController::class, 'update'])->name('produk.update');
         Route::delete('/produk/{product}', [ProductController::class, 'destroy'])->name('produk.destroy');
     });
+        Route::post('/midtrans/callback', [MidtransCallbackController::class, 'receive']);
 
 // });
