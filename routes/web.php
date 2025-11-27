@@ -27,6 +27,7 @@ use App\Http\Controllers\PaymentController;
 // =====================
 Route::prefix('penjual')->name('penjual.')->group(function () {
 
+    Route::get('/', [DashboardController::class, 'index']);
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
@@ -51,7 +52,7 @@ Route::prefix('penjual')->name('penjual.')->group(function () {
         ->name('produk.destroy');
     Route::get('/laporan/export/excel', [LaporanController::class, 'exportExcel'])->name('laporan.export.excel');
     Route::get('/laporan/export/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.export.pdf');
-
+    Route::put('/laporan/{transaction}', [LaporanController::class, 'update'])->name('laporan.update');
 });
 
 

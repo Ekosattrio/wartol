@@ -17,12 +17,20 @@ class LaporanController extends Controller
         return view('penjual.laporan' , compact('transactions'));
 
     }
-
-    public function edit($id)
+     public function edit() {}
+     public function update(Request $request, Transaction $transaction)
     {
-        $transaction = Transaction::findOrFail($id);
-        return view('transactions.edit', compact('transaction'));
+        $validatedData = $request->validate([
+        'status' => 'required|in:pending,processing,completed',
+        ]);
+
+        $transaction->update($validatedData);
+        return response()->json([
+            'success' => true,
+            'message' => 'Produk berhasil diupdate!'
+        ]);
     }
+
 
     public function destroy($id)
     {

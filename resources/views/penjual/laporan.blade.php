@@ -163,6 +163,7 @@
 												<span class="checkmarks"></span>
 											</label>
 										</td>
+								
 										<td>{{ $trx->transaction_code }}</td>
 										<td>{{ $trx->phone }}</td>
 										<td>Rp {{ number_format($trx->total_amount, 0, ',', '.') }}</td>
@@ -193,11 +194,19 @@
 													</button>
 												</li>
 												<li>
-													<a href="{{ route('penjual.laporan.edit', $trx->id) }}"
-														class="dropdown-item d-flex align-items-center small py-1">
+													<button
+														class="dropdown-item d-flex align-items-center small py-1 btn-edit-laporan"
+														type="button"
+														data-bs-toggle="modal"
+														data-bs-target="#editlaporanModal"
+														data-id="{{ $trx->id }}"
+														data-nama="{{ $trx->transaction_code }}"
+														data-status="{{ $trx->status }}">
+					
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
 														Edit
-													</a>
+													</button>
+													
 												</li>
 												<li>
 													<form action="{{ route('penjual.laporan.destroy', $trx->id) }}" method="POST"
@@ -226,6 +235,46 @@
 		</div>
 	</div>
 
+ <div class="modal fade" id="editlaporanModal" tabindex="-1" aria-labelledby="editlaporanModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editlaporanModalLabel">Edit Laporan:
+                        <strong id="editNamaProduk"></strong>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form id="editlaporanForm" method="POST">
+                    @csrf
+                    @method('PUT') {{-- Method untuk update --}}
+
+                    <div class="modal-body">
+                
+
+                        <div class="mb-3">
+                            <label for="editStatus" class="form-label">Status</label>
+                            <select class="form-select" id="editStatus" name="status">
+									<option value="pending">Pending</option>
+									<option value="processing">Processing</option>
+									<option value="completed">Completed</option>
+                            </select>
+                            <div id="editStatusError" class="text-danger small mt-1"></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
 	<!-- jQuery -->
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.loadtemplate/1.5.10/jquery.loadTemplate.min.js"
@@ -252,7 +301,59 @@
 
 <script src="{{ asset('assets/js/theme-script.js') }}"></script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
-  
+  <script>
+        $(document).ready(function() {
+
+            // ===========================
+            // KODE UNTUK FITUR EDIT
+            // ===========================
+
+            $('.btn-edit-laporan').on('click', function() {
+                var id = $(this).data('id');
+                var status = $(this).data('status');
+                $('#editStatus').val(status);
+                var url = "{{ route('penjual.laporan.update', ':id') }}";
+                url = url.replace(':id', id);
+                $('#editlaporanForm').attr('action', url);
+                $('#editStatusError').text('');
+            });
+
+
+            $('#editlaporanForm').on('submit', function(e) {
+                e.preventDefault(); 
+
+                var form = $(this);
+                var url = form.attr('action');
+
+                $.ajax({
+                    type: "POST", // Method tetap POST, tapi @method('PUT') akan dibaca Laravel
+                    url: url,
+                    data: form.serialize(),
+
+                    success: function(response) {
+                        $('#editlaporanModal').modal('hide');
+                        alert('Produk berhasil diupdate!');
+                        location.reload();
+                    },
+
+                    error: function(xhr) {
+                        $('#editStatusError').text('');
+
+                        if (xhr.status === 422) { // 422 = Error validasi
+                            var errors = xhr.responseJSON.errors;
+
+                    
+                            if (errors.status) {
+                                $('#editStatusError').text(errors.status[0]);
+                            }
+                        } else {
+                            alert('Terjadi kesalahan, silakan coba lagi.');
+                        }
+                    }
+                });
+            });
+		});
+	</script>
 
 </body>
 

@@ -59,12 +59,42 @@
                             <h6>Kelola Stok Makanan</h6>
                         </div>
                     </div>
-                    <ul class="table-top-head">
-                        
-                                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
-                                    data-bs-target="#createProdukModal">
-                                    Tambah Produk
-                                </button>
+
+                                    <ul class="table-top-head d-flex align-items-center gap-2 p-0 m-0 list-unstyled">
+
+                        <li>
+                            <a href="{{ route('penjual.laporan.export.pdf') }}"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Pdf">
+                                <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img">
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('penjual.laporan.export.excel') }}"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Excel">
+                                <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img">
+                            </a>
+                        </li>
+
+                        <li>
+                            <a data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Collapse"
+                            id="collapse-header">
+                                <i data-feather="chevron-up" class="feather-chevron-up"></i>
+                            </a>
+                        </li>
+
+                        <li class="ms-auto">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProdukModal">
+                            Tambah Produk
+                        </button>
+                          </li>
+
                     </ul>
 
                     {{-- <a href="{{ route('penjual.produk.create') }}" class="btn btn-primary mb-3">
