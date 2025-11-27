@@ -246,7 +246,7 @@
 
         <!-- Input jadwal pickup opsional -->
         <div class="mb-3">
-            <label for="schedulePickup" class="form-label">Jadwal Pickup <span class="text-danger">(wajib)</span></label>
+            <label for="schedulePickup" class="form-label">Jadwal Pickup <span class="text-danger">*</span></label>
             <input type="datetime-local" id="schedulePickup" class="form-control">
         </div>
 
