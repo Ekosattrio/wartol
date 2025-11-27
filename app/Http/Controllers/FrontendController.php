@@ -28,10 +28,10 @@ class FrontendController extends Controller
         $orders = collect();
         if (Auth::check() && !empty(Auth::user()->phone)) {
             $phone = Auth::user()->phone;
-            // Ambil hanya transaksi yang berstatus "paid" (sudah dibayar)
+            // Ambil hanya transaksi yang berstatus 'success' (sudah dibayar di payment gateway)
             $orders = Transaction::with('details.product')
                         ->where('phone', $phone)
-                        ->where('payment_status', 'paid')
+                        ->where('payment_status', 'success')
                         ->orderByDesc('created_at')
                         ->limit(20)
                         ->get();

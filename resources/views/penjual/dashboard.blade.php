@@ -88,7 +88,10 @@
 					<div class="col-lg-12">
 						<div class="card h-100">
 							<div class="card-header d-flex justify-content-between align-items-center">
-								<h6 class="mb-0">Sales Statics</h6>
+								<div>
+									<h6 class="mb-0">Sales Statics</h6>
+									<small class="text-muted">Menampilkan transaksi <strong>paid</strong> saja</small>
+								</div>
 								<form method="POST" action="{{ route('penjual.toggle-wartol') }}" id="wartolToggleForm" class="d-flex align-items-center wartol-switch">
 									@csrf
 									<div class="form-check form-switch mb-0">

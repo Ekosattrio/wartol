@@ -12,15 +12,17 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Total sales (uses transactions.total_amount)
-        $totalSales = DB::table('transactions')->sum('total_amount');
+        // Total sales (uses transactions.total_amount) - only include paid transactions
+        $totalSales = DB::table('transactions')->where('status', 'paid')->sum('total_amount');
 
-        // Total orders
-        $totalOrders = DB::table('transactions')->count();
+        // Total orders - only paid
+        $totalOrders = DB::table('transactions')->where('status', 'paid')->count();
 
-        // Top selling items (sum of qty in transaction_details) join products for name
+        // Top selling items based on paid transactions only
         $topItems = DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
             ->join('products', 'transaction_details.product_id', '=', 'products.id')
+            ->where('transactions.status', 'paid')
             ->select('products.id', 'products.nama_produk', DB::raw('SUM(transaction_details.qty) as total_qty'))
             ->groupBy('products.id', 'products.nama_produk')
             ->orderByDesc('total_qty')
@@ -31,9 +33,11 @@ class DashboardController extends Controller
             $end = Carbon::today()->endOfDay();
             $start = Carbon::today()->subDays(6)->startOfDay();
 
+            // Cities: Sales per date for paid transactions only
             $rows = DB::table('transactions')
                 ->select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total_amount) as total'))
                 ->whereBetween('created_at', [$start, $end])
+                ->where('status', 'paid')
                 ->groupBy(DB::raw('DATE(created_at)'))
                 ->orderBy(DB::raw('DATE(created_at)'))
                 ->pluck('total', 'date')

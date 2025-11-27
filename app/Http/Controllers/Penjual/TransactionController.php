@@ -113,15 +113,24 @@ class TransactionController extends Controller
         }
 
         // Update status berdasarkan status Midtrans
-        $transaction->payment_status = $notification['transaction_status'] ?? 'pending';
-        if ($transaction->payment_status === 'settlement' || $transaction->payment_status === 'capture') {
-            $transaction->status = 'completed';
-            $transaction->payment_status = 'paid';
-        } elseif ($transaction->payment_status === 'pending') {
+        $midtransStatus = $notification['transaction_status'] ?? 'pending';
+        // Map Midtrans status to our convention
+        if (in_array($midtransStatus, ['settlement', 'capture'])) {
+            $transaction->payment_status = 'success';
+            $transaction->status = 'paid';
+        } elseif ($midtransStatus === 'pending') {
+            $transaction->payment_status = 'pending';
             $transaction->status = 'pending';
-        } elseif ($transaction->payment_status === 'deny' || $transaction->payment_status === 'expire' || $transaction->payment_status === 'cancel') {
+        } elseif ($midtransStatus === 'expire') {
+            $transaction->payment_status = 'expire';
             $transaction->status = 'failed';
+        } elseif (in_array($midtransStatus, ['deny', 'cancel'])) {
             $transaction->payment_status = 'failed';
+            $transaction->status = 'failed';
+        } else {
+            // Default mapping: pending
+            $transaction->payment_status = 'pending';
+            $transaction->status = 'pending';
         }
         $transaction->save();
 

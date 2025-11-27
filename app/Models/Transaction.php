@@ -14,9 +14,9 @@ class Transaction extends Model
         'order_id',         // ID unik untuk Midtrans
         'total_amount',     // total transaksi
         'payment_method',   // qris / midtrans / cash
-        'payment_status',   // pending / paid / failed
+        'payment_status',   // pending / success / expire / failed
         'schedule_pickup',  // opsional
-        'status',           // pending / processing / completed
+        'status',           // pending / paid / failed
     ];
 
     protected $casts = [

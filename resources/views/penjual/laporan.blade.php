@@ -176,8 +176,7 @@
 										</td>
 										<td>{{ $trx->schedule_pickup ? \Carbon\Carbon::parse($trx->schedule_pickup)->format('d M Y H:i') : '-' }}</td>
 										<td>
-											<span
-												class="badge bg-soft-{{ $trx->status === 'pending' ? 'warning' : ($trx->status === 'completed' ? 'success' : 'secondary') }}">
+											<span class="badge bg-soft-{{ $trx->status === 'pending' ? 'warning' : ($trx->status === 'paid' ? 'success' : 'secondary') }}">
 												{{ ucfirst($trx->status) }}
 											</span>
 										</td>
@@ -253,11 +252,12 @@
                     <div class="modal-body">
                 
 
-                        <div class="mb-3">
-                            <label for="editStatus" class="form-label">Status</label>
-                            <select class="form-select" id="editStatus" name="status">
+						<div class="mb-3">
+							<label for="editStatus" class="form-label">Status</label>
+							<select class="form-select" id="editStatus" name="status">
 									<option value="pending">Pending</option>
-									<option value="processing">Processing</option>
+									<option value="paid">Paid</option>
+									<option value="failed">Failed</option>
 									<option value="completed">Completed</option>
                             </select>
                             <div id="editStatusError" class="text-danger small mt-1"></div>
