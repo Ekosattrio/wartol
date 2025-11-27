@@ -24,13 +24,13 @@ class LaporanExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-        'Kode Transaksi',
-        'Nomor Handphone',
-        'Jumlah Transaksi',
-        'Metode Pembayaran',
-        'Status Pembayaran',
-        'schedule_pickup',
-        'status',
+            'ID Pesanan',
+            'Nomor Handphone',
+            'Jumlah Transaksi',
+            'Metode Pembayaran',
+            'Status Pembayaran',
+            'Jadwal Pickup',
+            'Status Pesanan',
         ];
     }
 }
