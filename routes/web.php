@@ -50,6 +50,10 @@ Route::prefix('penjual')->name('penjual.')->group(function () {
         ->name('produk.update');
     Route::delete('/produk/{product}', [ProductController::class, 'destroy'])
         ->name('produk.destroy');
+    Route::post('/produk/upload-image', [ProductController::class, 'uploadImage'])->name('produk.uploadImage');
+    Route::post('/produk/store', [ProductController::class, 'store'])->name('produk.store');
+   
+
     Route::get('/laporan/export/excel', [LaporanController::class, 'exportExcel'])->name('laporan.export.excel');
     Route::get('/laporan/export/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.export.pdf');
     Route::put('/laporan/{transaction}', [LaporanController::class, 'update'])->name('laporan.update');

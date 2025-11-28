@@ -278,9 +278,12 @@
 													data-stock="{{ $product->stok }}" data-bs-toggle="modal"
 													data-bs-target="#add-product">
 													<div class="product-info default-cover card">
-														<a href="javascript:void(0);" class="img-bg">
-															<img src="{{ asset('assets/img/products/default.png') }}" alt="Products">
-														</a>
+															<a href="javascript:void(0);" class="img-bg">
+																<img src="{{ asset('storage/' . $product->image_path) }}" alt="Produk"
+																 style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;"
+																>
+																
+															</a>
 														<h6 class="cat-name">
 															<a href="javascript:void(0);">{{ $product->kategori ?? 'Tanpa Kategori' }}</a>
 														</h6>
