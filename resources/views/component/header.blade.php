@@ -29,120 +29,69 @@
     <!-- Header Menu -->
     <ul class="nav user-menu">
 
-        <!-- Search -->
-        <li class="nav-item nav-searchinputs"></li>
-        <!-- /Search -->
-
         <!-- Notifications -->
-        {{-- <li class="nav-item dropdown nav-item-box">
+        <li class="nav-item dropdown nav-item-box ms-auto" id="notification-dropdown">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                <i data-feather="bell"></i><span class="badge rounded-pill">2</span>
+                <i data-feather="bell" style="color: #8f520dff;"></i>
+                @if($allPendingOrders->count() > 0)
+                    <span class="badge rounded-pill" style="background-color: #8f520dff;" id="notification-badge">{{ $allPendingOrders->count() }}</span>
+                @endif
             </a>
             <div class="dropdown-menu notifications">
                 <div class="topnav-dropdown-header">
-                    <span class="notification-title">Notifications</span>
-                    <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                    <span class="notification-title">Notifikasi Order</span>
+                    <a href="javascript:void(0)" class="clear-noti" id="clear-all-noti"> Clear All </a>
                 </div>
                 <div class="noti-content">
                     <ul class="notification-list">
-
-                        <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ asset('assets/img/profiles/avatar-02.jpg') }}">
-                                    </span>
-                                    <div class="media-body flex-grow-1">
-                                        <p class="noti-details"><span class="noti-title">John Doe</span> added
-                                            new task <span class="noti-title">Patient appointment booking</span>
-                                        </p>
-                                        <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                        @if($allPendingOrders->count() > 0)
+                            @foreach ($allPendingOrders->take(5) as $order)
+                            <li class="notification-message">
+                                <a href="{{ route('penjual.dashboard') }}#showPendingOrders">
+                                    <div class="media d-flex">
+                                        <div class="media-body flex-grow-1">
+                                            <p class="noti-details">
+                                                <span class="noti-title">Order Baru Masuk!</span><br>
+                                                ID: {{ $order->order_id }}<br>
+                                                Total: Rp {{ number_format($order->total_amount, 0, ',', '.') }}
+                                            </p>
+                                            <p class="noti-time">
+                                                <span class="notification-time">{{ $order->created_at->diffForHumans() }}</span>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ asset('assets/img/profiles/avatar-03.jpg') }}">
-                                    </span>
-                                    <div class="media-body flex-grow-1">
-                                        <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
-                                            changed the task name <span class="noti-title">Appointment booking with payment gateway</span>
-                                        </p>
-                                        <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                                </a>
+                            </li>
+                            @endforeach
+                        @else
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media d-flex">
+                                        <div class="media-body flex-grow-1">
+                                            <p class="noti-details"><span class="noti-title">Tidak ada notifikasi baru</span></p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ asset('assets/img/profiles/avatar-06.jpg') }}">
-                                    </span>
-                                    <div class="media-body flex-grow-1">
-                                        <p class="noti-details"><span class="noti-title">Misty Tison</span>
-                                            added <span class="noti-title">Domenic Houston</span> and
-                                            <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span>
-                                        </p>
-                                        <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ asset('assets/img/profiles/avatar-17.jpg') }}">
-                                    </span>
-                                    <div class="media-body flex-grow-1">
-                                        <p class="noti-details"><span class="noti-title">Rolland Webber</span>
-                                            completed task <span class="noti-title">Patient and Doctor video conferencing</span>
-                                        </p>
-                                        <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="{{ asset('assets/img/profiles/avatar-13.jpg') }}">
-                                    </span>
-                                    <div class="media-body flex-grow-1">
-                                        <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
-                                            added new task <span class="noti-title">Private chat module</span>
-                                        </p>
-                                        <p class="noti-time"><span class="notification-time">2 days ago</span></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <div class="topnav-dropdown-footer">
-                    <a href="activities.html">View all Notifications</a>
+                    <a href="{{ route('penjual.dashboard') }}#showPendingOrders">Lihat Semua Order Pending</a>
                 </div>
             </div>
-        </li> --}}
+        </li>
         <!-- /Notifications -->
 
         {{-- logout button --}}
-        <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
-            @csrf
-            <button type="submit" class="btn btn-danger">
-                Log out Admin
-            </button>
-        </form>
+        <li class="nav-item">
+            <form action="{{ route('admin.logout') }}" method="POST" class="d-inline ms-3">
+                @csrf
+                <button type="submit" class="btn" style="background-color: #8f520dff; color: white;" onclick="return confirm('Anda yakin ingin logout?')">
+                    Log out Admin
+                </button>
+            </form>
+        </li>
 
     </ul>
     <!-- /Header Menu -->
@@ -153,9 +102,12 @@
             <i class="fa fa-ellipsis-v"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="profile.html">My Profile</a>
-            <a class="dropdown-item" href="general-settings.html">Settings</a>
-            <a class="dropdown-item" href="signin.html">Logout</a>
+            <a class="dropdown-item" href="#">My Profile</a>
+            <a class="dropdown-item" href="#">Settings</a>
+            <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="dropdown-item" style="background-color: #ff8a00; color: white;" onclick="return confirm('Anda yakin ingin logout?')">Logout</button>
+            </form>
         </div>
     </div>
     <!-- /Mobile Menu -->

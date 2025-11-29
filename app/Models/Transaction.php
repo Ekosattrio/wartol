@@ -21,6 +21,8 @@ class Transaction extends Model
 
     protected $casts = [
         'schedule_pickup' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     // Relasi ke detail transaksi (multi item)

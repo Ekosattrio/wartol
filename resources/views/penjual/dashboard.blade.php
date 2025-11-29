@@ -78,10 +78,94 @@
 						<div>
 							<h3 class="mb-1 mt-2">Welcome, Admin</h3>
 						</div>
+						<div>		
+							<form method="POST" action="{{ route('penjual.toggle-wartol') }}" id="wartolToggleForm" class="d-flex align-items-center wartol-switch">
+									@csrf
+									<div class="form-check form-switch mb-0">
+										<input class="form-check-input wartol-switch" type="checkbox" id="wartolSwitch" name="wartol_open" {{ isset($wartolOpen) && $wartolOpen ? 'checked' : '' }}>
+										<label class="form-check-label wartol-label" for="wartolSwitch">{{ isset($wartolOpen) && $wartolOpen ? 'Buka' : 'Tutup' }}</label>
+									</div>
+								</form>
+						</div>
 					</div>
 				</div>
 
-				
+                <div class="card" data-bs-toggle="modal" data-bs-target="#pendingOrdersModal" style="cursor: pointer;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Order Pending</h6>
+                    </div>
+                    <div class="card-body">
+                        @if($oldestPendingOrders->count() > 0)
+                            <ul class="list-group list-group-flush">
+                                @foreach($oldestPendingOrders as $order)
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between">
+                                            <span><strong>ID:</strong> {{ $order->order_id }}</span>
+                                            <span class="text-muted">Total: Rp {{ number_format($order->total_amount, 0, ',', '.') }}</span>
+                                        </div>
+										<div><strong>No. Telp:</strong> {{ str_replace('.', '', $order->phone) }}</div>
+                                        <div>Waktu Pickup: {{ \Carbon\Carbon::parse($order->schedule_pickup)->format('d M Y, H:i') }}</div>
+                                        <small class="text-muted">Masuk pada: {{ $order->created_at->format('d M Y, H:i') }}</small>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <div class="text-center text-muted">
+                                <p>Tidak ada order yang perlu diproses.</p>
+                            </div>
+                        @endif
+                    </div>
+                    <small class="text-muted text-center p-2 d-block">Klik untuk melihat semua pending order</small>
+                </div>
+
+				<!-- Modal -->
+				<div class="modal fade" id="pendingOrdersModal" tabindex="-1" aria-labelledby="pendingOrdersModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="pendingOrdersModalLabel">Semua Order Pending</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								@if($allPendingOrders->count() > 0)
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Order ID</th>
+													<th>Nomor Telepon</th>
+													<th>Total</th>
+													<th>Jadwal Pickup</th>
+													<th>Aksi</th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach($allPendingOrders as $order)
+													<tr>
+														<td>{{ $order->order_id }}</td>
+														<td>{{ str_replace('.', '', $order->phone) }}</td>
+														<td>Rp {{ number_format($order->total_amount, 0, ',', '.') }}</td>
+														<td>{{ \Carbon\Carbon::parse($order->schedule_pickup)->format('d M Y, H:i') }}</td>
+														<td>
+															<form action="{{ route('penjual.order.complete', $order->id) }}" method="POST" class="complete-order-form">
+																@csrf
+																@method('PUT')
+																<button type="submit" class="btn btn-sm" style="background-color: #ff8a00; color: white;">Selesaikan</button>
+															</form>
+														</td>
+													</tr>
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								@else
+									<p class="text-center text-muted">Tidak ada order pending.</p>
+								@endif
+							</div>
+						</div>
+					</div>
+				</div>
+
 
 				<!-- NEW: Sales Statics + Recent Transactions -->
 				<div class="row mt-3">
@@ -91,13 +175,6 @@
 								<div>
 									<h6 class="mb-0">Sales Statics</h6>
 								</div>
-								<form method="POST" action="{{ route('penjual.toggle-wartol') }}" id="wartolToggleForm" class="d-flex align-items-center wartol-switch">
-									@csrf
-									<div class="form-check form-switch mb-0">
-										<input class="form-check-input wartol-switch" type="checkbox" id="wartolSwitch" name="wartol_open" {{ isset($wartolOpen) && $wartolOpen ? 'checked' : '' }}>
-										<label class="form-check-label wartol-label" for="wartolSwitch">{{ isset($wartolOpen) && $wartolOpen ? 'Buka' : 'Tutup' }}</label>
-									</div>
-								</form>
 							</div>
 							<div class="card-body">
 								<div class="row mb-3">
@@ -146,6 +223,7 @@
 
 					
 				</div>
+
 
 
 				
@@ -262,26 +340,110 @@
 <script src="{{ asset('assets/js/script.js') }}"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-	const switchEl = document.getElementById('wartolSwitch');
-	const form = document.getElementById('wartolToggleForm');
-	if(!switchEl || !form) return;
+$(document).ready(function(){
+    // Logic for the wartol open/close switch
+	const switchEl = $('#wartolSwitch');
+	if(switchEl.length) {
+		let prev = switchEl.is(':checked');
+		switchEl.on('change', function() {
+			const willOpen = $(this).is(':checked');
+			const msg = willOpen
+				? 'Anda yakin membuka wartol? Pengunjung akan dapat mengakses kembali.'
+				: 'Anda yakin menutup wartol? Pengunjung akan diarahkan ke halaman tutup.';
+			if(confirm(msg)){
+				$('#wartolToggleForm').submit();
+			} else {
+				$(this).prop('checked', prev);
+			}
+		});
+	}
 
-	// remember previous state so we can revert on cancel
-	let prev = switchEl.checked;
-
-	switchEl.addEventListener('change', function(e){
-		const willOpen = switchEl.checked;
-		const msg = willOpen
-			? 'Anda yakin membuka wartol? Pengunjung akan dapat mengakses kembali.'
-			: 'Anda yakin menutup wartol? Pengunjung akan diarahkan ke halaman tutup.';
-		if(confirm(msg)){
+    // Logic for the complete order form confirmation
+	$('.complete-order-form').on('submit', function(e) {
+		e.preventDefault();
+		var form = this;
+		if (confirm('Anda yakin ingin menyelesaikan order ini?')) {
 			form.submit();
-		} else {
-			// revert
-			switchEl.checked = prev;
 		}
 	});
+
+    // Handle modal display based on URL hash
+    if (window.location.hash === '#showPendingOrders') {
+        var pendingOrdersModal = new bootstrap.Modal(document.getElementById('pendingOrdersModal'));
+        pendingOrdersModal.show();
+    }
+
+    // Hide notification badge when dropdown is opened
+    $('#notification-dropdown').on('show.bs.dropdown', function () {
+        $('#notification-badge').hide();
+    });
+
+    // --- Persistent Notifications Logic ---
+    const notificationsContainer = $('#persistent-notifications');
+    const LOCAL_STORAGE_KEY = 'persistent_notifications';
+
+    // Function to show a notification
+    function showNotification(message, type = 'success', id = Date.now()) {
+        const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        const notificationHtml = `
+            <div class="alert ${alertClass} alert-dismissible fade show" role="alert" data-notification-id="${id}">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+        notificationsContainer.append(notificationHtml);
+    }
+
+    // Function to store notifications in local storage
+    function storeNotification(message, type) {
+        let notifications = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+        // Add a unique ID to each notification for easier removal
+        const newNotification = { id: Date.now(), message, type };
+        notifications.push(newNotification);
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(notifications));
+        return newNotification.id; // Return ID for immediate display
+    }
+
+    // Function to remove notification from local storage
+    function removeNotification(id) {
+        let notifications = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+        notifications = notifications.filter(n => n.id != id);
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(notifications));
+    }
+
+    // Capture Laravel flash messages and store them
+    const laravelStatus = notificationsContainer.find('.alert-success').text().trim();
+    const laravelError = notificationsContainer.find('.alert-danger').text().trim();
+
+    if (laravelStatus) {
+        // Only store if it's not already stored to prevent duplicates on initial load
+        let stored = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+        if (!stored.some(n => n.message === laravelStatus && n.type === 'success')) {
+            storeNotification(laravelStatus, 'success');
+        }
+        // Clear the initial Laravel flash message from the DOM
+        notificationsContainer.find('.alert-success').remove();
+    }
+    if (laravelError) {
+        let stored = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+        if (!stored.some(n => n.message === laravelError && n.type === 'danger')) {
+            storeNotification(laravelError, 'danger');
+        }
+        notificationsContainer.find('.alert-danger').remove();
+    }
+
+    // Display all notifications from local storage on page load
+    let storedNotifications = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+    storedNotifications.forEach(notification => {
+        showNotification(notification.message, notification.type, notification.id);
+    });
+
+    // Event listener for closing notifications
+    notificationsContainer.on('closed.bs.alert', '.alert', function () {
+        const notificationId = $(this).data('notification-id');
+        removeNotification(notificationId);
+    });
+
 });
 </script>
 </body>

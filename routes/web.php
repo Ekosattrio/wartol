@@ -53,6 +53,7 @@ Route::prefix('penjual')->name('penjual.')->group(function () {
     Route::get('/laporan/export/excel', [LaporanController::class, 'exportExcel'])->name('laporan.export.excel');
     Route::get('/laporan/export/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.export.pdf');
     Route::put('/laporan/{transaction}', [LaporanController::class, 'update'])->name('laporan.update');
+    Route::put('/orders/{id}/complete', [DashboardController::class, 'completeOrder'])->name('order.complete');
 });
 
 
