@@ -39181,3 +39181,14 @@ a.product-img img {
     min-width: 90px;
   }
 }
+
+.product-img-wrap {
+    margin-left: -20px; /* geser kiri */
+}
+
+.product-img {
+    width: 80px;
+    height: auto;      /* biar responsive */
+    max-height: 100px;
+    object-fit: cover;
+}
