@@ -22,7 +22,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('component.header', function ($view) {
-            $allPendingOrders = Transaction::where('status', 'pending')->orderBy('created_at', 'asc')->get();
+            $allPendingOrders = Transaction::where('status', 'paid')->orderBy('created_at', 'asc')->get();
             $view->with('allPendingOrders', $allPendingOrders);
         });
     }

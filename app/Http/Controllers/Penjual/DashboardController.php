@@ -31,34 +31,39 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-            // Sales for last 7 days (including today)
-            $end = Carbon::today()->endOfDay();
-            $start = Carbon::today()->subDays(6)->startOfDay();
+        // Sales for last 7 days (including today)
+        $end = Carbon::today()->endOfDay();
+        $start = Carbon::today()->subDays(6)->startOfDay();
 
-            // Cities: Sales per date for paid transactions only
-            $rows = Transaction::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total_amount) as total'))
-                ->whereBetween('created_at', [$start, $end])
-                ->where('status', 'paid')
-                ->groupBy(DB::raw('DATE(created_at)'))
-                ->orderBy(DB::raw('DATE(created_at)'))
-                ->pluck('total', 'date')
-                ->toArray();
+        // Cities: Sales per date for paid transactions only
+        $rows = Transaction::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total_amount) as total'))
+            ->whereBetween('created_at', [$start, $end])
+            ->where('status', 'paid')
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->orderBy(DB::raw('DATE(created_at)'))
+            ->pluck('total', 'date')
+            ->toArray();
 
-            // Build labels and data for the last 7 days in chronological order
-            $chartLabels = [];
-            $chartData = [];
-            for ($d = 6; $d >= 0; $d--) {
-                $date = Carbon::today()->subDays($d)->toDateString();
-                $chartLabels[] = Carbon::parse($date)->format('d M');
-                $chartData[] = isset($rows[$date]) ? (int) $rows[$date] : 0;
-            }
+        // Build labels and data for the last 7 days in chronological order
+        $chartLabels = [];
+        $chartData = [];
+        for ($d = 6; $d >= 0; $d--) {
+            $date = Carbon::today()->subDays($d)->toDateString();
+            $chartLabels[] = Carbon::parse($date)->format('d M');
+            $chartData[] = isset($rows[$date]) ? (int) $rows[$date] : 0;
+        }
+        
         $wartolOpen = Cache::get('wartol_open', true);
 
-        // Ambil 3 pesanan pending terlama untuk widget dasbor
-        $oldestPendingOrders = Transaction::where('status', 'pending')->orderBy('created_at', 'asc')->take(3)->get();
-
-        // Ambil semua pesanan pending untuk modal "lihat semua"
-        $allPendingOrders = Transaction::where('status', 'pending')->orderBy('created_at', 'asc')->get();
+        // Ambil semua order dengan status paid (sudah bayar, belum diselesaikan)
+        $oldestPendingOrders = Transaction::where('status', 'paid')
+            ->orderBy('created_at', 'asc')
+            ->get();
+        
+        // Untuk kompatibilitas (jika masih ada yang pakai $allPendingOrders di view)
+        $allPendingOrders = Transaction::where('status', 'paid')
+            ->orderBy('created_at', 'asc')
+            ->get();
 
         return view('penjual.dashboard', compact('totalSales', 'totalOrders', 'topItems', 'chartLabels', 'chartData', 'wartolOpen', 'oldestPendingOrders', 'allPendingOrders'));
     }
@@ -83,12 +88,24 @@ class DashboardController extends Controller
 
         if ($transaction) {
             $transaction->update(['status' => 'completed']);
+            
+            // Untuk AJAX request
+            if ($request->ajax()) {
+                return response()->json(['success' => true, 'message' => 'Order berhasil diselesaikan.']);
+            }
+            
             $request->session()->put('status', 'Order berhasil diselesaikan.');
             return redirect()->route('penjual.dashboard');
         }
 
-                    $request->session()->put('error', 'Order tidak ditemukan.');
-                    return redirect()->route('penjual.dashboard');    }
+        // Jika AJAX dan tidak ditemukan
+        if ($request->ajax()) {
+            return response()->json(['success' => false, 'message' => 'Order tidak ditemukan.'], 404);
+        }
+        
+        $request->session()->put('error', 'Order tidak ditemukan.');
+        return redirect()->route('penjual.dashboard');
+    }
 
     public function clearNotifications(Request $request)
     {
