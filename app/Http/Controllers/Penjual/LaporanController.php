@@ -13,8 +13,12 @@ class LaporanController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::latest()->get();
-        return view('penjual.laporan' , compact('transactions'));
+        $transactions = Transaction::with('transactionDetails.product')->latest()->get();
+
+        $paidTransactionsCount = Transaction::where('payment_status', 'paid')->count();
+        $completedTransactionsCount = Transaction::where('status', 'completed')->count();
+
+        return view('penjual.laporan' , compact('transactions', 'paidTransactionsCount', 'completedTransactionsCount'));
 
     }
      public function edit() {}

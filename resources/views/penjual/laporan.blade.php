@@ -59,42 +59,68 @@
 
 		<div class="page-wrapper">
 
-			<div class="content container-fluid mt-5">
-				<div class="page-header">
-					<div class="add-item d-flex">
-						<div class="page-title">
-							<h4>Laporan Penjualan</h4>
-							<h6>Lihat Laporan Penjualan anda</h6>
-						</div>
-					</div>
-					<ul class="table-top-head">
-						<li><a href="{{  route('penjual.laporan.export.pdf')}}"
-								data-bs-toggle="tooltip" 
-								data-bs-placement="top" 
-								title="Pdf">
-								<img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"></a></li>
-
-
-						<li>
-							<a href="{{ route('penjual.laporan.export.excel') }}"
-								data-bs-toggle="tooltip"
-								data-bs-placement="top"
-								title="Excel">
-								<img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img">
-							</a>
-						</li>
-
-						
-				
-						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
-									data-feather="chevron-up" class="feather-chevron-up"></i></a></li>
-					</ul>
-					
-				</div>
-
-				<!-- /product list -->
-				<div class="card table-list-card">
-					<div class="card-body">
+						<div class="content container-fluid mt-5">
+							<div class="page-header">
+								<div class="add-item d-flex">
+									<div class="page-title">
+										<h4>Laporan Penjualan</h4>
+										<h6>Lihat Laporan Penjualan anda</h6>
+									</div>
+								</div>
+								<ul class="table-top-head">
+									<li><a href="{{  route('penjual.laporan.export.pdf')}}"
+											data-bs-toggle="tooltip"
+											data-bs-placement="top"
+											title="Pdf">
+											<img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"></a></li>
+			
+			
+									<li>
+										<a href="{{ route('penjual.laporan.export.excel') }}"
+											data-bs-toggle="tooltip"
+											data-bs-placement="top"
+											title="Excel">
+											<img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img">
+										</a>
+									</li>
+			
+			
+			
+									<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
+												data-feather="chevron-up" class="feather-chevron-up"></i></a></li>
+								</ul>
+			
+							</div>
+			
+							<!-- Sales Statistics -->
+							<div class="row">
+								<div class="col-lg-6 col-sm-6 col-12">
+									<div class="dash-widget">
+										<div class="dash-widgetimg">
+											<span><img src="{{ asset('assets/img/icons/dash1.svg') }}" alt="img"></span>
+										</div>
+										<div class="dash-widgetcontent">
+											<h5><span class="counters" data-count="{{ $paidTransactionsCount }}">0</span></h5>
+											<h6>Transaksi Berhasil Dibayar</h6>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-sm-6 col-12">
+									<div class="dash-widget">
+										<div class="dash-widgetimg">
+											<span><img src="{{ asset('assets/img/icons/dash2.svg') }}" alt="img"></span>
+										</div>
+										<div class="dash-widgetcontent">
+											<h5><span class="counters" data-count="{{ $completedTransactionsCount }}">0</span></h5>
+											<h6>Transaksi Selesai</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Sales Statistics -->
+			
+							<!-- /product list -->
+							<div class="card table-list-card">					<div class="card-body">
 						<!-- Filter -->
 						<div class="table-top d-flex align-items-center justify-content-between">
 							<div class="search-set d-block d-md-flex">
@@ -146,6 +172,7 @@
 										</th>
 										<th>Kode Transaksi</th>
 										<th>Nomor HP</th>
+										<th>Items</th>
 										<th>Total</th>
 										<th>Metode Pembayaran</th>
 										<th>Status Pembayaran</th>
@@ -166,6 +193,11 @@
 								
 										<td>{{ $trx->transaction_code }}</td>
 										<td>{{ $trx->phone }}</td>
+										<td>
+											@foreach($trx->transactionDetails as $detail)
+												{{ $detail->product->name }} ({{ $detail->qty }})<br>
+											@endforeach
+										</td>
 										<td>Rp {{ number_format($trx->total_amount, 0, ',', '.') }}</td>
 										<td>{{ $trx->payment_method ?? '-' }}</td>
 										<td>
