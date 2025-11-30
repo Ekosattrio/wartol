@@ -164,7 +164,7 @@
 											</label>
 										</td>
 
-										<td>{{ $trx->transaction_code }}</td>
+										<td>{{ $trx->id }}</td>
 										<td>{{ $trx->phone }}</td>
 										<td>Rp {{ number_format($trx->total_amount, 0, ',', '.') }}</td>
 										<td>{{ $trx->payment_method ?? '-' }}</td>
@@ -190,7 +190,7 @@
 														data-bs-toggle="modal"
 														data-bs-target="#detailTransaksiModal"
 
-														data-code="{{ $trx->transaction_code }}"
+														data-code="{{ $trx->transaction_id }}"
 														data-phone="{{ $trx->phone }}"
 														data-total="{{ $trx->total_amount }}"
 														data-date="{{ $trx->created_at->format('d M Y H:i:s') }}"
