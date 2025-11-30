@@ -50,21 +50,21 @@
 }
 
 .order-scroll-container::-webkit-scrollbar-thumb {
-    background: #ff8a00;
+    background: #A8734A;
     border-radius: 10px;
 }
 
 .order-scroll-container::-webkit-scrollbar-thumb:hover {
-    background: #e67a00;
+    background: #A8734A;
 }
 /* Wartol switch colors: red when off, orange when on */
 .form-check-input.wartol-switch {
-	background-color: #dc3545; /* red default */
-	border-color: #dc3545;
+	background-color: #A8734A; /* red default */
+	border-color: #A8734A;
 }
 .form-check-input.wartol-switch:checked {
-	background-color: #ff8a00; /* orange when checked */
-	border-color: #ff8a00;
+	background-color: #A8734A; /* orange when checked */
+	border-color: #A8734A;
 	box-shadow: 0 0 0 .2rem rgba(255,138,0,0.15);
 }
 .wartol-label { margin-left: .5rem; font-weight:600; }
@@ -115,7 +115,7 @@
         <div class="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
             <h5 class="mb-2">Order Pending</h5>
             @if($oldestPendingOrders->count() > 0)
-                <span class="badge bg-warning mb-2">{{ $oldestPendingOrders->count() }} Orders</span>
+                <span class="badge bg-primary mb-2">{{ $oldestPendingOrders->count() }} Orders</span>
             @endif
         </div>
         <div class="card-body pb-2">
@@ -127,7 +127,7 @@
                                 <div class="border rounded p-3 h-100" style="background: #f8f9fa;">
                                     <!-- Header Struk -->
                                     <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
-                                        <h6 class="mb-0 text-info">#{{ $order->order_id }}</h6>
+                                        <h6 class="mb-0 text-primary">#{{ $order->order_id }}</h6>
                                         <small class="text-muted">{{ $order->created_at->diffForHumans() }}</small>
                                     </div>
                                     
@@ -175,7 +175,7 @@
                                     <form action="{{ route('penjual.order.complete', $order->id) }}" method="POST" class="complete-order-form">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-sm w-100" style="background-color: #ff8a00; color: white; padding: 8px 20px;">
+                                        <button type="submit" class="btn btn-sm w-100" style="background-color: #A8734A; color: white; padding: 8px 20px;">
                                             <i class="ti ti-check"></i> Selesaikan
                                         </button>
                                     </form>
