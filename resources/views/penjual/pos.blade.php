@@ -321,7 +321,9 @@
 								<div class="head-text d-flex align-items-center justify-content-between">
 									<h6 class="d-flex align-items-center mb-0">Product Added</h6>
 									<a href="javascript:void(0);" id="clearAllProducts"
-										class="d-flex align-items-center text-danger">
+										class="d-flex align-items-center text-danger"
+	
+										>
 										<span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear all
 									</a>
 								</div>
