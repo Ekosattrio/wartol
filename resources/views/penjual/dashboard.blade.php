@@ -90,79 +90,67 @@
 					</div>
 				</div>
 
-                <div class="card" data-bs-toggle="modal" data-bs-target="#pendingOrdersModal" style="cursor: pointer;">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0">Order Pending</h6>
-                    </div>
-                    <div class="card-body">
-                        @if($oldestPendingOrders->count() > 0)
-                            <ul class="list-group list-group-flush">
-                                @foreach($oldestPendingOrders as $order)
-                                    <li class="list-group-item">
-                                        <div class="d-flex justify-content-between">
-                                            <span><strong>ID:</strong> {{ $order->order_id }}</span>
-                                            <span class="text-muted">Total: Rp {{ number_format($order->total_amount, 0, ',', '.') }}</span>
-                                        </div>
-										<div><strong>No. Telp:</strong> {{ str_replace('.', '', $order->phone) }}</div>
-                                        <div>Waktu Pickup: {{ \Carbon\Carbon::parse($order->schedule_pickup)->format('d M Y, H:i') }}</div>
-                                        <small class="text-muted">Masuk pada: {{ $order->created_at->format('d M Y, H:i') }}</small>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <div class="text-center text-muted">
-                                <p>Tidak ada order yang perlu diproses.</p>
-                            </div>
-                        @endif
-                    </div>
-                    <small class="text-muted text-center p-2 d-block">Klik untuk melihat semua pending order</small>
-                </div>
+               <div class="card">
+					<div class="card-header d-flex justify-content-between align-items-center">
+						<h6 class="mb-0">Order Pending</h6>
 
-				<!-- Modal -->
-				<div class="modal fade" id="pendingOrdersModal" tabindex="-1" aria-labelledby="pendingOrdersModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="pendingOrdersModalLabel">Semua Order Pending</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								@if($allPendingOrders->count() > 0)
-									<div class="table-responsive">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>Order ID</th>
-													<th>Nomor Telepon</th>
-													<th>Total</th>
-													<th>Jadwal Pickup</th>
-													<th>Aksi</th>
-												</tr>
-											</thead>
-											<tbody>
-												@foreach($allPendingOrders as $order)
-													<tr>
-														<td>{{ $order->order_id }}</td>
-														<td>{{ str_replace('.', '', $order->phone) }}</td>
-														<td>Rp {{ number_format($order->total_amount, 0, ',', '.') }}</td>
-														<td>{{ \Carbon\Carbon::parse($order->schedule_pickup)->format('d M Y, H:i') }}</td>
-														<td>
-															<form action="{{ route('penjual.order.complete', $order->id) }}" method="POST" class="complete-order-form">
-																@csrf
-																@method('PUT')
-																<button type="submit" class="btn btn-sm" style="background-color: #ff8a00; color: white;">Selesaikan</button>
-															</form>
-														</td>
-													</tr>
-												@endforeach
-											</tbody>
-										</table>
-									</div>
-								@else
-									<p class="text-center text-muted">Tidak ada order pending.</p>
-								@endif
-							</div>
+						<!-- Sort -->
+						<div>
+							<a href="?sort=desc" class="btn btn-sm btn-outline-primary {{ request('sort')=='desc'?'active':'' }}">
+								Terbaru
+							</a>
+							<a href="?sort=asc" class="btn btn-sm btn-outline-secondary {{ request('sort')=='asc'?'active':'' }}">
+								Terlama
+							</a>
 						</div>
+					</div>
+
+					<div class="card-body p-0">
+						@if($pendingOrders->count() > 0)
+							<div class="table-responsive">
+								<table class="table mb-0">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>No. Telepon</th>
+											<th>Total</th>
+											<th>Pickup</th>
+											<th>Masuk</th>
+											<th>Aksi</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										@foreach($pendingOrders as $order)
+											<tr>
+												<td>{{ $order->order_id }}</td>
+												<td>{{ str_replace('.', '', $order->phone) }}</td>
+												<td>Rp {{ number_format($order->total_amount,0,',','.') }}</td>
+												<td>{{ \Carbon\Carbon::parse($order->schedule_pickup)->format('d M Y, H:i') }}</td>
+												<td>{{ $order->created_at->format('d M Y, H:i') }}</td>
+												<td>
+													<form action="{{ route('penjual.order.complete', $order->id) }}" method="POST" class="complete-order-form">
+														@csrf
+														@method('PUT')
+														<button class="btn btn-sm" style="background-color: #ff8a00; color: white;">Selesaikan</button>
+													</form>
+												</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+
+							<!-- Pagination -->
+							<div class="p-3">
+								{{ $pendingOrders->links('pagination::bootstrap-5') }}
+							</div>
+
+						@else
+							<div class="text-center text-muted p-3">
+								Tidak ada order pending.
+							</div>
+						@endif
 					</div>
 				</div>
 

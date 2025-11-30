@@ -54,13 +54,12 @@ class DashboardController extends Controller
             }
         $wartolOpen = Cache::get('wartol_open', true);
 
-        // Ambil 3 pesanan pending terlama untuk widget dasbor
-        $oldestPendingOrders = Transaction::where('status', 'pending')->orderBy('created_at', 'asc')->take(3)->get();
+        $pendingOrders = Transaction::where('status', 'pending')
+                                ->orderBy('created_at', 'asc')
+                                ->with(['details.product']) // Eager load relationships
+                                ->paginate(5); // Add pagination
 
-        // Ambil semua pesanan pending untuk modal "lihat semua"
-        $allPendingOrders = Transaction::where('status', 'pending')->orderBy('created_at', 'asc')->get();
-
-        return view('penjual.dashboard', compact('totalSales', 'totalOrders', 'topItems', 'chartLabels', 'chartData', 'wartolOpen', 'oldestPendingOrders', 'allPendingOrders'));
+        return view('penjual.dashboard', compact('totalSales', 'totalOrders', 'topItems', 'chartLabels', 'chartData', 'wartolOpen', 'pendingOrders'));
     }
 
     /**
