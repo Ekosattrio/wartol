@@ -45,6 +45,8 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+    <!-- Dropzone Image -->   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css"/>
 
 </head>
 
@@ -136,13 +138,12 @@
                                  data-id="{{ $product->id }}"
                                  data-price="{{ $product->harga }}">
 
-                                <a href="javascript:void(0);" class="img-bg mb-2 position-relative">
-                                    <img src="{{ $product->gambar ? asset($product->gambar) : asset('assets/img/products/default.png') }}"
-                                         alt="{{ $product->nama_produk }}"
-                                         class="w-100"
-                                         style="height:180px; object-fit:cover;"
-                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/products/default.png') }}'">
-                                </a>
+                                <a href="javascript:void(0);" class="img-bg">
+																<img src="{{ asset('storage/' . $product->image_path) }}" alt="Produk"
+																 style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;"
+																>
+																
+															</a>
 
                                 <h6 class="cat-name text-truncate">
                                     <a href="javascript:void(0);">{{ $product->kategori ?? '-' }}</a>
@@ -180,13 +181,12 @@
                                  data-id="{{ $product->id }}"
                                  data-price="{{ $product->harga }}">
 
-                                <a href="javascript:void(0);" class="img-bg mb-2 position-relative">
-                                    <img src="{{ $product->gambar ? asset($product->gambar) : asset('assets/img/products/default.png') }}"
-                                         alt="{{ $product->nama_produk }}"
-                                         class="w-100"
-                                         style="height:180px; object-fit:cover;"
-                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/products/default.png') }}'">
-                                </a>
+                                <a href="javascript:void(0);" class="img-bg">
+																<img src="{{ asset('storage/' . $product->image_path) }}" alt="Produk"
+																 style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;"
+																>
+																
+															</a>
 
                                 <h6 class="cat-name text-truncate">
                                     <a href="javascript:void(0);">{{ $product->kategori ?? '-' }}</a>
