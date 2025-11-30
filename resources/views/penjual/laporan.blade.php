@@ -12,33 +12,33 @@
 	<title>Dreams Pos Admin Template</title>
 
 	<!-- Favicon -->
-<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
+	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
-<!-- Animation CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+	<!-- Animation CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
 
-<!-- Select2 CSS -->
-<link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+	<!-- Select2 CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
 
-<!-- Datetimepicker CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
+	<!-- Datetimepicker CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
 
-<!-- Mobile CSS -->
-<link rel="stylesheet" href="{{ asset('assets/plugins/intltelinput/css/intlTelInput.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/plugins/intltelinput/css/demo.css') }}">
+	<!-- Mobile CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/plugins/intltelinput/css/intlTelInput.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/plugins/intltelinput/css/demo.css') }}">
 
-<!-- Datatable CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
+	<!-- Datatable CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
 
-<!-- Fontawesome CSS -->
-<link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
 
-<!-- Main CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 
 
@@ -51,11 +51,11 @@
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
 
-	 {{-- HEADER --}}
-        @include('component.header')
+		{{-- HEADER --}}
+		@include('component.header')
 
-        {{-- SIDEBAR --}}
-        @include('component.sidebar')
+		{{-- SIDEBAR --}}
+		@include('component.sidebar')
 
 		<div class="page-wrapper">
 
@@ -69,8 +69,8 @@
 					</div>
 					<ul class="table-top-head">
 						<li><a href="{{  route('penjual.laporan.export.pdf')}}"
-								data-bs-toggle="tooltip" 
-								data-bs-placement="top" 
+								data-bs-toggle="tooltip"
+								data-bs-placement="top"
 								title="Pdf">
 								<img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"></a></li>
 
@@ -84,12 +84,12 @@
 							</a>
 						</li>
 
-						
-				
+
+
 						<li><a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
 									data-feather="chevron-up" class="feather-chevron-up"></i></a></li>
 					</ul>
-					
+
 				</div>
 
 				<!-- /product list -->
@@ -98,7 +98,7 @@
 						<!-- Filter -->
 						<div class="table-top d-flex align-items-center justify-content-between">
 							<div class="search-set d-block d-md-flex">
-								
+
 								<div class="my-2">
 									<div class="pemilihrentang-container">
 										<input type="text" id="pemilihrentang-input"
@@ -127,9 +127,9 @@
 							</div>
 
 							<div class="filters d-flex justify-content-end">
-							
-								
-								
+
+
+
 							</div>
 						</div>
 						<!-- /Filter -->
@@ -163,7 +163,7 @@
 												<span class="checkmarks"></span>
 											</label>
 										</td>
-								
+
 										<td>{{ $trx->transaction_code }}</td>
 										<td>{{ $trx->phone }}</td>
 										<td>Rp {{ number_format($trx->total_amount, 0, ',', '.') }}</td>
@@ -186,8 +186,23 @@
 											</button>
 											<ul class="dropdown-menu dropdown-menu-end shadow-sm p-1">
 												<li>
-													<button class="dropdown-item d-flex align-items-center small py-1" type="button"
-														data-bs-toggle="modal" data-bs-target="#sales-details-new">
+													<button class="dropdown-item d-flex align-items-center small py-1 lihat-detail" type="button"
+														data-bs-toggle="modal"
+														data-bs-target="#detailTransaksiModal"
+
+														data-code="{{ $trx->transaction_code }}"
+														data-phone="{{ $trx->phone }}"
+														data-total="{{ $trx->total_amount }}"
+														data-date="{{ $trx->created_at->format('d M Y H:i:s') }}"
+														data-status="{{ $trx->status }}"
+														data-payment="{{ $trx->payment_status }}"
+														data-method="{{ strtoupper($trx->payment_method ?? '-') }}"
+
+														data-items='@json($trx->details->map(fn($d) => [
+															"nama_produk" => $d->product->nama_produk ?? "Item",
+															"qty" => $d->qty,
+															"subtotal" => $d->subtotal
+														]))'>
 														<i data-feather="eye" class="me-2" width="14" height="14"></i>
 														Lihat Detail
 													</button>
@@ -201,11 +216,11 @@
 														data-id="{{ $trx->id }}"
 														data-nama="{{ $trx->transaction_code }}"
 														data-status="{{ $trx->status }}">
-					
+
 														<i data-feather="edit" class="me-2" width="14" height="14"></i>
 														Edit
 													</button>
-													
+
 												</li>
 												<li>
 													<form action="{{ route('penjual.laporan.destroy', $trx->id) }}" method="POST"
@@ -234,124 +249,169 @@
 		</div>
 	</div>
 
- <div class="modal fade" id="editlaporanModal" tabindex="-1" aria-labelledby="editlaporanModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editlaporanModalLabel">Edit Laporan:
-                        <strong id="editNamaProduk"></strong>
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+	<div class="modal fade" id="editlaporanModal" tabindex="-1" aria-labelledby="editlaporanModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editlaporanModalLabel">Edit Laporan:
+						<strong id="editNamaProduk"></strong>
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
 
-                <form id="editlaporanForm" method="POST">
-                    @csrf
-                    @method('PUT') {{-- Method untuk update --}}
+				<form id="editlaporanForm" method="POST">
+					@csrf
+					@method('PUT') {{-- Method untuk update --}}
 
-                    <div class="modal-body">
-                
+					<div class="modal-body">
+
 
 						<div class="mb-3">
 							<label for="editStatus" class="form-label">Status</label>
 							<select class="form-select" id="editStatus" name="status">
-									<option value="pending">Pending</option>
-									<option value="paid">Paid</option>
-									<option value="failed">Failed</option>
-									<option value="completed">Completed</option>
-                            </select>
-                            <div id="editStatusError" class="text-danger small mt-1"></div>
-                        </div>
-                    </div>
+								<option value="pending">Pending</option>
+								<option value="paid">Paid</option>
+								<option value="failed">Failed</option>
+								<option value="completed">Completed</option>
+							</select>
+							<div id="editStatusError" class="text-danger small mt-1"></div>
+						</div>
+					</div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </div>
-                </form>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+					</div>
+				</form>
 
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
+
+	<!-- SATU MODAL DI LUAR LOOP -->
+	<div class="modal fade" id="detailTransaksiModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Detail Transaksi</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+
+					<div class="card  mb-3">
+						<div class="card-body">
+
+							<span class="badge bg-dark fs-12 mb-2" id="strukOrderId"></span>
+
+							<div class="row">
+								<div class="col-6">
+									<p><b>Cashier:</b> <span id="strukCashier"></span></p>
+									<p><b>Total:</b> <span id="strukTotal"></span></p>
+								</div>
+								<div class="col-6">
+									<p><b>Customer:</b> <span id="strukCustomer"></span></p>
+									<p><b>Date:</b> <span id="strukDate"></span></p>
+								</div>
+							</div>
+
+							<p class="mt-2"><b>Payment:</b>
+								<span class="badge" id="strukPaymentStatus"></span>
+								<small id="strukPaymentMethod"></small>
+							</p>
+
+							<p><b>Status Order:</b> <span id="strukStatus"></span></p>
+
+						</div>
+
+						<div class="card-body border-top">
+							<h6 class="mb-2">Items</h6>
+							<!-- LIST PRODUK DALAM MODAL STRUK -->
+							<div id="strukItemList"></div>
+						</div>
 
 
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
 	<!-- jQuery -->
-<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.loadtemplate/1.5.10/jquery.loadTemplate.min.js"
-	integrity="sha512-T1zx+UG2gXu9mr29wvzaKkNUmAOAie40T32ZPIvcRPJgO5br53+Ocqj8gzguUuix7FK+Z3ncRCJMaZcumnPZzg=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
-<script src="{{ asset('assets/js/feather.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.slimscroll.min.js') }}"></script>
+	<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.loadtemplate/1.5.10/jquery.loadTemplate.min.js"
+		integrity="sha512-T1zx+UG2gXu9mr29wvzaKkNUmAOAie40T32ZPIvcRPJgO5br53+Ocqj8gzguUuix7FK+Z3ncRCJMaZcumnPZzg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+	<script src="{{ asset('assets/js/feather.min.js') }}"></script>
+	<script src="{{ asset('assets/js/jquery.slimscroll.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/js/dataTables.bootstrap5.min.js') }}"></script>
+	<script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('assets/js/dataTables.bootstrap5.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/moment.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+	<script src="{{ asset('assets/js/moment.min.js') }}"></script>
+	<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
 
-<script src="{{ asset('assets/plugins/intltelinput/js/intlTelInput.js') }}"></script>
+	<script src="{{ asset('assets/plugins/intltelinput/js/intlTelInput.js') }}"></script>
 
-<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+	<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
-<script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/sweetalert/sweetalerts.min.js') }}"></script>
+	<script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+	<script src="{{ asset('assets/plugins/sweetalert/sweetalerts.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/theme-script.js') }}"></script>
-<script src="{{ asset('assets/js/script.js') }}"></script>
-  <script>
-        $(document).ready(function() {
+	<script src="{{ asset('assets/js/theme-script.js') }}"></script>
+	<script src="{{ asset('assets/js/script.js') }}"></script>
+	<script>
+		$(document).ready(function() {
+			document.querySelectorAll('.lihat-detail').forEach(btn => {
+				btn.addEventListener('click', function() {
 
-            // ===========================
-            // KODE UNTUK FITUR EDIT
-            // ===========================
+					// Ambil data 1 transaksi
+					const code = this.dataset.code;
+					const phone = this.dataset.phone;
+					const total = this.dataset.total;
+					const date = this.dataset.date;
+					const status = this.dataset.status;
+					const payment = this.dataset.payment;
+					const method = this.dataset.method;
 
-            $('.btn-edit-laporan').on('click', function() {
-                var id = $(this).data('id');
-                var status = $(this).data('status');
-                $('#editStatus').val(status);
-                var url = "{{ route('penjual.laporan.update', ':id') }}";
-                url = url.replace(':id', id);
-                $('#editlaporanForm').attr('action', url);
-                $('#editStatusError').text('');
-            });
+					// Ambil list produk
+					const items = JSON.parse(this.dataset.items);
 
+					// Isi struk sesuai style kamu
+					document.getElementById('strukOrderId').textContent = `Order ID : #${code}`;
+					document.getElementById('strukCashier').textContent = method.toLowerCase();
+					document.getElementById('strukTotal').textContent = `Rp${Number(total).toLocaleString('id-ID')}`;
+					document.getElementById('strukCustomer').textContent = phone;
+					document.getElementById('strukDate').textContent = date;
+					document.getElementById('strukStatus').textContent = status;
 
-            $('#editlaporanForm').on('submit', function(e) {
-                e.preventDefault(); 
+					// Badge payment status
+					const badge = document.getElementById('strukPaymentStatus');
+					badge.textContent = payment;
+					badge.className = `badge ${payment.toLowerCase() === 'success' ? 'bg-success' : 'bg-warning'}`;
 
-                var form = $(this);
-                var url = form.attr('action');
+					document.getElementById('strukPaymentMethod').textContent = `(${method})`;
 
-                $.ajax({
-                    type: "POST", // Method tetap POST, tapi @method('PUT') akan dibaca Laravel
-                    url: url,
-                    data: form.serialize(),
+					// Render list produk ke struk (tanpa mengubah style)
+					const itemList = document.getElementById('strukItemList');
+					itemList.innerHTML = '';
 
-                    success: function(response) {
-                        $('#editlaporanModal').modal('hide');
-                        alert('Produk berhasil diupdate!');
-                        location.reload();
-                    },
+					items.forEach(i => {
+						itemList.innerHTML += `
+          <div class="d-flex justify-content-between">
+            <span>${i.nama_produk} x${i.qty}</span>
+            <span>Rp${Number(i.subtotal).toLocaleString('id-ID')}</span>
+          </div>
+        `;
+					});
 
-                    error: function(xhr) {
-                        $('#editStatusError').text('');
-
-                        if (xhr.status === 422) { // 422 = Error validasi
-                            var errors = xhr.responseJSON.errors;
-
-                    
-                            if (errors.status) {
-                                $('#editStatusError').text(errors.status[0]);
-                            }
-                        } else {
-                            alert('Terjadi kesalahan, silakan coba lagi.');
-                        }
-                    }
-                });
-            });
+				});
+			});
 		});
 	</script>
 

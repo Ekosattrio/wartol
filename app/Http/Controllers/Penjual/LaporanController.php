@@ -14,14 +14,13 @@ class LaporanController extends Controller
     public function index()
     {
         $transactions = Transaction::latest()->get();
-        return view('penjual.laporan' , compact('transactions'));
-
+        return view('penjual.laporan', compact('transactions'));
     }
-     public function edit() {}
-     public function update(Request $request, Transaction $transaction)
+    public function edit() {}
+    public function update(Request $request, Transaction $transaction)
     {
         $validatedData = $request->validate([
-        'status' => 'required|in:pending,processing,completed',
+            'status' => 'required|in:pending,paid,completed',
         ]);
 
         $transaction->update($validatedData);
@@ -41,18 +40,18 @@ class LaporanController extends Controller
             ->with('success', 'Transaksi berhasil dihapus.');
     }
 
-    public function exportExcel(){
+    public function exportExcel()
+    {
         return Excel::download(new LaporanExport, 'laporan.xlsx');
     }
 
     public function exportPDF()
-        {
-            $data = Transaction::all(); 
-            
-            $pdf = Pdf::loadView('pdf.pdf_laporan', compact('data'))
-                    ->setPaper('A4', 'landscape');
-            
-            return $pdf->download('laporan-penjualan.pdf');
-        }
+    {
+        $data = Transaction::all();
 
+        $pdf = Pdf::loadView('pdf.pdf_laporan', compact('data'))
+            ->setPaper('A4', 'landscape');
+
+        return $pdf->download('laporan-penjualan.pdf');
+    }
 }
