@@ -39,6 +39,24 @@
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 <style>
+/* Custom Scrollbar */
+.order-scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.order-scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.order-scroll-container::-webkit-scrollbar-thumb {
+    background: #ff8a00;
+    border-radius: 10px;
+}
+
+.order-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #e67a00;
+}
 /* Wartol switch colors: red when off, orange when on */
 .form-check-input.wartol-switch {
 	background-color: #dc3545; /* red default */
@@ -51,6 +69,7 @@
 }
 .wartol-label { margin-left: .5rem; font-weight:600; }
 </style>
+
 
 
 </head>
@@ -90,33 +109,100 @@
 					</div>
 				</div>
 
-                <div class="card" data-bs-toggle="modal" data-bs-target="#pendingOrdersModal" style="cursor: pointer;">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0">Order Pending</h6>
-                    </div>
-                    <div class="card-body">
-                        @if($oldestPendingOrders->count() > 0)
-                            <ul class="list-group list-group-flush">
-                                @foreach($oldestPendingOrders as $order)
-                                    <li class="list-group-item">
-                                        <div class="d-flex justify-content-between">
-                                            <span><strong>ID:</strong> {{ $order->order_id }}</span>
-                                            <span class="text-muted">Total: Rp {{ number_format($order->total_amount, 0, ',', '.') }}</span>
-                                        </div>
-										<div><strong>No. Telp:</strong> {{ str_replace('.', '', $order->phone) }}</div>
-                                        <div>Waktu Pickup: {{ \Carbon\Carbon::parse($order->schedule_pickup)->format('d M Y, H:i') }}</div>
-                                        <small class="text-muted">Masuk pada: {{ $order->created_at->format('d M Y, H:i') }}</small>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <div class="text-center text-muted">
-                                <p>Tidak ada order yang perlu diproses.</p>
+               <!-- Order Pending -->
+<div class="col-12" id="order-pending-section">
+    <div class="card">
+        <div class="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
+            <h5 class="mb-2">Order Pending</h5>
+            @if($oldestPendingOrders->count() > 0)
+                <span class="badge bg-warning mb-2">{{ $oldestPendingOrders->count() }} Orders</span>
+            @endif
+        </div>
+        <div class="card-body pb-2">
+            @if($oldestPendingOrders->count() > 0)
+                <div class="order-scroll-container" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap; padding-bottom: 10px;">
+                    <div class="d-inline-flex" style="gap: 15px;">
+                        @foreach($oldestPendingOrders as $order)
+                            <div class="order-card" style="display: inline-block; width: 350px; vertical-align: top; white-space: normal;">
+                                <div class="border rounded p-3 h-100" style="background: #f8f9fa;">
+                                    <!-- Header Struk -->
+                                    <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                                        <h6 class="mb-0 text-info">#{{ $order->order_id }}</h6>
+                                        <small class="text-muted">{{ $order->created_at->diffForHumans() }}</small>
+                                    </div>
+                                    
+                                    <!-- Info Customer -->
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">No. Telp</small>
+                                        <span class="fw-semibold">{{ str_replace('.', '', $order->phone) }}</span>
+                                    </div>
+                                    
+                                    <!-- Waktu Pickup -->
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">Waktu Pickup</small>
+                                        <span class="fw-semibold">{{ \Carbon\Carbon::parse($order->schedule_pickup)->format('d M, H:i') }}</span>
+                                    </div>
+                                    
+                                    <!-- Items List -->
+                                    <div class="mb-2 pb-2 border-bottom">
+                                        <small class="text-muted d-block mb-1">Items:</small>
+                                        @php
+                                            $details = \DB::table('transaction_details')
+                                                ->join('products', 'transaction_details.product_id', '=', 'products.id')
+                                                ->where('transaction_details.transaction_id', $order->id)
+                                                ->select('products.nama_produk', 'transaction_details.qty', 'transaction_details.price')
+                                                ->get();
+                                        @endphp
+                                        @if($details->count() > 0)
+                                            @foreach($details as $detail)
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span class="fs-13">{{ $detail->nama_produk }} <span class="text-muted">x{{ $detail->qty }}</span></span>
+                                                    <span class="fs-13 fw-semibold">Rp {{ number_format($detail->price * $detail->qty, 0, ',', '.') }}</span>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <span class="text-muted fs-13">No items</span>
+                                        @endif
+                                    </div>
+                                    
+                                    <!-- Total -->
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">Total</small>
+                                        <h6 class="mb-0 text-primary">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</h6>
+                                    </div>
+                                    
+                                    <!-- Action Button -->
+                                    <form action="{{ route('penjual.order.complete', $order->id) }}" method="POST" class="complete-order-form">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-sm w-100" style="background-color: #ff8a00; color: white; padding: 8px 20px;">
+                                            <i class="ti ti-check"></i> Selesaikan
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        @endif
+                        @endforeach
                     </div>
-                    <small class="text-muted text-center p-2 d-block">Klik untuk melihat semua pending order</small>
                 </div>
+                
+                <!-- Scroll Indicator -->
+                @if($oldestPendingOrders->count() > 3)
+                    <div class="text-center mt-2">
+                        <small class="text-muted">
+                            <i class="ti ti-chevron-left"></i> Scroll untuk melihat lebih banyak <i class="ti ti-chevron-right"></i>
+                        </small>
+                    </div>
+                @endif
+            @else
+                <div class="text-center text-muted py-4">
+                    <i class="ti ti-clipboard-check" style="font-size: 48px; opacity: 0.3;"></i>
+                    <p class="mt-2">Tidak ada order yang perlu diproses.</p>
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+<!-- /Order Pending -->
 
 				<!-- Modal -->
 				<div class="modal fade" id="pendingOrdersModal" tabindex="-1" aria-labelledby="pendingOrdersModalLabel" aria-hidden="true">
@@ -253,6 +339,47 @@
 
 <!-- Chart JS -->
 <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle form submission dengan AJAX
+    const forms = document.querySelectorAll('.complete-order-form');
+    
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!confirm('Yakin ingin menyelesaikan order ini?')) {
+                return;
+            }
+            
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<i class="ti ti-loader"></i> Processing...';
+            
+            // Submit form via AJAX
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Reload halaman untuk update list order
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                button.disabled = false;
+                button.innerHTML = originalText;
+                alert('Terjadi kesalahan. Silakan coba lagi.');
+            });
+        });
+    });
+});
+</script>
 
 <script>
 	(function() {

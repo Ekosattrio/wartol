@@ -351,6 +351,16 @@
             </div>
         </div>
     </div>
+<!-- CONTAINER BIAR TOAST KELIATAN -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 99999">
+    <div id="cartToast" class="toast align-items-center border-0" role="alert" data-bs-delay="2000">
+        <div class="d-flex">
+            <div class="toast-body">...</div>
+        </div>
+    </div>
+</div>
+
+
 
     <!-- /Main Wrapper -->
     <!-- jQuery -->
@@ -449,7 +459,7 @@
     </script>
 
     {{-- SCRIPT JS UNTUK MODAL EDIT --}}
-    <script>
+    {{-- <script>
         // Pastikan jQuery sudah siap
         $(document).ready(function() {
 
@@ -576,8 +586,128 @@
             });
 
         }); // <-- Ini adalah AKHIR dari $(document).ready()
-    </script>
-    
+    </script> --}}
+    <script>
+$(document).ready(function() {
+
+    /* ======================================
+        SETUP TOAST BIAR BISA DIPAKE
+    ======================================= */
+    const toastEl = document.getElementById('cartToast');
+
+    function showToast(msg, type = "success") {
+        if (!toastEl) return;
+
+        const body = toastEl.querySelector('.toast-body');
+        body.textContent = msg;
+
+        // Reset kelas warna
+        toastEl.classList.remove("text-bg-success", "text-bg-danger");
+
+        // Atur warna sesuai tipe
+        if (type === "success") {
+            toastEl.classList.add("text-bg-success");
+        } else {
+            toastEl.classList.add("text-bg-danger");
+        }
+
+        const bsToast = new bootstrap.Toast(toastEl);
+        bsToast.show();
+    }
+
+    /* ======================================
+        FITUR EDIT PRODUK
+    ======================================= */
+
+    $('.btn-edit-produk').on('click', function() {
+        var id = $(this).data('id');
+        var nama = $(this).data('nama');
+        var stok = $(this).data('stok');
+        var status = $(this).data('status');
+
+        $('#editNamaProduk').text(nama);
+        $('#editStok').val(stok);
+        $('#editStatus').val(status);
+
+        var url = "{{ route('penjual.produk.update', ':id') }}".replace(':id', id);
+        $('#editProdukForm').attr('action', url);
+
+        $('#editStokError').text('');
+        $('#editStatusError').text('');
+    });
+
+    $('#editProdukForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(),
+            success: function(response) {
+                $('#editProdukModal').modal('hide');
+                showToast("Produk berhasil diupdate!", "success");
+
+                setTimeout(() => location.reload(), 1200);
+            },
+            error: function(xhr) {
+                $('#editStokError').text('');
+                $('#editStatusError').text('');
+
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    if (errors.stok) $('#editStokError').text(errors.stok[0]);
+                    if (errors.status) $('#editStatusError').text(errors.status[0]);
+                } else {
+                    showToast("Terjadi kesalahan.", "error");
+                }
+            }
+        });
+    });
+
+    /* ======================================
+        FITUR DELETE PRODUK
+    ======================================= */
+    $('.btn-delete-produk').on('click', function() {
+        var productId = $(this).data('id');
+        var url = "{{ route('penjual.produk.destroy', ':id') }}".replace(':id', productId);
+
+        Swal.fire({
+            title: 'Anda yakin?',
+            text: "Data produk akan dihapus permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        _method: "DELETE"
+                    },
+                    success: function(response) {
+                        showToast("Produk berhasil dihapus!", "success");
+                        setTimeout(() => location.reload(), 1200);
+                    },
+                    error: function(xhr) {
+                        showToast("Gagal menghapus produk.", "error");
+                    }
+                });
+            }
+        });
+    });
+
+});
+</script>
+
 <script>
     Dropzone.autoDiscover = false;
 

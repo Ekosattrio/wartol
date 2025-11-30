@@ -32,14 +32,14 @@ class OtpAuthController extends Controller
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneInput);
 
         // Pastikan format jadi +62...
-        // if (str_starts_with($phoneNumber, '0')) {
-        //     $phoneNumber = '+62' . substr($phoneNumber, 1);
-        // } else if (str_starts_with($phoneNumber, '62')) {
-        //     $phoneNumber = '+' . $phoneNumber;
-        // } else if (!str_starts_with($phoneNumber, '+')) {
-        //     // Jaga-jaga kalau user input 858... tanpa 0
-        //     $phoneNumber = '+62' . $phoneNumber;
-        // }
+        if (str_starts_with($phoneNumber, '0')) {
+            $phoneNumber = '+62' . substr($phoneNumber, 1);
+        } else if (str_starts_with($phoneNumber, '62')) {
+            $phoneNumber = '+' . $phoneNumber;
+        } else if (!str_starts_with($phoneNumber, '+')) {
+            // Jaga-jaga kalau user input 858... tanpa 0
+            $phoneNumber = '+62' . $phoneNumber;
+        }
 
         // --- 2. LOG DEBUGGING (Cek Log jika Gagal) ---
         // Ini akan muncul di storage/logs/laravel.log

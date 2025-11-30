@@ -23,14 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // if (config('app.env') === 'production' || config('app.env') === 'local') {
-        //     URL::forceScheme('https');
-        // }
+        if (config('app.env') === 'production' || config('app.env') === 'local') {
+            URL::forceScheme('https');
+        }
 
-        // Bagikan data notifikasi hanya ke view 'component.header'
-        // Ini lebih efisien daripada membagikannya ke semua view penjual.
         View::composer('component.header', function ($view) {
-            // Pastikan hanya berjalan jika penjual (admin) sudah login
             if (auth()->guard('admin')->check()) {
                 $allPendingOrders = Transaction::where('payment_method', 'midtrans')
                     ->where('payment_status', 'success')
@@ -39,7 +36,6 @@ class AppServiceProvider extends ServiceProvider
                     ->get();
                 $view->with('allPendingOrders', $allPendingOrders);
             } else {
-                // Jika bukan penjual, berikan koleksi kosong untuk menghindari error
                 $view->with('allPendingOrders', collect());
             }
         });
