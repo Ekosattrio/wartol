@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <!-- Dropzone Image -->   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css"/>
+
 
 </head>
 
@@ -302,6 +305,7 @@
                                 <div id="createNamaProdukError" class="text-danger small mt-1"></div>
                             </div>
                         </div>
+                        
                         <div class="mb-3 row">
                             <label class="col-form-label col-md-2">Harga</label>
                             <div class="col-md-10">
@@ -310,6 +314,7 @@
                                 <div id="createHargaError" class="text-danger small mt-1"></div>
                             </div>
                         </div>
+                        
                         <div class="mb-3 row">
                             <label class="col-form-label col-md-2">Stok</label>
                             <div class="col-md-10">
@@ -318,6 +323,23 @@
                                 <div id="createStokError" class="text-danger small mt-1"></div>
                             </div>
                         </div>
+                        
+                        <div class="mb-3">
+                                <label class="form-label">Upload Gambar Produk</label>
+                                    <div id="imageDropzone" class="dropzone border rounded p-3 text-center">
+                                        <div class="dz-message">
+                                            <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                            <p>Drag & drop gambar, atau klik untuk pilih file</p>
+                                            <small class="text-muted">Format: JPEG, PNG (Wajib)</small>
+                                                
+                                        </div>
+                                        <div id="createimageError" class="text-danger small mt-1"></div>
+                                    </div>
+                                <input type="hidden" name="image_path" id="uploadedImagePath">
+                        </div>
+
+
+
                     </div>
 
                     <div class="modal-footer">
@@ -329,6 +351,16 @@
             </div>
         </div>
     </div>
+<!-- CONTAINER BIAR TOAST KELIATAN -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 99999">
+    <div id="cartToast" class="toast align-items-center border-0" role="alert" data-bs-delay="2000">
+        <div class="d-flex">
+            <div class="toast-body">...</div>
+        </div>
+    </div>
+</div>
+
+
 
     <!-- /Main Wrapper -->
     <!-- jQuery -->
@@ -349,6 +381,7 @@
     <script src="{{ asset('assets/plugins/sweetalert/sweetalerts.min.js') }}"></script>
     <script src="{{ asset('assets/js/theme-script.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
 
     {{-- SCRIPT MODAL UNTUK CREATE --}}
     <script>
@@ -426,7 +459,7 @@
     </script>
 
     {{-- SCRIPT JS UNTUK MODAL EDIT --}}
-    <script>
+    {{-- <script>
         // Pastikan jQuery sudah siap
         $(document).ready(function() {
 
@@ -553,7 +586,163 @@
             });
 
         }); // <-- Ini adalah AKHIR dari $(document).ready()
-    </script>
+    </script> --}}
+    <script>
+$(document).ready(function() {
+
+    /* ======================================
+        SETUP TOAST BIAR BISA DIPAKE
+    ======================================= */
+    const toastEl = document.getElementById('cartToast');
+
+    function showToast(msg, type = "success") {
+        if (!toastEl) return;
+
+        const body = toastEl.querySelector('.toast-body');
+        body.textContent = msg;
+
+        // Reset kelas warna
+        toastEl.classList.remove("text-bg-success", "text-bg-danger");
+
+        // Atur warna sesuai tipe
+        if (type === "success") {
+            toastEl.classList.add("text-bg-success");
+        } else {
+            toastEl.classList.add("text-bg-danger");
+        }
+
+        const bsToast = new bootstrap.Toast(toastEl);
+        bsToast.show();
+    }
+
+    /* ======================================
+        FITUR EDIT PRODUK
+    ======================================= */
+
+    $('.btn-edit-produk').on('click', function() {
+        var id = $(this).data('id');
+        var nama = $(this).data('nama');
+        var stok = $(this).data('stok');
+        var status = $(this).data('status');
+
+        $('#editNamaProduk').text(nama);
+        $('#editStok').val(stok);
+        $('#editStatus').val(status);
+
+        var url = "{{ route('penjual.produk.update', ':id') }}".replace(':id', id);
+        $('#editProdukForm').attr('action', url);
+
+        $('#editStokError').text('');
+        $('#editStatusError').text('');
+    });
+
+    $('#editProdukForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(),
+            success: function(response) {
+                $('#editProdukModal').modal('hide');
+                showToast("Produk berhasil diupdate!", "success");
+
+                setTimeout(() => location.reload(), 1200);
+            },
+            error: function(xhr) {
+                $('#editStokError').text('');
+                $('#editStatusError').text('');
+
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    if (errors.stok) $('#editStokError').text(errors.stok[0]);
+                    if (errors.status) $('#editStatusError').text(errors.status[0]);
+                } else {
+                    showToast("Terjadi kesalahan.", "error");
+                }
+            }
+        });
+    });
+
+    /* ======================================
+        FITUR DELETE PRODUK
+    ======================================= */
+    $('.btn-delete-produk').on('click', function() {
+        var productId = $(this).data('id');
+        var url = "{{ route('penjual.produk.destroy', ':id') }}".replace(':id', productId);
+
+        Swal.fire({
+            title: 'Anda yakin?',
+            text: "Data produk akan dihapus permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        _method: "DELETE"
+                    },
+                    success: function(response) {
+                        showToast("Produk berhasil dihapus!", "success");
+                        setTimeout(() => location.reload(), 1200);
+                    },
+                    error: function(xhr) {
+                        showToast("Gagal menghapus produk.", "error");
+                    }
+                });
+            }
+        });
+    });
+
+});
+</script>
+
+<script>
+    Dropzone.autoDiscover = false;
+
+
+    const imageDropzone = new Dropzone("#imageDropzone", {
+        url: "{{ route('penjual.produk.uploadImage') }}",  
+        method: "POST",
+        paramName: "file",  
+        maxFiles: 1,
+        maxFilesize: 5, // MB
+        acceptedFiles: "image/jpeg,image/png,image/jpg",  
+        addRemoveLinks: true,
+        dictDefaultMessage: "Drag & drop gambar di sini atau klik untuk pilih file",
+        headers: {
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+
+        success: function(file, response) {
+
+            document.getElementById("uploadedImagePath").value = response.path;
+        },
+        error: function(file, errorMessage) {
+            Swal.fire({
+                icon: "error",
+                title: "Upload Gagal",
+                text: "File wajib JPEG atau PNG, maksimal 5MB",
+            });
+            this.removeFile(file); 
+        }
+    });
+
+    imageDropzone.on("removedfile", function() {
+        document.getElementById("uploadedImagePath").value = "";
+    });
+</script>
 
 
 </body>

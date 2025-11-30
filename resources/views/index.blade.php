@@ -45,6 +45,8 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+    <!-- Dropzone Image -->   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css"/>
 
 </head>
 
@@ -61,8 +63,8 @@
                     <div class="pos-categories tabs_wrapper">
                         <div class="row d-flex justify-content-between mb-3 position-relative" style="z-index: 2;">
                             <div class="col-6">
-                                <h5>Categories</h5>
-                                <p>Select From Below Categories</p>
+                                <h5>Selamat Datang Di Wartol</h5>
+                                <p>Silahkan Checkout makanan anda</p>
                             </div>
                             <div class="col-6 d-flex justify-content-end mt-2 mt-md-0">
                                 @auth
@@ -98,25 +100,7 @@
                         </div>
 
         
-        <ul class="tabs owl-carousel pos-category">
-            <li id="all">
-                <a href="javascript:void(0);">
-                    <img src="assets/img/categories/category-01.png" alt="Categories">
-                </a>
-                <h6><a href="javascript:void(0);">All Categories</a></h6>
-                <span>{{ $products->count() }} Items</span>
-            </li>
-
-            @foreach($categories as $category)
-                <li id="{{ $category }}">
-                    <a href="javascript:void(0);">
-                        <img src="assets/img/categories/category-0{{ $loop->iteration + 1 }}.png" alt="Categories">
-                    </a>
-                    <h6><a href="javascript:void(0);">{{ $category }}</a></h6>
-                    <span>{{ $products->where('kategori', $category)->count() }} Items</span>
-                </li>
-            @endforeach
-        </ul>
+       
 
         <div class="pos-products">
             <div class="d-flex align-items-center justify-content-between">
@@ -136,13 +120,12 @@
                                  data-id="{{ $product->id }}"
                                  data-price="{{ $product->harga }}">
 
-                                <a href="javascript:void(0);" class="img-bg mb-2 position-relative">
-                                    <img src="{{ $product->gambar ? asset($product->gambar) : asset('assets/img/products/default.png') }}"
-                                         alt="{{ $product->nama_produk }}"
-                                         class="w-100"
-                                         style="height:180px; object-fit:cover;"
-                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/products/default.png') }}'">
-                                </a>
+                                <a href="javascript:void(0);" class="img-bg">
+																<img src="{{ asset('storage/' . $product->image_path) }}" alt="Produk"
+																 style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;"
+																>
+																
+															</a>
 
                                 <h6 class="cat-name text-truncate">
                                     <a href="javascript:void(0);">{{ $product->kategori ?? '-' }}</a>
@@ -180,13 +163,12 @@
                                  data-id="{{ $product->id }}"
                                  data-price="{{ $product->harga }}">
 
-                                <a href="javascript:void(0);" class="img-bg mb-2 position-relative">
-                                    <img src="{{ $product->gambar ? asset($product->gambar) : asset('assets/img/products/default.png') }}"
-                                         alt="{{ $product->nama_produk }}"
-                                         class="w-100"
-                                         style="height:180px; object-fit:cover;"
-                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/products/default.png') }}'">
-                                </a>
+                                <a href="javascript:void(0);" class="img-bg">
+																<img src="{{ asset('storage/' . $product->image_path) }}" alt="Produk"
+																 style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;"
+																>
+																
+															</a>
 
                                 <h6 class="cat-name text-truncate">
                                     <a href="javascript:void(0);">{{ $product->kategori ?? '-' }}</a>
@@ -246,7 +228,7 @@
 
         <!-- Input jadwal pickup opsional -->
         <div class="mb-3">
-            <label for="schedulePickup" class="form-label">Jadwal Pickup <span class="text-danger">(wajib)</span></label>
+            <label for="schedulePickup" class="form-label">Jadwal Pickup <span class="text-danger">*</span></label>
             <input type="datetime-local" id="schedulePickup" class="form-control">
         </div>
 
@@ -635,64 +617,89 @@
 
             <div class="modal-body">
 
-                @if(isset($orders) && $orders->count())
-                    @foreach($orders as $order)
-                        <div class="card bg-light mb-3">
-                            <div class="card-body">
-                                <span class="badge bg-dark fs-12 mb-2">Order ID : #{{ $order->transaction_code ?? $order->id }}</span>
+    @if(isset($orders) && $orders->count())
+        @foreach($orders as $order)
+            <div class="card bg-light mb-3">
+                <div class="card-body pb-2">
+                    <span class="badge bg-dark fs-12 mb-2">Order ID : #{{ $order->transaction_code ?? $order->id }}</span>
 
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <p class="fs-15 mb-1">
-                                            <span class="fw-bold">Cashier :</span> WARTOL
-                                        </p>
-                                        <p class="fs-15">
-                                            <span class="fw-bold">Total :</span> Rp{{ number_format($order->total_amount,0,',','.') }}
-                                        </p>
-                                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <p class="fs-15 mb-1">
+                                <span class="fw-bold">Cashier :</span> WARTOL
+                            </p>
+                            <p class="fs-15 mb-1">
+                                <span class="fw-bold">Total :</span> Rp{{ number_format($order->total_amount,0,',','.') }}
+                            </p>
+                        </div>
 
-                                    <div class="col-md-6">
-                                        <p class="fs-15 mb-1">
-                                            <span class="fw-bold">Customer :</span> {{ Auth::check() ? Auth::user()->phone : $order->phone }}
-                                        </p>
-                                        <p class="fs-15">
-                                            <span class="fw-bold">Date :</span> {{ optional($order->created_at)->format('d M Y H:i:s') }}
-                                        </p>
-                                    </div>
-                                </div>
+                        <div class="col-md-6">
+                            <p class="fs-15 mb-1">
+                                <span class="fw-bold">Customer :</span> {{ Auth::check() ? Auth::user()->phone : $order->phone }}
+                            </p>
+                            <p class="fs-15 mb-0">
+                                <span class="fw-bold">Date :</span> {{ optional($order->created_at)->format('d M Y H:i:s') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-                                <div class="rounded text-center my-3">
-                                        <p class="text-info fw-medium bg-info-transparent p-1 mb-1">
-                                        <span class="fw-bold">Payment:</span>
-                                        <span class="badge {{ (isset($order->payment_status) && $order->payment_status === 'success') ? 'bg-success' : 'bg-warning' }}">
-                                            {{ isset($order->payment_status) ? ucfirst($order->payment_status) : 'Pending' }}
-                                        </span>
-                                        @if(!empty($order->payment_method))
-                                            <small class="ms-2">({{ strtoupper($order->payment_method) }})</small>
-                                        @endif
-                                    </p>
-                                    <p class="text-muted mb-0"><span class="fw-bold">Order status:</span> {{ ucfirst($order->status ?? 'pending') }}</p>
-                                </div>
-                            </div>
+                {{-- ITEMS + TOTAL + PAYMENT --}}
+                @if($order->details && $order->details->count())
+                <div class="card-body pt-2">
 
-                            @if($order->details && $order->details->count())
-                            <div class="card-body">
-                                <h6 class="mb-2">Items</h6>
-                                @foreach($order->details as $d)
-                                    <div class="d-flex justify-content-between mb-1">
-                                        <div class="text-truncate">{{ $d->product->nama_produk ?? 'Item' }} x{{ $d->qty }}</div>
-                                        <div>Rp{{ number_format(($d->price * $d->qty),0,',','.') }}</div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            @endif
+                    <h6 class="mb-2">Items</h6>
+
+                    @foreach($order->details as $d)
+                        <div class="d-flex justify-content-between mb-1">
+                            <div class="text-truncate">{{ $d->product->nama_produk ?? 'Item' }} x{{ $d->qty }}</div>
+                            <div>Rp{{ number_format(($d->price * $d->qty),0,',','.') }}</div>
                         </div>
                     @endforeach
-                @else
-                    <p class="text-center text-muted">Belum ada riwayat pembelian yang sudah dibayar.</p>
-                @endif
 
+                    {{-- TOTAL --}}
+                    <div class="d-flex justify-content-between border-top pt-2 mt-2">
+                        <strong>Total</strong>
+                        <strong>Rp{{ number_format($order->total_amount, 0, ',', '.') }}</strong>
+                    </div>
+
+                    {{-- PAYMENT STATUS --}}
+                    <div class="text-center mt-3">
+
+                        @php
+                            $status = $order->payment_status ?? 'pending';
+                            $badgeClass =
+                                $status === 'success' ? 'bg-success' :
+                                ($status === 'failed' ? 'bg-danger' : 'bg-warning');
+                        @endphp
+
+                        <p class="mb-1">
+                            <span class="fw-bold">Payment:</span>
+                            <span class="badge {{ $badgeClass }}">
+                                {{ ucfirst($status) }}
+                            </span>
+                            @if(!empty($order->payment_method))
+                                <small class="ms-1">({{ strtoupper($order->payment_method) }})</small>
+                            @endif
+                        </p>
+
+                        <p class="text-muted mb-0">
+                            <span class="fw-bold">Order status:</span>
+                            {{ ucfirst($order->status ?? 'pending') }}
+                        </p>
+                    </div>
+
+                </div>
+                @endif
             </div>
+        @endforeach
+    @else
+        <p class="text-center text-muted">Belum ada riwayat pembelian yang sudah dibayar.</p>
+    @endif
+
+</div>
+
+
 
         </div>
     </div>
@@ -819,486 +826,8 @@
 
 
 
-{{-- 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const clearAllBtn = document.getElementById("clearAllProducts");
-            const productWrap = document.querySelector(".product-wrap");
-            const paymentTotalBtn = document.getElementById("paymentTotalBtn");
-
-            if (clearAllBtn) {
-                clearAllBtn.addEventListener("click", function(e) {
-                    e.preventDefault();
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        showCancelButton: true,
-                        confirmButtonColor: '#f39c12',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'Cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // hapus semua produk
-                            productWrap.innerHTML = "";
-
-                            // reset total payment ke Rp0
-                            paymentTotalBtn.innerHTML = `
-							<span class="me-1 d-flex align-items-center">
-								<i data-feather="credit-card" class="feather-16"></i>
-							</span>
-							Payment Total Rp0
-						`;
-
-                            // re-render feather icon biar muncul lagi
-                            if (feather) feather.replace();
-
-                            Swal.fire(
-                                'Deleted!',
-                                'All products have been cleared.',
-                                'success'
-                            );
-                        }
-                    });
-                });
-            }
-        });
-    </script> --}}
 
 
-
-    {{-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const productSearch = document.getElementById("productSearch");
-            const productDropdownMenu = document.querySelector("#product-dropdown .dropdown-menu.search-dropdown");
-            const productList = document.getElementById("productList");
-            const clearProductSearch = document.getElementById("clearProductSearch");
-
-            // 🔎 Fungsi filter produk
-            function filterProducts(keyword = "") {
-                let found = false;
-                const filter = keyword.toLowerCase();
-
-                // --- filter list di dropdown ---
-                productList.querySelectorAll("li").forEach(li => {
-                    const name = li.querySelector(".product-name")?.textContent.toLowerCase() || "";
-                    const price = li.querySelector(".product-price")?.textContent.toLowerCase() || "";
-
-                    if (filter.length >= 3) {
-                        if (name.includes(filter) || price.includes(filter)) {
-                            li.style.display = "";
-                            found = true;
-                        } else {
-                            li.style.display = "none";
-                        }
-                    } else {
-                        li.style.display = "";
-                        found = true;
-                    }
-                });
-
-                // --- filter produk utama (semua product-info di pos-products & tabs_container) ---
-                document.querySelectorAll(".product-info").forEach(prod => {
-                    const cat = prod.querySelector(".cat-name a")?.textContent.toLowerCase() || "";
-                    const name = prod.querySelector(".product-name a")?.textContent.toLowerCase() || "";
-                    const price = prod.querySelector(".price p")?.textContent.toLowerCase() || "";
-                    const qty = prod.querySelector(".price span")?.textContent.toLowerCase() || "";
-
-                    // wrapper card (biar hide 1 kotak penuh)
-                    const wrapper = prod.closest(".col-sm-2, .col-md-6, .col-lg-3, .col-xl-3");
-
-                    if (filter.length >= 3) {
-                        if (
-                            cat.includes(filter) ||
-                            name.includes(filter) ||
-                            price.includes(filter) ||
-                            qty.includes(filter)
-                        ) {
-                            if (wrapper) wrapper.style.display = "";
-                            found = true;
-                        } else {
-                            if (wrapper) wrapper.style.display = "none";
-                        }
-                    } else {
-                        if (wrapper) wrapper.style.display = "";
-                        found = true;
-                    }
-                });
-
-                return found;
-            }
-
-            // Event listener: saat user mengetik
-            productSearch.addEventListener("input", function() {
-                const found = filterProducts(productSearch.value);
-                if (productDropdownMenu) {
-                    if (found) {
-                        productDropdownMenu.classList.add("show");
-                    } else {
-                        productDropdownMenu.classList.remove("show");
-                    }
-                }
-            });
-
-            // Auto show list saat input fokus
-            productSearch.addEventListener("focus", function() {
-                filterProducts(productSearch.value);
-                productDropdownMenu.classList.add("show");
-            });
-
-            // Pilih produk dari dropdown
-            productList.addEventListener("click", function(e) {
-                const li = e.target.closest("li");
-                if (li) {
-                    const name = li.querySelector(".product-name")?.textContent.trim() || "";
-                    const price = li.querySelector(".product-price")?.textContent.trim() || "";
-                    productSearch.value = `${name} - ${price}`;
-                    productDropdownMenu.classList.remove("show");
-                }
-            });
-
-            // Clear search
-            if (clearProductSearch) {
-                clearProductSearch.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    productSearch.value = "";
-                    filterProducts("");
-                    productDropdownMenu.classList.remove("show");
-                    productSearch.focus();
-                });
-            }
-
-            // Klik luar → tutup dropdown
-            document.addEventListener("click", function(event) {
-                if (!event.target.closest("#product-dropdown")) {
-                    productDropdownMenu.classList.remove("show");
-                }
-            });
-        });
-    </script> --}}
-    <!-- clear product added -->
-   
-
-    {{-- js midtrans snap --}}
-{{-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const paymentBtn = document.getElementById("paymentTotalBtn");
-    const productWrap = document.querySelector(".product-wrap");
-    const phoneInput = document.querySelector("#phoneInput");
-    const scheduleInput = document.querySelector("#schedulePickup");
-
-    if(!paymentBtn || !productWrap) return;
-
-    // ======= Helper =======
-    function parsePrice(text) {
-        if(!text) return 0;
-        return parseInt(text.replace(/[^\d]/g,'')) || 0;
-    }
-
-    function collectCartItems() {
-        return [...productWrap.querySelectorAll(".product-list")].map(item => ({
-            product_id: item.querySelector(".product-id")?.textContent.replace("PT","") || null,
-            qty: parseInt(item.querySelector('input[name="qty"]').value || "1", 10),
-            price: parsePrice(item.querySelector(".unit-price")?.textContent || "0")
-        }));
-    }
-
-    function updatePaymentTotal() {
-        let total = 0;
-        collectCartItems().forEach(item => total += item.qty * item.price);
-        paymentBtn.innerHTML = `
-            <span class="me-1 d-flex align-items-center">
-                <i data-feather="credit-card" class="feather-16"></i>
-            </span>
-            Payment Total Rp${total.toLocaleString("id-ID")}
-        `;
-        if(window.feather) feather.replace();
-    }
-
-    // ======= Quantity / Delete =======
-    document.addEventListener("click", function(e){
-        const dec = e.target.closest(".dec");
-        const inc = e.target.closest(".inc");
-        const del = e.target.closest(".delete-icon");
-        if(!dec && !inc && !del) return;
-
-        const productList = (dec||inc||del).closest(".product-list");
-        const input = productList.querySelector('input[name="qty"]');
-
-        if(dec){
-            let v = parseInt(input.value||"1",10);
-            if(v>1) v--;
-            input.value=v;
-        }
-        if(inc){
-            let v = parseInt(input.value||"1",10);
-            v++;
-            input.value=v;
-        }
-        if(del){
-            productList.remove();
-        }
-
-        updatePaymentTotal();
-    });
-
-    document.addEventListener("input", function(e){
-        if(e.target.name === "qty"){
-            let v = parseInt(e.target.value||"1",10);
-            if(v<1 || isNaN(v)) v=1;
-            e.target.value=v;
-            updatePaymentTotal();
-        }
-    });
-
-    // ======= Payment =======
-    paymentBtn.addEventListener("click", function() {
-        const phone = phoneInput?.value?.trim();
-        if(!phone){
-            alert("Masukkan nomor telepon terlebih dahulu!");
-            return;
-        }
-
-        const items = collectCartItems();
-        if(items.length === 0){
-            alert("Keranjang kosong!");
-            return;
-        }
-
-        const schedule = scheduleInput?.value || null;
-
-        // VALIDASI: jadwal pickup wajib dan tidak boleh sebelum sekarang
-        if (!schedule) {
-            paymentBtn.disabled = false;
-            paymentBtn.innerHTML = originalHTML;
-            if (window.feather) feather.replace();
-            return showCustomAlert("Pilih jadwal pickup terlebih dahulu.");
-        }
-        // parse scheduling to local Date and compare (require at least 1 minute from now)
-        const scheduleDate = new Date(schedule);
-        const now = new Date();
-        const minAllowed = new Date(now.getTime() + 60000);
-        if (scheduleDate < minAllowed) {
-            paymentBtn.disabled = false;
-            paymentBtn.innerHTML = originalHTML;
-            if (window.feather) feather.replace();
-            return showCustomAlert("Jadwal pickup tidak boleh sebelum waktu sekarang.");
-        }
-
-        // Kirim ke backend untuk generate Snap token
-        fetch("/penjual/pos/checkout", {
-            method: "POST",
-            headers: {
-                "Content-Type":"application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                phone: phone,
-                schedule_pickup: schedule,
-                items: items
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.snap_token){
-                snap.pay(data.snap_token, {
-                    onSuccess: function(result){
-                        alert("Pembayaran sukses!");
-                        console.log(result);
-                        window.location.reload();
-                    },
-                    onPending: function(result){
-                        alert("Pembayaran pending!");
-                        console.log(result);
-                    },
-                    onError: function(result){
-                        alert("Pembayaran gagal!");
-                        console.log(result);
-                    }
-                });
-            } else {
-                alert("Gagal membuat transaksi.");
-                console.error(data);
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            alert("Terjadi kesalahan server.");
-        });
-    });
-    });
-</script> --}}
-
-    {{-- js midtrans snap --}}
-
-
-
-
-    {{-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const productWrap = document.querySelector(".product-wrap");
-            const paymentBtn = document.getElementById("paymentTotalBtn");
-            if (!productWrap || !paymentBtn) return;
-
-            // === Fungsi TOAST ===
-            const toastEl = document.getElementById('cartToast');
-            const cartToast = new bootstrap.Toast(toastEl, {
-                delay: 3000
-            });
-
-            function showToast(message = "Item berhasil ditambahkan ke keranjang!") {
-                toastEl.querySelector('.toast-body').textContent = message;
-                cartToast.show();
-            }
-
-            function parsePrice(text) {
-                if (!text) return 0;
-                const cleanedText = text.replace(/[^\d.,]/g, '');
-                const priceString = cleanedText.replace(/\./g, '').replace(/,/g, '.');
-                return parseFloat(priceString) || 0;
-            }
-
-            function formatPrice(number) {
-                return number.toLocaleString("id-ID", {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 2
-                });
-            }
-
-            function updateItemTotal(itemElement) {
-                const priceEl = itemElement.querySelector(".info p");
-                const unitPrice = parseFloat(priceEl?.getAttribute("data-price")) || 0;
-                const qty = parseInt(itemElement.querySelector('input[name="qty"]')?.value || "1", 10) || 1;
-                const newTotal = unitPrice * qty;
-                return newTotal;
-            }
-
-            function updatePaymentTotal() {
-                const items = productWrap.querySelectorAll(".product-list");
-                let total = 0;
-                items.forEach(item => {
-                    const price = parsePrice(item.querySelector(".info p")?.textContent || "");
-                    const qty = parseInt(item.querySelector('input[name="qty"]')?.value || "1", 10) || 1;
-                    total += price * qty;
-                });
-
-                paymentBtn.innerHTML = `
-            <span class="me-1 d-flex align-items-center">
-                <i data-feather="credit-card" class="feather-16"></i>
-            </span>
-            Payment Total Rp${total.toLocaleString("id-ID")}
-        `;
-                if (window.feather) feather.replace();
-            }
-
-            document.querySelectorAll(".product-info").forEach(card => {
-                card.addEventListener("click", function() {
-                    const img = this.querySelector("img")?.getAttribute("src") ||
-                        "assets/img/products/brosur.png";
-                    const nameEl = this.querySelector(".product-name a, .product-name") ||
-                        this.querySelector(".cat-name a, .cat-name");
-                    const name = (nameEl?.textContent || "Product").trim();
-                    const priceText = (this.querySelector(".price p")?.textContent ||
-                        this.querySelector(".price")?.textContent || "$0");
-                    const rawPrice = parsePrice(priceText);
-
-                    // ✅ CEK APAKAH ITEM SUDAH ADA
-                    const exist = [...productWrap.querySelectorAll(".product-list")].find(el =>
-                        el.querySelector("h6 a")?.textContent.trim() === name
-                    );
-
-                    if (exist) {
-                        const qtyInput = exist.querySelector('input[name="qty"]');
-                        qtyInput.value = parseInt(qtyInput.value) + 1;
-                        updatePaymentTotal();
-                        showToast(`Jumlah ${name} ditambah ke keranjang`);
-                        return;
-                    }
-
-                    // ✅ ITEM BARU
-                    const newProduct = document.createElement("div");
-                    newProduct.className =
-                        "product-list align-items-center justify-content-between";
-                    newProduct.innerHTML = `
-                <div class="d-flex align-items-center product-info w-100">
-                    <a href="javascript:void(0);" class="img-bg">
-                        <img src="${img}" alt="Products">
-                    </a>
-                    <div class="info">
-                        <span class="product-id">PT${String(Math.floor(Math.random()*90000)+10000)}</span>
-                        <h6><a href="javascript:void(0);">${name}</a></h6>
-                        <p class="unit-price" data-price="${rawPrice}">Rp${formatPrice(rawPrice)}</p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <div class="qty-item text-center">
-                        <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center">
-                            <i data-feather="minus-circle" class="feather-14"></i>
-                        </a>
-                        <input type="text" class="form-control text-center" name="qty" value="1">
-                        <a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center">
-                            <i data-feather="plus-circle" class="feather-14"></i>
-                        </a>
-                    </div>
-                    <div class="d-flex align-items-center action">
-                        <a class="btn-icon delete-icon confirm-text"><i data-feather="trash-2" class="feather-14"></i></a>
-                    </div>
-                </div>
-            `;
-
-                    productWrap.appendChild(newProduct);
-                    if (window.feather) feather.replace();
-                    updatePaymentTotal();
-                    showToast(`${name} ditambahkan ke keranjang`);
-                });
-            });
-
-            // delegasi qty + delete
-            document.addEventListener("click", function(e) {
-                const dec = e.target.closest(".dec");
-                const inc = e.target.closest(".inc");
-                const del = e.target.closest(".delete-icon");
-                let productList;
-
-                if (dec) {
-                    productList = dec.closest(".product-list");
-                    const input = productList.querySelector("input[name='qty']");
-                    let v = parseInt(input.value || "1", 10);
-                    if (v > 1) v--;
-                    input.value = v;
-                    updateItemTotal(productList);
-                    updatePaymentTotal();
-                }
-
-                if (inc) {
-                    productList = inc.closest(".product-list");
-                    const input = productList.querySelector("input[name='qty']");
-                    let v = parseInt(input.value || "1", 10);
-                    v++;
-                    input.value = v;
-                    updateItemTotal(productList);
-                    updatePaymentTotal();
-                }
-
-                if (del) {
-                    del.closest(".product-list")?.remove();
-                    updatePaymentTotal();
-                }
-            });
-
-            document.addEventListener("input", function(e) {
-                if (e.target.name === "qty") {
-                    const productList = e.target.closest(".product-list");
-                    let v = parseInt(e.target.value || "1", 10);
-                    if (v < 1 || isNaN(v)) v = 1;
-                    e.target.value = v;
-                    updateItemTotal(productList);
-                    updatePaymentTotal();
-                }
-            });
-        });
-    </script> --}}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     
@@ -1366,7 +895,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const rawId = pidEl?.dataset?.id;
                 const product_id = parseId(rawId);
 
-                // ✅ Skip jika ID tidak valid
+                //  Skip jika ID tidak valid
                 if (!product_id || product_id <= 0) {
                     console.warn("⚠️ Item diabaikan - ID tidak valid:", {rawId, element: item});
                     return null;
@@ -1376,13 +905,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 const price = parsePrice(unitEl?.dataset?.price || unitEl?.textContent || "0");
                 const qty = parseInt(item.querySelector('input[name="qty"]')?.value || "1", 10);
 
-                // ✅ Skip jika qty invalid
+                //  Skip jika qty invalid
                 if (qty < 1 || isNaN(qty)) {
                     console.warn("⚠️ Item diabaikan - Qty tidak valid:", {product_id, qty});
                     return null;
                 }
 
-                console.log("✅ Item valid:", {product_id, qty, price});
+                console.log(" Item valid:", {product_id, qty, price});
                 return {product_id, qty, price};
             })
             .filter(i => i !== null);
@@ -1453,7 +982,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const rawId = this.dataset?.id?.trim();
             const productId = parseId(rawId);
 
-            // ✅ VALIDASI: ID harus valid
+            //  VALIDASI: ID harus valid
             if (!productId) {
                 console.error("❌ Produk tidak punya ID valid:", {rawId, element: this});
                 showCustomAlert("Produk ini tidak memiliki ID valid! Hubungi admin.");
@@ -1462,7 +991,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const rawPrice = parsePrice(this.dataset?.price || this.querySelector(".unit-price")?.dataset?.price || "0");
 
-            // ✅ Cek apakah sudah ada di cart
+            //  Cek apakah sudah ada di cart
             const exist = [...productWrap.querySelectorAll(".product-list")]
                 .find(el => {
                     const existId = parseId(el.querySelector(".product-id")?.dataset?.id);
@@ -1477,20 +1006,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // ✅ Tambah item baru
+            //  Tambah item baru
             const newProduct = document.createElement("div");
             newProduct.className = "product-list align-items-center justify-content-between";
             newProduct.innerHTML = `
-                <div class="d-flex align-items-center product-info w-100">
-                    <a href="javascript:void(0);" class="img-bg">
-                        <img src="${img}" alt="Products">
-                    </a>
-                    <div class="info">
-                        <span class="product-id" data-id="${productId}">PT${productId}</span>
-                        <h6><a href="javascript:void(0);">${name}</a></h6>
-                        <p class="unit-price" data-price="${rawPrice}">Rp${formatPrice(rawPrice)}</p>
+               <div class="d-flex align-items-center product-info justify-content-between w-100">
+                        <a href="javascript:void(0);" class="img-bg product-img-wrap">
+                            <img src="${img}" alt="Products" class="product-img">
+                        </a>
+                        <div class="info">
+                            <span class="product-id" data-id="${productId}">PT${productId}</span>
+                            <h6><a href="javascript:void(0);">${name}</a></h6>
+                            <p class="unit-price" data-price="${rawPrice}">Rp${formatPrice(rawPrice)}</p>
+                        </div>
                     </div>
-                </div>
                 <div class="d-flex justify-content-end">
                     <div class="qty-item text-center">
                         <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center">
@@ -1593,15 +1122,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const items = collectCartItems();
 
-        // ✅ DEBUGGING: Log items
+        //  DEBUGGING: Log items
         console.log("📦 Items yang akan dikirim ke server:", items);
 
-        // ✅ VALIDASI: Keranjang tidak boleh kosong
+        //  VALIDASI: Keranjang tidak boleh kosong
         if (items.length === 0) {
             return showCustomAlert("Keranjang kosong! Tambahkan produk terlebih dahulu.");
         }
 
-        // ✅ VALIDASI: Cek apakah ada ID yang mencurigakan (sesuaikan dengan range ID database Anda)
+        //  VALIDASI: Cek apakah ada ID yang mencurigakan (sesuaikan dengan range ID database Anda)
         const invalidIds = items.filter(i => i.product_id > 100); // Sesuaikan: jika ID Anda max 100
         if (invalidIds.length > 0) {
             console.error("❌ ID tidak valid ditemukan:", invalidIds);
@@ -1621,7 +1150,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return showCustomAlert("Jadwal pickup hanya bisa di masa mendatang.");
         }
 
-        // ✅ Disable button saat proses
+        //  Disable button saat proses
         paymentBtn.disabled = true;
         const originalHTML = paymentBtn.innerHTML;
         paymentBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Processing...`;
@@ -1668,15 +1197,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 throw new Error("Snap token tidak ditemukan dalam response.");
             }
 
-            // ✅ Cek apakah Midtrans Snap sudah loaded
+            //  Cek apakah Midtrans Snap sudah loaded
             if (typeof snap === "undefined") {
                 throw new Error("Midtrans Snap belum loaded! Pastikan script Midtrans sudah dimuat.");
             }
 
-            // ✅ Open Midtrans payment popup
+            //  Open Midtrans payment popup
             snap.pay(data.snap_token, {
                 onSuccess: function(result) {
-                    console.log("✅ Payment success:", result);
+                    console.log(" Payment success:", result);
                     showCustomAlert("Pembayaran berhasil!");
                     setTimeout(() => location.reload(), 1500);
                 },
@@ -1697,7 +1226,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("❌ Checkout error:", error);
             showCustomAlert(`Gagal membuat transaksi: ${error.message}`);
         } finally {
-            // ✅ Re-enable button
+            //  Re-enable button
             paymentBtn.disabled = false;
             paymentBtn.innerHTML = originalHTML;
             if (window.feather) feather.replace();
@@ -1729,7 +1258,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.insertAdjacentHTML('beforeend', modalHTML);
     }
 
-    // ✅ Initialize payment total on load
+    //  Initialize payment total on load
     updatePaymentTotal();
 });
 </script>

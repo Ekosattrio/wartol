@@ -30,11 +30,12 @@ class ProductController extends Controller
             'nama_produk' => 'required|string|max:255',
             'harga'       => 'required|integer|min:0',
             'stok'        => 'required|integer|min:0',
+            'image_path'  => 'required|string'
         ]);
 
         // Buat data
         $dataToCreate = $validatedData;
-        $dataToCreate['status'] = 'nonaktif'; // Otomatis nonaktif
+        $dataToCreate['status'] = 'nonaktif'; 
         Product::create($dataToCreate);
 
         // KEMBALIKAN JSON (ini yang dibaca AJAX)
@@ -83,4 +84,18 @@ class ProductController extends Controller
             'message' => 'Produk berhasil dihapus!'
         ]);
     }
+
+    public function uploadImage(Request $request)
+{
+    $request->validate([
+        'file' => 'required|image|mimes:jpeg,png,jpg|max:5120' // 5MB max
+    ]);
+
+    $path = $request->file('file')->store('produk', 'public');
+
+    return response()->json([
+        'path' => $path
+    ]);
+}
+
 }

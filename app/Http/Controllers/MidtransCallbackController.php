@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
+use App\Models\Product;
 
 class MidtransCallbackController extends Controller
 {
@@ -16,10 +18,10 @@ class MidtransCallbackController extends Controller
         $orderId           = $request->order_id;
         $statusCode        = $request->status_code;
         $grossAmount       = $request->gross_amount;
-        $signatureKey       = $request->signature_key;
+        $signatureKey      = $request->signature_key;
         $transactionStatus = $request->transaction_status;
-        $paymentType        = $request->payment_type;
-        $fraudStatus         = $request->fraud_status;
+        $paymentType       = $request->payment_type;
+        $fraudStatus       = $request->fraud_status;
 
         if (!$orderId || !$statusCode || !$grossAmount || !$signatureKey) {
             Log::error('Incomplete callback data');
@@ -79,6 +81,25 @@ class MidtransCallbackController extends Controller
         $trx->save();
 
         Log::info("STATUS UPDATED: {$orderId} → {$trx->payment_status}");
+        if ($trx->payment_status === 'success' && $trx->status === 'paid') {
+
+            Log::info("=== MULAI KURANGI STOK UNTUK ORDER {$orderId} ===");
+
+            $details = TransactionDetail::where('transaction_id', $trx->id)->get();
+
+            foreach ($details as $d) {
+                $product = Product::find($d->product_id);
+
+                if ($product) {
+                    $oldStock = $product->stok;
+
+                    $product->stok = max(0, $product->stok - $d->qty);
+                    $product->save();
+
+                    Log::info("STOK DIKURANGI: {$product->nama_produk} | {$oldStock} → {$product->stok}");
+                }
+            }
+        }
 
         return response()->json(['message' => 'OK'], 200);
     }

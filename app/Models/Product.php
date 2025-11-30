@@ -11,9 +11,9 @@ class Product extends Model
         'harga',
         'stok',
         'status',
+        'image_path'
     ];
 
-    // ✅ Accessor untuk memudahkan akses (opsional)
     public function getNameAttribute()
     {
         return $this->nama_produk;
