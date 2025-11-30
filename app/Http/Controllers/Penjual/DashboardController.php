@@ -3,24 +3,28 @@
 namespace App\Http\Controllers\Penjual;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Total sales (uses transactions.total_amount)
-        $totalSales = DB::table('transactions')->sum('total_amount');
+        // Total sales (uses transactions.total_amount) - only include paid transactions
+        $totalSales = Transaction::where('status', 'paid')->sum('total_amount');
 
-        // Total orders
-        $totalOrders = DB::table('transactions')->count();
+        // Total orders - only paid
+        $totalOrders = Transaction::where('status', 'paid')->count();
 
-        // Top selling items (sum of qty in transaction_details) join products for name
+        // Top selling items based on paid transactions only
         $topItems = DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
             ->join('products', 'transaction_details.product_id', '=', 'products.id')
+            ->where('transactions.status', 'paid')
             ->select('products.id', 'products.nama_produk', DB::raw('SUM(transaction_details.qty) as total_qty'))
             ->groupBy('products.id', 'products.nama_produk')
             ->orderByDesc('total_qty')
@@ -31,9 +35,10 @@ class DashboardController extends Controller
             $end = Carbon::today()->endOfDay();
             $start = Carbon::today()->subDays(6)->startOfDay();
 
-            $rows = DB::table('transactions')
-                ->select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total_amount) as total'))
+            // Cities: Sales per date for paid transactions only
+            $rows = Transaction::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total_amount) as total'))
                 ->whereBetween('created_at', [$start, $end])
+                ->where('status', 'paid')
                 ->groupBy(DB::raw('DATE(created_at)'))
                 ->orderBy(DB::raw('DATE(created_at)'))
                 ->pluck('total', 'date')
@@ -49,7 +54,13 @@ class DashboardController extends Controller
             }
         $wartolOpen = Cache::get('wartol_open', true);
 
-        return view('penjual.dashboard', compact('totalSales', 'totalOrders', 'topItems', 'chartLabels', 'chartData', 'wartolOpen'));
+        // Ambil 3 pesanan pending terlama untuk widget dasbor
+        $oldestPendingOrders = Transaction::where('status', 'pending')->orderBy('created_at', 'asc')->take(3)->get();
+
+        // Ambil semua pesanan pending untuk modal "lihat semua"
+        $allPendingOrders = Transaction::where('status', 'pending')->orderBy('created_at', 'asc')->get();
+
+        return view('penjual.dashboard', compact('totalSales', 'totalOrders', 'topItems', 'chartLabels', 'chartData', 'wartolOpen', 'oldestPendingOrders', 'allPendingOrders'));
     }
 
     /**
@@ -62,6 +73,26 @@ class DashboardController extends Controller
         Cache::forever('wartol_open', $new);
 
         $label = $new ? 'dibuka' : 'ditutup';
-        return redirect()->back()->with('status', "Warteg berhasil {$label}.");
+        $request->session()->put('status', "Warteg berhasil {$label}.");
+        return redirect()->back();
+    }
+
+    public function completeOrder(Request $request, $id)
+    {
+        $transaction = Transaction::find($id);
+
+        if ($transaction) {
+            $transaction->update(['status' => 'completed']);
+            $request->session()->put('status', 'Order berhasil diselesaikan.');
+            return redirect()->route('penjual.dashboard');
+        }
+
+                    $request->session()->put('error', 'Order tidak ditemukan.');
+                    return redirect()->route('penjual.dashboard');    }
+
+    public function clearNotifications(Request $request)
+    {
+        $request->session()->forget(['status', 'error']);
+        return response()->json(['status' => 'success']);
     }
 }

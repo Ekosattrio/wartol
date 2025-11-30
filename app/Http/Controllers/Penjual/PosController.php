@@ -38,19 +38,21 @@ class PosController extends Controller
             return response()->json(['success' => false, 'message' => 'Data tidak valid.', 'errors' => $validator->errors()], 422);
         }
 
-        // Validasi schedule pickup: wajib diisi dan tidak boleh sebelum waktu sekarang
+        // Schedule pickup is optional for POS (internal cashier). If provided, validate it is not in the past.
         $schedulePickup = $request->input('schedule_pickup');
-        if (empty($schedulePickup)) {
-            return response()->json(['success' => false, 'message' => 'Jadwal pickup wajib diisi.'], 400);
-        }
-        try {
-            $scheduleDt = Carbon::parse($schedulePickup);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Format jadwal pickup tidak valid.'], 400);
-        }
-        // require pickup schedule to be at least 1 minute in the future
-        if ($scheduleDt->lt(Carbon::now()->addMinute())) {
-            return response()->json(['success' => false, 'message' => 'Jadwal pickup tidak boleh sebelum waktu sekarang.'], 400);
+        if (!empty($schedulePickup)) {
+            try {
+                $scheduleDt = Carbon::parse($schedulePickup);
+            } catch (\Exception $e) {
+                return response()->json(['success' => false, 'message' => 'Format jadwal pickup tidak valid.'], 400);
+            }
+            // require pickup schedule to be at least 1 minute in the future
+            if ($scheduleDt->lt(Carbon::now()->addMinute())) {
+                return response()->json(['success' => false, 'message' => 'Jadwal pickup tidak boleh sebelum waktu sekarang.'], 400);
+            }
+        } else {
+            // null schedule allowed for POS
+            $schedulePickup = null;
         }
 
         $totalAmount = 0;
@@ -59,14 +61,15 @@ class PosController extends Controller
         DB::beginTransaction();
         try {
             // 1. Buat Transaksi Utama
-            $transaction = Transaction::create([
-                'transaction_code' => 'POS-' . strtoupper(Str::random(10)),
-                'phone'            => '0000000000', // Placeholder
-                'total_amount'     => 0, // Akan diupdate nanti
-                'payment_method'   => 'cash',
-                'payment_status'   => 'paid',
-                'status'           => 'completed',
-            ]);
+                $transaction = Transaction::create([
+                    'transaction_code' => 'POS-' . strtoupper(Str::random(10)),
+                    'phone'            => '0000000000', // Placeholder
+                    'total_amount'     => 0, // Akan diupdate nanti
+                    'payment_method'   => 'cash',
+                    'payment_status'   => 'success', // success per payment gateway semantics
+                    'status'           => 'paid',
+                    'schedule_pickup'  => $schedulePickup ? Carbon::parse($schedulePickup) : null,
+                ]);
 
             $receiptDetails = []; // Untuk struk response
 
