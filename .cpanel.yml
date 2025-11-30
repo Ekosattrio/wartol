@@ -4,14 +4,11 @@ deployment:
     - export REPO_PATH=/home/wartegja/repositories/wartol
     - export DEPLOY_PATH=/home/wartegja/wartegja.my.id/public_html
 
-    # Copy all project files to public_html
-    - /bin/rsync -av --exclude='.git' $REPO_PATH/ $DEPLOY_PATH/
+    # Sync file ke public_html
+    - /bin/rsync -av --delete --exclude='.git' $REPO_PATH/ $DEPLOY_PATH/
 
-    # Install composer dependencies
-    - /usr/local/bin/composer install --no-dev -d $DEPLOY_PATH
-
-    # Laravel optimize
-    - /usr/local/bin/php $DEPLOY_PATH/artisan migrate --force
+    - /usr/local/bin/php $DEPLOY_PATH/artisan config:clear
+    - /usr/local/bin/php $DEPLOY_PATH/artisan cache:clear
     - /usr/local/bin/php $DEPLOY_PATH/artisan config:cache
     - /usr/local/bin/php $DEPLOY_PATH/artisan route:cache
     - /usr/local/bin/php $DEPLOY_PATH/artisan view:cache
