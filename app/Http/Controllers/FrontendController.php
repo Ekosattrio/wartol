@@ -18,7 +18,7 @@ class FrontendController extends Controller
         // Ambil produk yang aktif dan stok > 0
         $products = Product::where('status', 'aktif')
                            ->where('stok', '>', 0)
-                           ->get();
+                           ->get(['id','nama_produk','harga','stok','status','image_path']);
 
         // Ambil kategori unik dari produk aktif
         // Kalau belum ada kolom kategori, kita bisa dummy sementara

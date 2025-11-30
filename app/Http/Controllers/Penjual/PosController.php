@@ -15,7 +15,7 @@ class PosController extends Controller
 {
     public function index()
     {
-        $products = Product::where('status', 'aktif')->orderBy('nama_produk')->get();
+        $products = Product::where('status', 'aktif')->orderBy('nama_produk')->get(['id','nama_produk','harga','stok','status','image_path']);
         return view('penjual.pos', compact('products'));
     }
 
