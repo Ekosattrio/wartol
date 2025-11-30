@@ -662,9 +662,9 @@
                                 </div>
 
                                 <div class="rounded text-center my-3">
-                                    <p class="text-info fw-medium bg-info-transparent p-1 mb-1">
+                                        <p class="text-info fw-medium bg-info-transparent p-1 mb-1">
                                         <span class="fw-bold">Payment:</span>
-                                        <span class="badge {{ (isset($order->payment_status) && $order->payment_status === 'paid') ? 'bg-success' : 'bg-warning' }}">
+                                        <span class="badge {{ (isset($order->payment_status) && $order->payment_status === 'success') ? 'bg-success' : 'bg-warning' }}">
                                             {{ isset($order->payment_status) ? ucfirst($order->payment_status) : 'Pending' }}
                                         </span>
                                         @if(!empty($order->payment_method))

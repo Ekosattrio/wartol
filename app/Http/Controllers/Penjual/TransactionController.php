@@ -112,7 +112,7 @@ class TransactionController extends Controller
             return response()->json(['message' => 'Transaction not found'], 404);
         }
 
-        // Update status berdasarkan status Midtrans
+        // Update status based on Midtrans notification
         $transaction->payment_status = $notification['transaction_status'] ?? 'pending';
         if ($transaction->payment_status === 'settlement' || $transaction->payment_status === 'capture') {
             $transaction->status = 'completed';
