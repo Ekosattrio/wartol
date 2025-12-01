@@ -138,12 +138,7 @@
 							<table class="table datanew">
 								<thead>
 									<tr>
-										<th>
-											<label class="checkboxs">
-												<input type="checkbox" id="select-all">
-												<span class="checkmarks"></span>
-											</label>
-										</th>
+										
 										<th>Kode Transaksi</th>
 										<th>Nomor HP</th>
 										<th>Total</th>
@@ -157,12 +152,7 @@
 								<tbody>
 									@foreach($transactions as $trx)
 									<tr>
-										<td>
-											<label class="checkboxs">
-												<input type="checkbox" value="{{ $trx->id }}">
-												<span class="checkmarks"></span>
-											</label>
-										</td>
+										
 
 										<td>{{ $trx->id }}</td>
 										<td>{{ $trx->phone }}</td>
@@ -206,21 +196,6 @@
 														<i data-feather="eye" class="me-2" width="14" height="14"></i>
 														Lihat Detail
 													</button>
-												</li>
-												<li>
-													<button
-														class="dropdown-item d-flex align-items-center small py-1 btn-edit-laporan"
-														type="button"
-														data-bs-toggle="modal"
-														data-bs-target="#editlaporanModal"
-														data-id="{{ $trx->id }}"
-														data-nama="{{ $trx->transaction_code }}"
-														data-status="{{ $trx->status }}">
-
-														<i data-feather="edit" class="me-2" width="14" height="14"></i>
-														Edit
-													</button>
-
 												</li>
 												<li>
 													<form action="{{ route('penjual.laporan.destroy', $trx->id) }}" method="POST"

@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		const cart = items.map(item => ({
-			product_id: parseInt(item.querySelector(".product-id")?.dataset.productId || 0),
+			product_id: parseInt(item.querySelector(".product-id")?.dataset.id || 0),
 			qty: parseInt(item.querySelector('input[name="qty"]')?.value || "1", 10)
 		}));
 

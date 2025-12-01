@@ -157,12 +157,7 @@
                             <table class="table datanew">
                                 <thead>
                                     <tr>
-                                        <th class="no-sort">
-                                            <label class="checkboxs">
-                                                <input type="checkbox" id="select-all">
-                                                <span class="checkmarks"></span>
-                                            </label>
-                                        </th>
+                                        
                                         <th>No.</th>
                                         <th>Nama Produk</th>
                                         <th>Harga</th>
@@ -175,12 +170,7 @@
 
                                     @forelse ($products as $product)
                                         <tr>
-                                            <td>
-                                                <label class="checkboxs">
-                                                    <input type="checkbox">
-                                                    <span class="checkmarks"></span>
-                                                </label>
-                                            </td>
+                                            
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $product->nama_produk }}</td>
                                             <td>Rp {{ number_format($product->harga, 0, ',', '.') }}</td>

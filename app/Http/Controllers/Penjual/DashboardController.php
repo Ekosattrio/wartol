@@ -14,17 +14,23 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Total sales (uses transactions.total_amount) - only include paid transactions
-        $totalSales = Transaction::where('status', 'paid')->sum('total_amount');
+        // Total sales
+        $totalSales = Transaction::where(function ($query) {
+             $query->where('transactions.status', 'completed');
+         })->sum('total_amount');
 
-        // Total orders - only paid
-        $totalOrders = Transaction::where('status', 'paid')->count();
+        // Total orders
+        $totalOrders = Transaction::where(function ($query) {
+            $query->where('transactions.status', 'completed');
+        })->count();
 
-        // Top selling items based on paid transactions only
+        // Top selling items
         $topItems = DB::table('transaction_details')
             ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
             ->join('products', 'transaction_details.product_id', '=', 'products.id')
-            ->where('transactions.status', 'paid')
+            ->where(function ($query) {
+                $query->where('transactions.status', 'completed');
+            })
             ->select('products.id', 'products.nama_produk', DB::raw('SUM(transaction_details.qty) as total_qty'))
             ->groupBy('products.id', 'products.nama_produk')
             ->orderByDesc('total_qty')
@@ -35,10 +41,12 @@ class DashboardController extends Controller
         $end = Carbon::today()->endOfDay();
         $start = Carbon::today()->subDays(6)->startOfDay();
 
-        // Cities: Sales per date for paid transactions only
+        // Sales per date
         $rows = Transaction::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total_amount) as total'))
             ->whereBetween('created_at', [$start, $end])
-            ->where('status', 'paid')
+            ->where(function ($query) {
+                $query->where('status', 'completed');
+            })
             ->groupBy(DB::raw('DATE(created_at)'))
             ->orderBy(DB::raw('DATE(created_at)'))
             ->pluck('total', 'date')
