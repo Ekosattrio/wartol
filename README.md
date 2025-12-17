@@ -49,6 +49,7 @@ Aplikasi ini sudah **live/production** dan dapat diakses melalui:
 * Tampilan website publik yang responsif
 * Backend berbasis Laravel dengan struktur MVC yang rapi
 * Payment Gateway (Sandbox)
+* User Bisa Login Dan Mendapatkan History Pembelian
 
 ## Teknologi yang Digunakan
 
