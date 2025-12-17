@@ -23,7 +23,7 @@
 
 ## Tentang Proyek
 
-**Warteg Jaya** adalah aplikasi web berbasis Laravel yang digunakan untuk mengelola dan menampilkan informasi warteg secara modern. Proyek ini mencakup pengelolaan menu, harga, dan tampilan publik yang responsif sehingga mudah diakses oleh pengguna.
+**Warteg Jaya** adalah aplikasi web berbasis Laravel yang digunakan untuk mengelola dan menampilkan informasi warteg secara modern. Proyek ini mencakup Payment gateway pengelolaan menu, harga, dan tampilan publik yang responsif sehingga mudah diakses oleh pengguna.
 
 Aplikasi ini sudah **live/production** dan dapat diakses melalui:
 
